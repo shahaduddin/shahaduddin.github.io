@@ -163,7 +163,14 @@
     <div id="root">
         <!-- Fallback while JS loads -->
         <div class="min-h-screen flex items-center justify-center bg-slate-950">
-            <div className="text-indigo-500 animate-pulse font-mono">Initializing System...</div>
+            <!-- Spinning Ring Loader -->
+            <div class="relative">
+                <div class="w-16 h-16 border-4 border-slate-800 border-t-indigo-500 rounded-full animate-spin"></div>
+                <!-- Optional: Inner glowing dot for extra "tech" feel -->
+                <div class="absolute top-0 left-0 w-16 h-16 flex items-center justify-center">
+                     <div class="w-2 h-2 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.8)]"></div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Explicit script load for GitHub Pages / Static Hosting -->
