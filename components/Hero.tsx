@@ -99,7 +99,7 @@ const Hero: React.FC = () => {
                 <p className="text-xl md:text-2xl text-slate-400 font-light max-w-2xl mx-auto leading-relaxed">
                     Crafting logic into digital experiences. 
                     <br className="hidden md:block"/>
-                    <span className="text-slate-200 font-medium">Web Developer</span> & <span className="text-slate-200 font-medium">Mathematician</span>.
+                    <span className="text-slate-200 font-medium">Programmer</span>r</span> & <span className="text-slate-200 font-medium"> Mathematics Undergraduate</span>.
                 </p>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-12 w-full max-w-xl mx-auto">
