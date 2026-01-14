@@ -122,10 +122,10 @@ const AboutSection: React.FC = () => {
                             </div>
                             <h3 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
-                                    Programmer
+                                    Student of Logic
                                 </span>
                                 <span className="text-slate-600 mx-3 font-light">&</span> 
-                                <span className="text-slate-200">Mathematician</span>
+                                <span className="text-slate-200">Computation</span>
                             </h3>
                         </div>
                         
