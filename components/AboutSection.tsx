@@ -7,7 +7,7 @@ const AboutSection: React.FC = () => {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Shahad Uddin",
-        "url": "https://shahaduddn.com/",
+        "url": "https://shahaduddin.com/",
         "givenName": "Shahad",
         "familyName": "Uddin",
         "image": "https://shahaduddin.com/shahad-uddin-math-programmer.jpg",
