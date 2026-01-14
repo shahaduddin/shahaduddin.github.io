@@ -90,7 +90,7 @@ const AboutSection: React.FC = () => {
                             {/* Image */}
                             <div className="absolute inset-6 rounded-full overflow-hidden border-2 border-indigo-500/30 bg-slate-900 shadow-2xl relative z-10">
                                 <img 
-                                    src="/profile.jpg" 
+                                    src="/shahad-uddin-math-programmer.jpg" 
                                     alt="Shahad Uddin" 
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     onError={(e) => {
