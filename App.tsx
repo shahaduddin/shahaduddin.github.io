@@ -16,6 +16,9 @@ const App: React.FC = () => {
         <Hero />
       </ScrollReveal>
       <ScrollReveal>
+        <AboutSection />
+      </ScrollReveal>
+      <ScrollReveal>
         <AcademicSection />
       </ScrollReveal>
       <ScrollReveal>
