@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shahaduddin.com/public/sitemap.xml
+Sitemap: https://shahaduddin.com/sitemap.xml
