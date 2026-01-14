@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from './components/Hero.tsx';
+import AboutSection from './components/AboutSection.tsx';
 import AcademicSection from './components/AcademicSection.tsx';
 import SkillsSection from './components/SkillsSection.tsx';
 import SlideshowSection from './components/SlideshowSection.tsx';
