@@ -4,6 +4,7 @@ import AboutSection from './components/AboutSection.tsx';
 import AcademicSection from './components/AcademicSection.tsx';
 import SkillsSection from './components/SkillsSection.tsx';
 import SlideshowSection from './components/SlideshowSection.tsx';
+import BlogSection from './components/BlogSection.tsx';
 import ResumeSection from './components/ResumeSection.tsx';
 import ContactSection from './components/ContactSection.tsx';
 import Footer from './components/Footer.tsx';
