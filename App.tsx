@@ -29,6 +29,9 @@ const App: React.FC = () => {
       <ScrollReveal>
         <SlideshowSection />
       </ScrollReveal>
+       <ScrollReveal>
+        <BlogSection />
+      </ScrollReveal>
       <ScrollReveal>
         <ResumeSection />
       </ScrollReveal>
