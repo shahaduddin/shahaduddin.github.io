@@ -21,84 +21,94 @@ interface Photo {
 
 const galleryData: Photo[] = [
   {
-    id: "olympiad-1",
-    src: "https://images.unsplash.com/photo-1565058627341-2675d6915383?q=80&w=1000&auto=format&fit=crop",
-    category: "Awards",
-    title: "National Math Olympiad 2023",
-    description: "Receiving the 1st Runner-up trophy at the Divisional Round. A moment of pride representing SUST.",
-    date: "Feb 2023",
-    location: "Dhaka, BD",
-    color: "bg-amber-500"
-  },
-  {
-    id: "tour-1",
-    src: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000&auto=format&fit=crop",
-    category: "Travel",
-    title: "Saint Martin's Island Tour",
-    description: "Annual department tour to the beautiful coral island. Azure waters and great company.",
-    date: "Nov 2023",
-    location: "Saint Martin",
-    color: "bg-cyan-500"
-  },
-  {
-    id: "bbq-1",
-    src: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1000&auto=format&fit=crop",
-    category: "Social",
-    title: "Winter BBQ Night",
-    description: "Post-semester celebration with the math club. Grilling under the stars at the campus kiln.",
-    date: "Jan 2024",
-    location: "SUST Campus",
-    color: "bg-orange-500"
-  },
-  {
-    id: "sports-1",
-    src: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1000&auto=format&fit=crop",
+    id: "olympiad-stage",
+    src: "./images/gallery/olympiad-stage.jpg",
     category: "Events",
-    title: "Inter-Year Football Tournament",
-    description: "Leading the 3rd-year team to the finals. Intense match and great team spirit.",
-    date: "Sep 2023",
-    location: "Central Field",
-    color: "bg-emerald-500"
-  },
-  {
-    id: "tour-2",
-    src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1000&auto=format&fit=crop",
-    category: "Travel",
-    title: "Sajek Valley Expedition",
-    description: "Hiking through the clouds in Rangamati. The morning view was absolutely surreal.",
-    date: "Aug 2022",
-    location: "Sajek Valley",
-    color: "bg-teal-500"
-  },
-  {
-    id: "award-2",
-    src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1000&auto=format&fit=crop",
-    category: "Awards",
-    title: "Dean's List Reception",
-    description: "Honored for academic excellence in the 2nd year finals. Hard work pays off.",
-    date: "May 2023",
-    location: "IICT Auditorium",
+    title: "16th National Math Olympiad",
+    description: "Hosting the Sylhet Regional round. A gathering of the brightest young mathematical minds in the region.",
+    date: "Nov 2025",
+    location: "Leading University",
     color: "bg-indigo-500"
   },
   {
-    id: "social-2",
-    src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=1000&auto=format&fit=crop",
+    id: "bbq-night",
+    src: "./images/gallery/bbq-night.jpg",
     category: "Social",
-    title: "Rag Day Flashmob",
-    description: "Celebrating the graduating batch with music, colors, and chaos.",
-    date: "Mar 2023",
-    location: "Arjun Tola",
-    color: "bg-pink-500"
+    title: "Grill & Chill 2024",
+    description: "Departmental BBQ night under the fairy lights. Good food, warm atmosphere, and great company.",
+    date: "Winter 2024",
+    location: "Campus Grounds",
+    color: "bg-orange-500"
   },
   {
-    id: "workshop-1",
-    src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1000&auto=format&fit=crop",
-    category: "Events",
-    title: "Programming Workshop",
-    description: "Conducting a C++ workshop for freshers. Passing on the knowledge.",
-    date: "Oct 2023",
-    location: "Academic Bldg C",
+    id: "tour-shimul",
+    src: "./images/gallery/tour-shimul.jpg",
+    category: "Travel",
+    title: "Shimul Bagan Expedition",
+    description: "Witnessing the vibrant red silk cotton trees in bloom. A colorful day out with the batch.",
+    date: "Spring",
+    location: "Tanguar Haor",
+    color: "bg-rose-500"
+  },
+  {
+    id: "award-plaque",
+    src: "./images/gallery/award-plaque.jpg",
+    category: "Awards",
+    title: "Excellent Performance",
+    description: "Awarded for excellence in the 16th National Undergraduate Mathematics Olympiad (Sylhet Region).",
+    date: "Dec 2024",
+    location: "Sylhet",
     color: "bg-blue-500"
+  },
+  {
+    id: "iftar-circle",
+    src: "./images/gallery/iftar-circle.jpg",
+    category: "Social",
+    title: "Community Feast",
+    description: "Breaking bread together on the open field. A moment of simplicity and brotherhood.",
+    date: "Ramadan",
+    location: "SUST Field",
+    color: "bg-emerald-500"
+  },
+  {
+    id: "math-fiesta",
+    src: "./images/gallery/math-fiesta.jpg",
+    category: "Events",
+    title: "Math Fiesta Cultural Night",
+    description: "Performing on stage during the 'Chill Fiesta'. Celebrating the artistic side of mathematicians.",
+    date: "2024",
+    location: "Academic Bldg C",
+    color: "bg-amber-500"
+  },
+  {
+    id: "tour-boat",
+    src: "./images/gallery/tour-boat.jpg",
+    category: "Travel",
+    title: "River Expedition",
+    description: "Navigating the serene waters of Ratargul/Bichnakandi. Peace amidst nature.",
+    date: "2023",
+    location: "Sylhet",
+    color: "bg-cyan-500"
+  },
+  {
+    id: "olympiad-team",
+    src: "./images/gallery/olympiad-team.jpg",
+    category: "Awards",
+    title: "Team Achievement",
+    description: "Celebrating our team's success outside the Dr. Jamilur Reza Choudhury Building.",
+    date: "Jan 2025",
+    location: "Civil Eng. Building",
+    color: "bg-violet-500"
+  },
+  {
+    id: "tour-stream",
+    src: "./images/gallery/tour-stream.jpg",
+    category: "Travel",
+    title: "Nature's Flow",
+    description: "Cooling off in the crystal clear streams of Jaflong.",
+    date: "2023",
+    location: "Jaflong",
+    color: "bg-teal-500"
   }
 ];
 
@@ -206,6 +216,10 @@ const GallerySection: React.FC = () => {
                                 alt={photo.title}
                                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                                 loading="lazy"
+                                onError={(e) => {
+                                  // Fallback placeholder if image is missing
+                                  e.currentTarget.src = `https://placehold.co/600x400/1e293b/475569?text=${encodeURIComponent(photo.title)}`;
+                                }}
                              />
                         </div>
 
@@ -257,6 +271,9 @@ const GallerySection: React.FC = () => {
                             src={selectedPhoto.src} 
                             alt={selectedPhoto.title}
                             className="max-w-full max-h-[85vh] object-contain"
+                            onError={(e) => {
+                                e.currentTarget.src = `https://placehold.co/800x600/1e293b/475569?text=${encodeURIComponent(selectedPhoto.title)}`;
+                            }}
                         />
                         
                         {/* Nav Buttons */}
