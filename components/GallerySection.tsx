@@ -47,7 +47,17 @@ const galleryData: Photo[] = [
     title: "Shimul Bagan Expedition",
     description: "Witnessing the vibrant red silk cotton trees in bloom. A colorful day out with the batch.",
     date: "Spring",
-    location: "Tanguar Haor",
+    location: "Tahirpur, Sunamgonj",
+    color: "bg-rose-500"
+  },
+    {
+    id: "tour-shimul",
+    src: "./images/gallery/tour-shimul2.jpg",
+    category: "Travel",
+    title: "Shimul Bagan Expedition",
+    description: "Witnessing the vibrant red silk cotton trees in bloom. A colorful day out with the batch.",
+    date: "Spring",
+    location: "Tahirpur, Sunamgonj",
     color: "bg-rose-500"
   },
   {
@@ -92,7 +102,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "tour-boat",
-    src: "./images/gallery/tour-boat.jpg",
+    src: "./images/gallery/tour-boat.png",
     category: "Travel",
     title: "River Expedition",
     description: "Navigating the serene waters of Ratargul/Bichnakandi. Peace amidst nature.",
