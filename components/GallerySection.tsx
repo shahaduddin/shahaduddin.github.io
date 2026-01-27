@@ -52,11 +52,21 @@ const galleryData: Photo[] = [
   },
   {
     id: "award-plaque",
-    src: "./images/gallery/award-plaque.jpg",
+    src: "./images/gallery/award-plaque.jpeg",
+    category: "Awards",
+    title: "Excellent Performance",
+    description: "Awarded for excellence in the 15th National Undergraduate Mathematics Olympiad (Sylhet Region).",
+    date: "Dec 2024",
+    location: "Sylhet",
+    color: "bg-blue-500"
+  },
+  {
+    id: "award-plaque2",
+    src: "./images/gallery/award-plaque2.jpg",
     category: "Awards",
     title: "Excellent Performance",
     description: "Awarded for excellence in the 16th National Undergraduate Mathematics Olympiad (Sylhet Region).",
-    date: "Dec 2024",
+    date: "Dec 2025",
     location: "Sylhet",
     color: "bg-blue-500"
   },
