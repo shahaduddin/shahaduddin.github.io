@@ -30,6 +30,16 @@ const galleryData: Photo[] = [
     location: "Leading University",
     color: "bg-indigo-500"
   },
+   {
+    id: "olympiad-stage2",
+    src: "./images/gallery/olympiad-stage2.jpg",
+    category: "Events",
+    title: "16th National Math Olympiad",
+    description: "Hosting the Sylhet Regional round. A gathering of the brightest young mathematical minds in the region.",
+    date: "Nov 2025",
+    location: "Leading University",
+    color: "bg-indigo-500"
+  },
   {
     id: "bbq-night",
     src: "./images/gallery/bbq-night.jpg",
@@ -51,7 +61,7 @@ const galleryData: Photo[] = [
     color: "bg-rose-500"
   },
     {
-    id: "tour-shimul",
+    id: "tour-shimul2",
     src: "./images/gallery/tour-shimul2.jpg",
     category: "Travel",
     title: "Shimul Bagan Expedition",
@@ -113,7 +123,7 @@ const galleryData: Photo[] = [
   {
     id: "olympiad-team",
     src: "./images/gallery/olympiad-team.jpg",
-    category: "Awards",
+    category: "Events",
     title: "Team Achievement",
     description: "Celebrating our team's success outside the Dr. Jamilur Reza Choudhury Building.",
     date: "Jan 2025",
@@ -127,7 +137,7 @@ const galleryData: Photo[] = [
     title: "Nature's Flow",
     description: "Cooling off in the crystal clear streams of Jaflong.",
     date: "2023",
-    location: "Jaflong",
+    location: "Shadapator",
     color: "bg-teal-500"
   }
 ];
