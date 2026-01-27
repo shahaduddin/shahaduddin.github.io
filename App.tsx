@@ -4,6 +4,7 @@ import AboutSection from './components/AboutSection.tsx';
 import AcademicSection from './components/AcademicSection.tsx';
 import SkillsSection from './components/SkillsSection.tsx';
 import SlideshowSection from './components/SlideshowSection.tsx';
+import GallerySection from './components/GallerySection.tsx';
 import BlogSection from './components/BlogSection.tsx';
 import ResumeSection from './components/ResumeSection.tsx';
 import ContactSection from './components/ContactSection.tsx';
@@ -28,6 +29,9 @@ const App: React.FC = () => {
       </ScrollReveal>
       <ScrollReveal>
         <SlideshowSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <GallerySection />
       </ScrollReveal>
        <ScrollReveal>
         <BlogSection />
