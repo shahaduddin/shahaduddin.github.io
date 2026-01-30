@@ -3,7 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PyNumAnalysis Studio</title>
+
+    <!-- Primary SEO Meta Tags -->
+    <title>PyNum: Interactive Studio for Numerical Methods | Solve Math & Engineering Problems</title>
+    <meta name="description" content="PyNum is an interactive online studio for numerical methods. Explore Bisection, Newton-Raphson, Gaussian Elimination, Interpolation, Integration, ODEs, and more with live demos, theory, and code. Perfect for students, educators, and engineers." />
+    <meta name="keywords" content="numerical methods, bisection method, newton-raphson, gaussian elimination, interpolation, integration, ordinary differential equations, ODEs, math solver, engineering tools, online calculator, interactive math, python numerical, scientific computing, PyNum, numerical analysis" />
+    <meta name="author" content="Shahad Uddin" />
+    <link rel="canonical" href="https://shahaduddin.com/PyNum/" />
+
+    <!-- Open Graph / Social Media Meta Tags (for sharing on platforms like Facebook, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shahaduddin.com/PyNum/" />
+    <meta property="og:title" content="PyNum: Interactive Studio for Numerical Methods | Solve Math & Engineering Problems" />
+    <meta property="og:description" content="PyNum is an interactive online studio for numerical methods. Explore Bisection, Newton-Raphson, Gaussian Elimination, Interpolation, Integration, ODEs, and more with live demos, theory, and code. Perfect for students, educators, and engineers." />
+    <meta property="og:image" content="https://shahaduddin.com/PyNum/public/images/pynum_social_banner.png" /> <!-- Replace with your actual social share image path -->
+    <meta property="og:image:alt" content="PyNum Interactive Studio showing various numerical methods" />
+
+    <!-- Twitter Card Meta Tags (for sharing on Twitter) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://shahaduddin.com/PyNum/" />
+    <meta name="twitter:title" content="PyNum: Interactive Studio for Numerical Methods | Solve Math & Engineering Problems" />
+    <meta name="twitter:description" content="PyNum is an interactive online studio for numerical methods. Explore Bisection, Newton-Raphson, Gaussian Elimination, Interpolation, Integration, ODEs, and more with live demos, theory, and code. Perfect for students, educators, and engineers." />
+    <meta name="twitter:image" content="https://shahaduddin.com/PyNum/public/images/pynum_social_banner.png" /> <!-- Replace with your actual social share image path -->
+    <meta name="twitter:creator" content="@YourTwitterHandle" /> <!-- Optional: Your Twitter handle -->
+
+    <!-- Favicon - good for branding and user experience -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> <!-- 180x180 png -->
+    <link rel="manifest" href="/site.webmanifest" /> <!-- Optional: For PWA features -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
@@ -29,22 +58,36 @@
         background: #94a3b8; 
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-    "recharts": "https://esm.sh/recharts@^3.7.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="./index.css">
-</head>
+    <script type="importmap">
+      {
+        "imports": {
+          "react/": "https://esm.sh/react@^19.2.4/",
+          "react": "https://esm.sh/react@^19.2.4",
+          "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+          "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+          "recharts": "https://esm.sh/recharts@^3.7.0",
+          "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
+        }
+      }
+    </script>
+    <script type="module" crossorigin="" src="../assets/pynum-CGJMNSvs.js"></script>
+    <link rel="modulepreload" crossorigin="" href="../assets/x-CvjuRzo8.js" />
+    <link rel="stylesheet" crossorigin="" href="../assets/pynum-ND7Xbt52.css" />
+    
+    <!-- Optional: Google Analytics (replace UA-XXXXX-Y with your actual ID) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-XXXXX-Y');
+    </script> -->
+
+    <link rel="stylesheet" href="./index.css">
+  </head>
   <body class="bg-slate-50 text-slate-900 antialiased overflow-hidden selection:bg-emerald-100 selection:text-emerald-900">
-    <div id="root"></div>
+    <div id="root">
+    </div>
   <script type="module" src="./index.tsx"></script>
-</body>
+  </body>
 </html>
