@@ -1,11 +1,13 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, ExternalLink, Github, Monitor, Calculator, FlaskConical } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Github, Monitor, Calculator, FlaskConical, Activity, Sparkles, Binary } from 'lucide-react';
 
 interface Project {
     title: string;
     description: string;
     tech: string[];
     icon: React.ReactNode;
+    banner?: string;
     github?: string;
     live?: string;
     imageColor: string;
@@ -13,27 +15,29 @@ interface Project {
 
 const projects: Project[] = [
     {
-        title: "Mathematical Visualization Engine",
+        title: "PyNum Analysis Studio",
+        description: "An advanced Numerical Analysis workspace featuring real-time algorithm visualization, matrix computations, and an AI-powered math tutor for deep mathematical exploration.",
+        tech: ["React", "TypeScript", "Recharts", "Gemini AI"],
+        icon: <Activity className="w-8 h-8" />,
+        banner: "./PyNum/pynum_social_banner.png",
+        imageColor: "from-emerald-600/20 to-teal-600/20",
+        github: "https://github.com/shahaduddin/PyNum",
+        live: "./PyNum"
+    },
+    {
+        title: "Complex Visualization Engine",
         description: "A high-performance interactive tool for visualizing complex Fourier Series and Taylor expansions. Built to bridge the gap between abstract calculus and visual intuition.",
-        tech: ["React", "Three.js", "C++ (WASM)", "LaTeX"],
+        tech: ["Three.js", "C++ (WASM)", "LaTeX", "React"],
         icon: <Calculator className="w-8 h-8" />,
         imageColor: "from-blue-600/20 to-indigo-600/20",
         github: "https://github.com/shahaduddin"
     },
     {
-        title: "Personal Research Portfolio",
-        description: "The very site you are viewing. A highly optimized, responsive personal brand experience featuring custom particle systems and intersection-based animations.",
-        tech: ["TypeScript", "Tailwind CSS", "React", "ESM"],
-        icon: <Monitor className="w-8 h-8" />,
-        imageColor: "from-purple-600/20 to-blue-600/20",
-        github: "https://github.com/shahaduddin"
-    },
-    {
-        title: "Scientific Data Plotter",
-        description: "A lightweight desktop utility for SUST mathematics students to quickly plot data points from Fortran-generated output files into clean SVG charts.",
-        tech: ["Fortran", "Node.js", "D3.js", "Shell"],
+        title: "Scientific Data Pipeline",
+        description: "A specialized utility for SUST students to process and plot large datasets from Fortran-generated output files into interactive SVG-based dashboards.",
+        tech: ["Fortran", "D3.js", "Node.js", "Shell"],
         icon: <FlaskConical className="w-8 h-8" />,
-        imageColor: "from-emerald-600/20 to-teal-600/20",
+        imageColor: "from-purple-600/20 to-blue-600/20",
         github: "https://github.com/shahaduddin"
     }
 ];
@@ -52,23 +56,28 @@ const SlideshowSection: React.FC = () => {
 
     useEffect(() => {
         if (!isAutoPlaying) return;
-        const interval = setInterval(nextSlide, 5000);
+        const interval = setInterval(nextSlide, 6000);
         return () => clearInterval(interval);
     }, [isAutoPlaying, nextSlide]);
 
     return (
-        <section id="projects" className="py-24 px-4 bg-slate-950 relative overflow-hidden">
+        <section id="projects" className="py-32 px-4 bg-slate-950 relative overflow-hidden">
             {/* Background Decorations */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
-                <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px]"></div>
-                <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-indigo-600/5 rounded-full blur-[100px]"></div>
+                <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[140px]"></div>
+                <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/5 rounded-full blur-[120px]"></div>
+                <div className="absolute top-0 right-10 text-indigo-500/5 font-mono text-9xl select-none rotate-12">{"{}"}</div>
             </div>
 
             <div className="max-w-6xl mx-auto relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <span className="h-px flex-1 bg-slate-800"></span>
-                    <h2 className="text-slate-500 font-mono uppercase tracking-widest text-sm">Selected Projects</h2>
-                    <span className="h-px flex-1 bg-slate-800"></span>
+                <div className="flex flex-col items-center text-center mb-20 space-y-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[10px] font-mono uppercase tracking-[0.2em]">
+                        <Binary size={12} />
+                        <span>Featured Deployments</span>
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+                        Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400">Projects</span>
+                    </h2>
                 </div>
 
                 <div 
@@ -77,11 +86,11 @@ const SlideshowSection: React.FC = () => {
                     onMouseLeave={() => setIsAutoPlaying(true)}
                 >
                     {/* Main Slide Container */}
-                    <div className="relative h-[500px] md:h-[450px] overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/40 backdrop-blur-xl">
+                    <div className="relative h-[650px] md:h-[500px] overflow-hidden rounded-[2.5rem] border border-slate-800/50 bg-slate-900/40 backdrop-blur-xl shadow-2xl">
                         {projects.map((project, index) => (
                             <div
                                 key={index}
-                                className={`absolute inset-0 transition-all duration-700 ease-in-out flex flex-col md:flex-row p-8 md:p-12 gap-8 ${
+                                className={`absolute inset-0 transition-all duration-1000 ease-in-out flex flex-col md:flex-row p-8 md:p-14 gap-10 ${
                                     index === currentIndex 
                                     ? "opacity-100 translate-x-0 scale-100" 
                                     : index < currentIndex 
@@ -90,43 +99,72 @@ const SlideshowSection: React.FC = () => {
                                 }`}
                             >
                                 {/* Visual Part */}
-                                <div className={`flex-1 rounded-2xl bg-gradient-to-br ${project.imageColor} border border-white/5 flex items-center justify-center relative overflow-hidden group/img shadow-2xl shadow-black/50`}>
+                                <div className={`flex-1 rounded-[2rem] bg-gradient-to-br ${project.imageColor} border border-white/5 flex items-center justify-center relative overflow-hidden group/img shadow-2xl shadow-black/50`}>
                                     <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)]"></div>
-                                    <div className="text-white transform group-hover/img:scale-125 transition-transform duration-700 drop-shadow-2xl">
-                                        {project.icon}
-                                    </div>
+                                    
+                                    {project.banner ? (
+                                        <img 
+                                            src={project.banner} 
+                                            alt={project.title} 
+                                            className="w-full h-full object-cover transition-transform duration-1000 group-hover/img:scale-105"
+                                            onError={(e) => {
+                                                e.currentTarget.style.display = 'none';
+                                            }}
+                                        />
+                                    ) : (
+                                        <div className="text-white transform group-hover/img:scale-110 transition-transform duration-1000 drop-shadow-2xl">
+                                            {React.isValidElement(project.icon) && React.cloneElement(project.icon as React.ReactElement<any>, { size: 120, strokeWidth: 1 })}
+                                        </div>
+                                    )}
+
                                     {/* Abstract Grid Overlay */}
-                                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+                                    
+                                    {/* Project Number Badge */}
+                                    <div className="absolute top-6 left-6 w-12 h-12 rounded-full bg-slate-950/80 border border-white/10 backdrop-blur-md flex items-center justify-center font-mono text-sm text-white font-bold">
+                                        0{index + 1}
+                                    </div>
                                 </div>
 
                                 {/* Content Part */}
-                                <div className="flex-1 flex flex-col justify-center space-y-6">
-                                    <div className="space-y-2">
-                                        <div className="text-indigo-400 font-mono text-xs tracking-widest uppercase">Project 0{index + 1}</div>
-                                        <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{project.title}</h3>
+                                <div className="flex-1 flex flex-col justify-center space-y-8">
+                                    <div className="space-y-4">
+                                        <div className="inline-flex items-center gap-2 text-indigo-400 font-mono text-[10px] tracking-[0.3em] uppercase bg-indigo-500/5 px-3 py-1 rounded-full border border-indigo-500/10">
+                                            <Sparkles size={12} />
+                                            Case Study
+                                        </div>
+                                        <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-tight">{project.title}</h3>
                                     </div>
                                     
-                                    <p className="text-slate-400 text-lg leading-relaxed">
+                                    <p className="text-slate-400 text-lg leading-relaxed font-light">
                                         {project.description}
                                     </p>
 
                                     <div className="flex flex-wrap gap-2">
                                         {project.tech.map((t) => (
-                                            <span key={t} className="px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-slate-300 text-xs font-medium">
+                                            <span key={t} className="px-3 py-1 rounded-lg bg-slate-950/80 border border-slate-800 text-slate-400 text-[10px] font-mono font-bold uppercase tracking-wider group-hover:border-indigo-500/30 transition-colors">
                                                 {t}
                                             </span>
                                         ))}
                                     </div>
 
-                                    <div className="flex items-center gap-4 pt-4">
-                                        {project.github && (
-                                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white bg-slate-800 hover:bg-slate-700 px-5 py-2.5 rounded-xl transition-all font-medium text-sm">
-                                                <Github size={18} /> Code
+                                    <div className="flex flex-wrap items-center gap-4 pt-6">
+                                        {project.live && (
+                                            <a 
+                                                href={project.live} 
+                                                className="flex items-center gap-3 text-slate-950 bg-white hover:bg-indigo-500 hover:text-white px-8 py-4 rounded-2xl transition-all duration-500 font-bold text-base shadow-xl shadow-white/5 group/demo"
+                                            >
+                                                Launch App <ExternalLink size={20} className="group-hover/demo:rotate-12 transition-transform" />
                                             </a>
                                         )}
-                                        {project.live && (
-                                            <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white bg-indigo-600 hover:bg-indigo-500 px-5 py-2.5 rounded-xl transition-all font-medium text-sm shadow-lg shadow-indigo-600/20">
-                                                <ExternalLink size={18} /> Demo
+                                        {project.github && (
+                                            <a 
+                                                href={project.github} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                className="flex items-center gap-3 text-slate-300 bg-slate-800/50 hover:bg-slate-800 hover:text-white px-8 py-4 rounded-2xl transition-all duration-500 font-bold text-base border border-slate-700/50"
+                                            >
+                                                <Github size={20} /> Repository
                                             </a>
                                         )}
                                     </div>
@@ -138,27 +176,27 @@ const SlideshowSection: React.FC = () => {
                     {/* Navigation Buttons */}
                     <button 
                         onClick={prevSlide}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/80 border border-slate-700 text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-indigo-600 hover:border-indigo-500 z-20"
+                        className="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-slate-950/80 border border-slate-800 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-indigo-600 hover:border-indigo-500 z-20 flex items-center justify-center shadow-2xl"
                         aria-label="Previous slide"
                     >
-                        <ChevronLeft size={24} />
+                        <ChevronLeft size={28} />
                     </button>
                     <button 
                         onClick={nextSlide}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/80 border border-slate-700 text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-indigo-600 hover:border-indigo-500 z-20"
+                        className="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-slate-950/80 border border-slate-800 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-indigo-600 hover:border-indigo-500 z-20 flex items-center justify-center shadow-2xl"
                         aria-label="Next slide"
                     >
-                        <ChevronRight size={24} />
+                        <ChevronRight size={28} />
                     </button>
 
                     {/* Indicators */}
-                    <div className="flex justify-center gap-3 mt-8">
+                    <div className="flex justify-center gap-4 mt-12">
                         {projects.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => setCurrentIndex(index)}
-                                className={`h-1.5 transition-all duration-300 rounded-full ${
-                                    index === currentIndex ? "w-12 bg-indigo-500" : "w-3 bg-slate-800 hover:bg-slate-700"
+                                className={`h-1.5 transition-all duration-500 rounded-full ${
+                                    index === currentIndex ? "w-16 bg-indigo-500" : "w-4 bg-slate-800 hover:bg-slate-700"
                                 }`}
                                 aria-label={`Go to slide ${index + 1}`}
                             />
