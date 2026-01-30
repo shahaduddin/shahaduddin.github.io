@@ -25,14 +25,7 @@ jobs:
         run: npm install
 
       - name: Build
-        run: |
-          npm run build
-          # Check if PyNum directory exists in root and copy it to dist/PyNum
-          # This ensures shahaduddin.com/PyNum serves this app
-          if [ -d "PyNum" ]; then
-            echo "Found PyNum directory, including it in the deployment..."
-            cp -r PyNum dist/
-          fi
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
