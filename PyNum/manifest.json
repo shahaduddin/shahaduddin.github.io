@@ -8,12 +8,12 @@
   "description": "Interactive Numerical Analysis algorithms, matrix calculators, and AI-powered Python tutoring.",
   "icons": [
     {
-      "src": "./favicon.svg",
+      "src": "PyNum/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     },
     {
-      "src": "./favicon-32x32.png",
+      "src": "/PyNum/favicon-32x32.png",
       "sizes": "32x32",
       "type": "image/png"
     }
