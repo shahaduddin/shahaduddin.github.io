@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,8 +9,8 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: 'index.html',
-        pynum: 'PyNum/index.html'
+        main: resolve('index.html'),
+        pynum: resolve('PyNum/index.html')
       },
     },
   },
