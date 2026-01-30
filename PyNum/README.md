@@ -79,3 +79,4 @@ Here are some glimpses of PyNum in action:
 
 **Navigation Menu (Roots of Equations)**
 A clear menu showing the various methods for finding roots of equations.
+![Navigation Menu](public/images/screenshot1.png)
