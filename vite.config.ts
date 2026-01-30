@@ -20,7 +20,8 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       // Define the API key so it's available in the PyNum app code
-      'process.env.API_KEY': JSON.stringify(env.API_KEY || env.GEMINI_API_KEY)
+      // Default to empty string to prevent "process.env.API_KEY is undefined" crashes
+      'process.env.API_KEY': JSON.stringify(env.API_KEY || env.GEMINI_API_KEY || '')
     }
   }
 })
