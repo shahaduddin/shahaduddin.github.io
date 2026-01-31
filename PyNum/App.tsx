@@ -6,6 +6,7 @@ import { IntegrationDemo } from './components/demos/IntegrationDemo';
 import { ODEDemo } from './components/demos/ODEDemo';
 import { InterpolationDemo } from './components/demos/InterpolationDemo';
 import { LinearSystemDemo } from './components/demos/LinearSystemDemo';
+import { DifferentiationDemo } from './components/demos/DifferentiationDemo';
 import { TheoryView } from './components/TheoryView';
 import { ChatBot } from './components/ChatBot';
 import { AlgorithmType, TopicCategory } from './types';
@@ -76,6 +77,8 @@ const App: React.FC = () => {
       case AlgorithmType.JACOBI:
       case AlgorithmType.GAUSS_SEIDEL:
       case AlgorithmType.LU_DECOMPOSITION:
+      case AlgorithmType.CHOLESKY_DECOMPOSITION:
+      case AlgorithmType.QR_DECOMPOSITION:
       case AlgorithmType.MATRIX_INVERSE:
       case AlgorithmType.MATRIX_DETERMINANT:
       case AlgorithmType.MATRIX_TRANSPOSE:
@@ -90,10 +93,17 @@ const App: React.FC = () => {
       case AlgorithmType.CUBIC_SPLINE:
       case AlgorithmType.NEWTON_FORWARD_DIFFERENCE:
       case AlgorithmType.NEWTON_BACKWARD_DIFFERENCE:
+      case AlgorithmType.GAUSS_FORWARD_INTERPOLATION:
+      case AlgorithmType.GAUSS_BACKWARD_INTERPOLATION:
         return <InterpolationDemo type={currentAlgo} />;
       case AlgorithmType.SIMPSON:
       case AlgorithmType.TRAPEZOIDAL:
         return <IntegrationDemo type={currentAlgo} />;
+      case AlgorithmType.FORWARD_DIFFERENCE:
+      case AlgorithmType.BACKWARD_DIFFERENCE:
+      case AlgorithmType.CENTRAL_DIFFERENCE:
+      case AlgorithmType.SECOND_DERIVATIVE_CENTRAL:
+        return <DifferentiationDemo type={currentAlgo} />;
       case AlgorithmType.EULER:
       case AlgorithmType.RK4:
         return <ODEDemo type={currentAlgo} />;
@@ -131,7 +141,7 @@ const App: React.FC = () => {
         onClose={() => setIsSidebarOpen(false)}
       />
       
-      <main className="flex-1 flex flex-col min-w-0 relative">
+      <main className="flex-1 flex flex-col min-0 relative">
         {/* Navigation Header - Sticky */}
         <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm transition-all duration-200">
           <header className="h-16 flex items-center justify-between px-4 md:px-8">
