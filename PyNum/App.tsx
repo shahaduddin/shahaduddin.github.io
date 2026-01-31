@@ -141,7 +141,7 @@ const App: React.FC = () => {
         onClose={() => setIsSidebarOpen(false)}
       />
       
-      <main className="flex-1 flex flex-col min-0 relative">
+      <main className="flex-1 flex flex-col min-w-0 relative">
         {/* Navigation Header - Sticky */}
         <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm transition-all duration-200">
           <header className="h-16 flex items-center justify-between px-4 md:px-8">
