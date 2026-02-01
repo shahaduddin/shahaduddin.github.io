@@ -1,13 +1,20 @@
+
 import { GoogleGenAI } from "@google/genai";
 
-// Initialize with the correct pattern from environment variable
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export const askAiTutor = async (prompt: string, context: string): Promise<string> => {
+  // Use process.env.API_KEY directly as required by guidelines
+  if (!process.env.API_KEY) {
+    console.error("Gemini API Key is missing.");
+    return "The AI Tutor is currently unavailable because the API Key is not configured.";
+  }
+
   try {
+    // Correct initialization using named parameter and process.env.API_KEY
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    
+    // Using gemini-3-flash-preview for educational tasks
     const response = await ai.models.generateContent({
-      // Use gemini-3-pro-preview for complex math and coding tasks as per guidelines
-      model: 'gemini-3-pro-preview',
+      model: 'gemini-3-flash-preview',
       contents: `You are a helpful expert tutor in Numerical Analysis and Python programming. 
       Context: The user is currently studying "${context}".
       
@@ -15,6 +22,8 @@ export const askAiTutor = async (prompt: string, context: string): Promise<strin
       
       Provide a concise, clear explanation. If code is needed, use Python. Format math with plain text or standard ASCII if possible.`,
     });
+    
+    // Access .text property directly (not a method)
     return response.text || "No response generated.";
   } catch (error) {
     console.error("Gemini API Error:", error);
