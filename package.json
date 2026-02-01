@@ -14,7 +14,7 @@
     "react-dom": "^18.2.0",
     "recharts": "^3.7.0",
     "@google/genai": "^1.38.0",
-    "react-router-dom": "^6.0.0"  // Make sure this is here
+    "react-router-dom": "^6.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",
