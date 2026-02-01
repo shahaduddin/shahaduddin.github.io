@@ -24,16 +24,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'  # Enable npm caching for faster builds
+          cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          # Install all dependencies including react-router-dom
-          npm ci  # Use npm ci for clean, reproducible installs
+        run: npm install  # Changed from npm ci
           
       - name: Build
         env:
-          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}  # Use VITE_ prefix for Vite env vars
+          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npm run build
 
       - name: Upload artifact
