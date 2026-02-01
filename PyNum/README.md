@@ -1,5 +1,3 @@
-[README (2).md](https://github.com/user-attachments/files/24993832/README.2.md)
-
 # PyNum: Interactive Studio for Numerical Methods
 
 [![GitHub license](https://img.shields.io/github/license/shahaduddin/PyNum)](https://github.com/shahaduddin/PyNum/blob/main/LICENSE)
