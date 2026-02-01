@@ -1,20 +1,83 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+[README (2).md](https://github.com/user-attachments/files/24993832/README.2.md)
 
-# Run and deploy your AI Studio app
+# PyNum: Interactive Studio for Numerical Methods
 
-This contains everything you need to run your app locally.
+[![GitHub license](https://img.shields.io/github/license/shahaduddin/PyNum)](https://github.com/shahaduddin/PyNum/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/shahaduddin/PyNum?style=social)](https://github.com/shahaduddin/PyNum/stargazers)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-brightgreen)](https://shahaduddin.com/PyNum/)
 
-View your app in AI Studio: https://ai.studio/apps/drive/15GLqVgOqZBtrAn-JIlpBzj58N_KprfKp
+PyNum is an interactive web-based studio designed to help students, educators, and professionals understand and apply various numerical methods. With a clean, intuitive interface, PyNum offers detailed demonstrations, theoretical explanations, and even code snippets for a wide range of computational techniques.
 
-## Run Locally
+## Features
 
-**Prerequisites:**  Node.js
+PyNum provides a comprehensive suite of numerical methods, categorized for easy navigation:
 
+### Roots of Equations
+Explore methods for finding roots of non-linear equations.
+*   **Bracketing Methods:**
+    *   Bisection Method
+    *   False Position (Regula Falsi)
+*   **Open Methods:**
+    *   Newton-Raphson Method
+    *   Secant Method
+    *   Fixed Point Iteration
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Linear Systems
+Solve systems of linear equations using various approaches.
+*   **Matrix Decompositions:**
+    *   LU Decomposition
+    *   Cholesky Decomposition
+    *   QR Decomposition
+*   **Direct Solvers:**
+    *   Gaussian Elimination
+    *   Gauss-Jordan Elimination
+*   **Iterative Solvers:**
+    *   Jacobi Iteration
+    *   Gauss-Seidel Iteration
+*   **Matrix Operations:**
+    *   Matrix Addition
+    *   Matrix Subtraction
+    *   Matrix Multiplication
+    *   Matrix Transpose
+    *   Matrix Inverse
+    *   Matrix Determinant
+
+### Interpolation
+Learn how to estimate values between known data points.
+*   **Polynomial Interpolation:**
+    *   Lagrange Interpolation
+    *   Newton Divided Difference
+*   **Spline Interpolation:**
+    *   Linear Spline
+    *   Quadratic Spline
+    *   Cubic Spline
+*   **Evenly Spaced Data:**
+    *   Newton Forward Difference
+    *   Newton Backward Difference
+    *   Gauss Forward Interpolation
+    *   Gauss Backward Interpolation
+
+### Integration
+Calculate definite integrals using numerical techniques.
+*   Trapezoidal Rule
+*   Simpson's 1/3 Rule
+
+### Differential Equations (ODE)
+Solve Ordinary Differential Equations (ODEs) numerically.
+*   Euler's Method
+*   Runge-Kutta 4th Order
+
+## How It Works
+
+For each method, PyNum typically offers:
+*   **Demo:** An interactive interface to input parameters and visualize the calculation process and results.
+*   **Theory:** A concise explanation of the underlying mathematical principles.
+*   **Code:** Relevant code snippets (likely in Python, given the name PyNum) to help users implement the method themselves.
+
+## Screenshots
+
+Here are some glimpses of PyNum in action:
+
+**Navigation Menu (Roots of Equations)**
+A clear menu showing the various methods for finding roots of equations.
+![Navigation Menu](public/images/screenshot1.png)
