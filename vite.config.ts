@@ -1,32 +1,35 @@
 
-import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import path from 'path';
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
+import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname, '');
   
-  // Robust API key resolution for the root build
-  const apiKey = env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || process.env.API_KEY || '';
-
   return {
     plugins: [react()],
-    base: '/',
+    base: '/', // Base is root because it's served from shahaduddin.com root
     build: {
       rollupOptions: {
         input: {
-          main: resolve(__dirname, 'index.html'),
-          PyNum: resolve(__dirname, 'PyNum/index.html')
+          main: path.resolve(__dirname, 'index.html'),
+          PyNum: path.resolve(__dirname, 'PyNum/index.html')
         },
       },
     },
     define: {
-      'process.env.API_KEY': JSON.stringify(apiKey)
+      // Direct injection of API_KEY as required by guidelines
+      'process.env.API_KEY': JSON.stringify(env.API_KEY || env.GEMINI_API_KEY || '')
+    },
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, '.'),
+      }
     }
   }
 })
