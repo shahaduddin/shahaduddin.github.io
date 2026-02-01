@@ -1,26 +1,30 @@
+
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory.
-  const env = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, __dirname, '');
   
   return {
     plugins: [react()],
-    base: './', // Ensures assets are linked relatively for GitHub Pages
+    base: '/',
     build: {
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'index.html'),
-          pynum: resolve(__dirname, 'PyNum/index.html')
+          PyNum: resolve(__dirname, 'PyNum/index.html')
         },
       },
     },
     define: {
-      // Define the API key so it's available in the PyNum app code
-      // Default to empty string to prevent "process.env.API_KEY is undefined" crashes
+      // Map user's secret key to the expected process.env.API_KEY
       'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || env.API_KEY || '')
     }
   }
