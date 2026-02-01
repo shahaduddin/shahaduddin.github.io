@@ -24,10 +24,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          # REMOVE cache: 'npm' since you don't have package-lock.json
 
       - name: Install dependencies
-        run: npm install  # Changed from npm ci
+        run: npm install
           
       - name: Build
         env:
