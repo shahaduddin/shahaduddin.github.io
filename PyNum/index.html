@@ -1,10 +1,31 @@
-
 <!DOCTYPE html>
 <html lang="en" class="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PyNumAnalysis Studio</title>
+    
+    <!-- SEO & Metadata -->
+    <title>PyNum Analysis Studio | Interactive Numerical Methods</title>
+    <meta name="description" content="Master Numerical Analysis with PyNum. Interactive algorithm visualizations, matrix calculators, and an AI-powered math tutor." />
+    <meta name="keywords" content="Numerical Analysis, Root Finding, Matrix Calculator, AI Tutor, Gemini AI, Math Studio" />
+    <meta name="author" content="Shahad Uddin" />
+    <meta name="theme-color" content="#059669" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shahaduddin.com/PyNum/" />
+    <meta property="og:title" content="PyNum Analysis Studio | Interactive Numerical Methods" />
+    <meta property="og:description" content="Visualize complex algorithms and get real-time AI assistance for Numerical Analysis." />
+    <meta property="og:image" content="/PyNum/images/pynum_social_banner.png" />
+
+    <!-- Favicon & Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/PyNum/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/PyNum/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/PyNum/favicon-16x16.png">
+    <link rel="icon" type="image/svg+xml" href="/PyNum/favicon.svg" />
+    <link rel="manifest" href="/PyNum/manifest.json" />
+
+    <!-- Styles & Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -33,7 +54,7 @@
         height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: transparent; 
+        background: transparent;  
       }
       ::-webkit-scrollbar-thumb {
         background: #cbd5e1; 
@@ -49,7 +70,8 @@
         background: #475569;
       }
     </style>
-    <script>
+
+   <script>
       (function() {
         const theme = localStorage.getItem('theme') || 'light';
         if (theme === 'dark') {
@@ -57,23 +79,14 @@
         }
       })();
     </script>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react-router-dom": "https://esm.sh/react-router-dom@^6.22.3",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-    "recharts": "https://esm.sh/recharts@^3.7.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
-  <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased overflow-hidden selection:bg-emerald-100 selection:text-emerald-900 dark:selection:bg-emerald-900 dark:selection:text-emerald-100">
-    <div id="root"></div>
+    
+    <!-- Note: Vite will handle module imports from package.json. Importmaps removed to avoid conflicts. -->
+    <link rel="stylesheet" href="./index.css">
+  </head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased overflow-hidden selection:bg-emerald-100 selection:text-emerald-900 dark:selection:bg-emerald-900 dark:selection:text-emerald-100">
+     <div id="root"></div>
+     <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
+    <!-- Entry point relative to this file for Vite resolver -->
 </body>
 </html>
