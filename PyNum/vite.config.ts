@@ -8,7 +8,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, __dirname, '');
+    // Look for .env in the parent directory (project root)
+    const env = loadEnv(mode, path.resolve(__dirname, '..'), '');
+    
     return {
       server: {
         port: 3000,
@@ -16,9 +18,8 @@ export default defineConfig(({ mode }) => {
       },
       plugins: [react()],
       define: {
-        // Ensure consistency with the root mapping
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || env.API_KEY || ''),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || '')
+        // Map GEMINI_API_KEY from .env or system environment to process.env.API_KEY
+        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || '')
       },
       resolve: {
         alias: {
