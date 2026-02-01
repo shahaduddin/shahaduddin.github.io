@@ -9,9 +9,11 @@ const __dirname = dirname(__filename)
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // Load env file based on `mode` in the current working directory.
   const env = loadEnv(mode, __dirname, '');
   
+  // Robust API key resolution for the root build
+  const apiKey = env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || process.env.API_KEY || '';
+
   return {
     plugins: [react()],
     base: '/',
@@ -24,8 +26,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {
-      // Map user's secret key to the expected process.env.API_KEY
-      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || '')
+      'process.env.API_KEY': JSON.stringify(apiKey)
     }
   }
 })
