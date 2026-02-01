@@ -2,38 +2,64 @@
 import { GoogleGenAI } from "@google/genai";
 
 /**
- * Expert tutor in Numerical Analysis using 'gemini-3-pro-preview'.
- * The API key is injected at build time by Vite from process.env.API_KEY.
+ * Expert tutor in Numerical Analysis.
+ * Optimized with gemini-3-flash-preview for high performance and reliability.
  */
 export const askAiTutor = async (prompt: string, context: string): Promise<string> => {
+  // Robustly extract the API Key provided by Vite's 'define'
+  let apiKey = '';
   try {
-    // Initialize exactly as specified: new GoogleGenAI({ apiKey: process.env.API_KEY })
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // This is replaced by a string literal during build by Vite
+    apiKey = process.env.API_KEY || '';
+  } catch (e) {
+    console.error("AI Tutor Config Error: process.env.API_KEY is not defined in this environment.", e);
+  }
+
+  // Pre-flight check for API Key presence
+  if (!apiKey || apiKey === "undefined" || apiKey === '""') {
+    return "The AI Tutor is currently offline. Please ensure your 'GEMINI_API_KEY' is correctly configured in your project secrets.";
+  }
+
+  try {
+    // Initializing SDK as per Google GenAI guidelines
+    const ai = new GoogleGenAI({ apiKey });
     
     const response = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview',
+      model: 'gemini-3-flash-preview',
       contents: `You are a helpful expert tutor in Numerical Analysis, Mathematics, and scientific programming (Python/Fortran). 
       
-      The user is currently exploring the topic: "${context}".
+      The user is exploring: "${context}".
       
       User Question: ${prompt}
       
-      Instruction: 
+      Instructions: 
       - Provide a concise, mathematically rigorous yet clear explanation. 
-      - Use Python code snippets if helpful for implementation.
-      - Format math using standard ASCII or clear text notation (e.g., x^2, sqrt(x), sum from i=0 to n).
-      - If the question is irrelevant to numerical methods or math, politely redirect the user back to the studio's topics.`,
+      - Use Python or Fortran code snippets if helpful for implementation.
+      - Use standard math notation (e.g., x^2, sqrt(x), sum from i=0 to n).
+      - Maintain a professional academic tone.`,
     });
     
-    // Access response.text property directly as per latest SDK guidelines
-    return response.text || "I processed your request but couldn't generate a text response. Please try rephrasing.";
-  } catch (error) {
-    console.error("Gemini API Error:", error);
+    // Direct property access for the generated text
+    const text = response.text;
     
-    if (error instanceof Error && (error.message.includes("API_KEY_INVALID") || error.message.includes("not found"))) {
-      return "The AI service is misconfigured. Please verify the API key in system settings.";
+    if (!text) {
+      throw new Error("The AI model returned an empty response.");
     }
     
-    return "Sorry, I encountered an error while processing your request. Please try again in a moment.";
+    return text;
+  } catch (error: any) {
+    console.error("Gemini AI Tutor Error:", error);
+
+    // Provide specific feedback for common configuration issues
+    if (error?.message?.includes("API_KEY_INVALID") || error?.status === 403) {
+      return "Critical Error: The provided Gemini API Key is invalid or has expired. Please update your environment secrets.";
+    }
+    
+    if (error?.message?.includes("model not found") || error?.status === 404) {
+      return "Model Error: 'gemini-3-flash-preview' is currently restricted or unavailable for your API key.";
+    }
+
+    // Fallback error message with specific detail to help the user debug
+    return `AI Tutor Error: ${error?.message || 'Connection timed out. Please try again in a moment.'}`;
   }
 };
