@@ -1,23 +1,15 @@
 
 import { GoogleGenAI } from "@google/genai";
 
+/**
+ * Expert tutor in Numerical Analysis using 'gemini-3-pro-preview'.
+ * The API key is injected at build time by Vite from process.env.API_KEY.
+ */
 export const askAiTutor = async (prompt: string, context: string): Promise<string> => {
-  // process.env.API_KEY is defined via vite.config.ts 'define'
-  const apiKey = process.env.API_KEY;
-
-  if (!apiKey) {
-    console.error("Gemini API Key is missing. Please check your environment configuration.");
-    return "The AI Tutor is currently unavailable because the API Key is not configured.";
-  }
-
   try {
-    // Correct initialization using named parameter
-    const ai = new GoogleGenAI({ apiKey });
+    // Initialize exactly as specified: new GoogleGenAI({ apiKey: process.env.API_KEY })
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
-    /**
-     * Using 'gemini-3-pro-preview' for Complex Text Tasks (Math & STEM).
-     * This model provides much better accuracy for numerical analysis logic.
-     */
     const response = await ai.models.generateContent({
       model: 'gemini-3-pro-preview',
       contents: `You are a helpful expert tutor in Numerical Analysis, Mathematics, and scientific programming (Python/Fortran). 
@@ -38,9 +30,8 @@ export const askAiTutor = async (prompt: string, context: string): Promise<strin
   } catch (error) {
     console.error("Gemini API Error:", error);
     
-    // Graceful error handling for common API issues
-    if (error instanceof Error && error.message.includes("API key not valid")) {
-      return "The provided API key is invalid. Please check your system configuration.";
+    if (error instanceof Error && (error.message.includes("API_KEY_INVALID") || error.message.includes("not found"))) {
+      return "The AI service is misconfigured. Please verify the API key in system settings.";
     }
     
     return "Sorry, I encountered an error while processing your request. Please try again in a moment.";
