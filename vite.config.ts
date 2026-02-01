@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       // Map user's secret key to the expected process.env.API_KEY
-      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || env.API_KEY || '')
+      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || '')
     }
   }
 })
