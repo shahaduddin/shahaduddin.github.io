@@ -1,31 +1,30 @@
 
-import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import path from 'path';
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
+import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // Load env file based on `mode` in the current working directory.
-  const env = loadEnv(mode, __dirname, '');
-  
-  return {
-    plugins: [react()],
-    base: '/',
-    build: {
-      rollupOptions: {
-        input: {
-          main: resolve(__dirname, 'index.html'),
-          PyNum: resolve(__dirname, 'PyNum/index.html')
-        },
+    // Look for .env in the parent directory (project root)
+    const env = loadEnv(mode, path.resolve(__dirname, '..'), '');
+    
+    return {
+      server: {
+        port: 3000,
+        host: '0.0.0.0',
       },
-    },
-    define: {
-      // Map user's secret key to the expected process.env.API_KEY
-      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || '')
-    }
-  }
-})
+      plugins: [react()],
+      define: {
+        // Map GEMINI_API_KEY from .env or system environment to process.env.API_KEY
+        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || '')
+      },
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, '.'),
+        }
+      }
+    };
+});
