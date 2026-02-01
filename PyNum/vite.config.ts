@@ -8,9 +8,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig(({ mode }) => {
-    // Look for .env in the parent directory (project root)
-    const env = loadEnv(mode, path.resolve(__dirname, '..'), '');
+    // Search for .env files in the root directory (one level up)
+    const rootDir = path.resolve(__dirname, '..');
+    const env = loadEnv(mode, rootDir, '');
     
+    /**
+     * Resolve the API key from various potential sources:
+     * 1. .env file in root (GEMINI_API_KEY)
+     * 2. System environment variables (standard for Secrets/CI)
+     * 3. Fallback to older 'API_KEY' naming convention if present
+     */
+    const apiKey = env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || process.env.API_KEY || '';
+
     return {
       server: {
         port: 3000,
@@ -18,8 +27,8 @@ export default defineConfig(({ mode }) => {
       },
       plugins: [react()],
       define: {
-        // Map GEMINI_API_KEY from .env or system environment to process.env.API_KEY
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || env.API_KEY || '')
+        // String replacement for process.env.API_KEY used by the GenAI SDK
+        'process.env.API_KEY': JSON.stringify(apiKey)
       },
       resolve: {
         alias: {
