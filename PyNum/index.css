@@ -1,24 +1,37 @@
-/* Base styles for PyNum */
+/* Import Google Fonts (if not already handled via link tag) */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap'); */
+
+/* Base styles for PyNum - Combined and Optimized */
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; /* Consolidating font-family for body */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar styles matching the app theme */
+pre, code {
+  font-family: 'Fira Code', monospace; /* Specific font for code elements */
+}
+
+/* Custom Scrollbar styles */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9; 
+  background: transparent; /* Keeping the transparent track from your initial good example for potential dark mode override */
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1; 
   border-radius: 4px;
 }
+.dark ::-webkit-scrollbar-thumb { /* This was in your <style> block, ensuring it's here for dark mode */
+  background: #334155;
+}
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8; 
+}
+.dark ::-webkit-scrollbar-thumb:hover { /* This was in your <style> block, ensuring it's here for dark mode */
+  background: #475569;
 }
