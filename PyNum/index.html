@@ -4,29 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- SEO & Metadata -->
-    <title>PyNum Analysis Studio | Interactive Numerical Methods</title>
-    <meta name="description" content="Master Numerical Analysis with PyNum. Interactive algorithm visualizations, matrix calculators, and an AI-powered math tutor." />
-    <meta name="keywords" content="Numerical Analysis, Root Finding, Matrix Calculator, AI Tutor, Gemini AI, Math Studio" />
+    <!-- Primary SEO & Metadata -->
+    <title>PyNum Analysis Studio | Interactive Numerical Methods & AI Tutor</title>
+    <meta name="description" content="Master numerical analysis with PyNum. Explore interactive algorithm visualizations, a powerful matrix calculator, and an AI-powered math tutor. Learn effectively!" />
+    <meta name="keywords" content="Numerical Analysis, Root Finding, Matrix Calculator, AI Tutor, Gemini AI, Math Studio, Mathematical Algorithms, Interactive Learning, Engineering Math, Scientific Computing" />
     <meta name="author" content="Shahad Uddin" />
     <meta name="theme-color" content="#059669" />
+    <link rel="canonical" href="https://shahaduddin.com/PyNum/" /> <!-- Crucial for avoiding duplicate content issues -->
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Social Media (Facebook, LinkedIn, etc.) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://shahaduddin.com/PyNum/" />
-    <meta property="og:title" content="PyNum Analysis Studio | Interactive Numerical Methods" />
-    <meta property="og:description" content="Visualize complex algorithms and get real-time AI assistance for Numerical Analysis." />
-    <meta property="og:image" content="/PyNum/images/pynum_social_banner.png" />
+    <meta property="og:title" content="PyNum Analysis Studio | Interactive Numerical Methods & AI Tutor" />
+    <meta property="og:description" content="Visualize complex numerical algorithms, solve matrices, and get real-time AI assistance with PyNum. Your ultimate math learning studio." />
+    <meta property="og:image" content="https://shahaduddin.com/PyNum/images/pynum_social_banner.png" />
+    <meta property="og:image:alt" content="PyNum Analysis Studio logo and interface showcasing numerical methods and AI tutor" /> <!-- Alt text for social images -->
 
-    <!-- Favicon & Manifest -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@shahaduddin01" /> <!-- Replace with your Twitter handle if you have one -->
+    <meta name="twitter:creator" content="@shahaduddin01" /> <!-- Replace with your Twitter handle -->
+    <meta name="twitter:url" content="https://shahaduddin.com/PyNum/" />
+    <meta name="twitter:title" content="PyNum Analysis Studio | Interactive Numerical Methods & AI Tutor" />
+    <meta name="twitter:description" content="Master numerical analysis with interactive visualizations, a matrix calculator, and an AI tutor. Explore PyNum today!" />
+    <meta name="twitter:image" content="https://shahaduddin.com/PyNum/images/pynum_social_banner.png" />
+    <meta name="twitter:image:alt" content="PyNum Analysis Studio logo and interface showcasing numerical methods and AI tutor" />
+
+    <!-- Favicon & Web App Manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="/PyNum/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/PyNum/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/PyNum/favicon-16x16.png">
     <link rel="icon" type="image/svg+xml" href="/PyNum/favicon.svg" />
     <link rel="manifest" href="/PyNum/manifest.json" />
 
-    <!-- Styles & Scripts -->
+    <!-- Preconnect for performance (if using external fonts/APIs) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./index.css"> <!-- Your custom CSS -->
+    
+    <!-- Tailwind CSS Configuration (before custom styles potentially) -->
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -41,13 +61,6 @@
       }
     </script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      pre, code {
-        font-family: 'Fira Code', monospace;
-      }
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -71,21 +84,23 @@
       }
     </style>
 
+   <!-- Theme initialization script (before body render) -->
    <script>
       (function() {
+        // Only add 'dark' class if theme is dark, otherwise ensure it's removed for light
         const theme = localStorage.getItem('theme') || 'light';
-        if (theme === 'dark') {
+        if (theme === 'dark' && !document.documentElement.classList.contains('dark')) {
           document.documentElement.classList.add('dark');
+        } else if (theme === 'light' && document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
         }
       })();
     </script>
     
-    <!-- Note: Vite will handle module imports from package.json. Importmaps removed to avoid conflicts. -->
-    <link rel="stylesheet" href="./index.css">
   </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased overflow-hidden selection:bg-emerald-100 selection:text-emerald-900 dark:selection:bg-emerald-900 dark:selection:text-emerald-100">
      <div id="root"></div>
-     <div id="root"></div>
+     <!-- Removed the duplicate <div id="root"></div> - crucial for proper rendering and SEO indexing -->
     <script type="module" src="./main.tsx"></script>
     <!-- Entry point relative to this file for Vite resolver -->
 </body>
