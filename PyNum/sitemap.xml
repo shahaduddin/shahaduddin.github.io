@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main Application Pages -->
+  <url><loc>https://shahaduddin.com/PyNum/</loc><priority>1.0</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/tools/calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/tools/grapher</loc><priority>0.9</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/docs/manual</loc><priority>0.8</priority></url>
+
+  <!-- Roots of Equations -->
+  <url><loc>https://shahaduddin.com/PyNum/#/roots-of-equations/incremental-search-root-location/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/roots-of-equations/bisection-method/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/roots-of-equations/false-position-regula-falsi/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/roots-of-equations/newton-raphson/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/roots-of-equations/secant-method/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/roots-of-equations/fixed-point-iteration/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/roots-of-equations/muller-s-method/demo</loc><priority>0.7</priority></url>
+
+  <!-- Linear Systems -->
+  <url><loc>https://shahaduddin.com/PyNum/#/linear-systems/gaussian-elimination/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/linear-systems/gauss-jordan-elimination/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/linear-systems/jacobi-iteration/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/linear-systems/gauss-seidel-iteration/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/linear-systems/lu-decomposition/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/linear-systems/cholesky-decomposition/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/linear-systems/qr-decomposition/demo</loc><priority>0.7</priority></url>
+
+  <!-- Matrix Operations -->
+  <url><loc>https://shahaduddin.com/PyNum/#/matrix-operations/matrix-addition/demo</loc><priority>0.6</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/matrix-operations/matrix-multiplication/demo</loc><priority>0.6</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/matrix-operations/matrix-inverse/demo</loc><priority>0.6</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/matrix-operations/matrix-determinant/demo</loc><priority>0.6</priority></url>
+
+  <!-- Interpolation -->
+  <url><loc>https://shahaduddin.com/PyNum/#/interpolation/lagrange-interpolation/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/interpolation/newton-divided-difference/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/interpolation/cubic-spline/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/interpolation/newton-forward-difference/demo</loc><priority>0.7</priority></url>
+
+  <!-- Calculus & ODE -->
+  <url><loc>https://shahaduddin.com/PyNum/#/integration/simpson-s-1-3-rule/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/integration/trapezoidal-rule/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/differentiation/central-difference/demo</loc><priority>0.7</priority></url>
+  <url><loc>https://shahaduddin.com/PyNum/#/differential-equations-ode/runge-kutta-4th-order/demo</loc><priority>0.7</priority></url>
+
+  <!-- Resource Files (Theory Section PDFs) -->
+  <url><loc>https://shahaduddin.com/PDF/Bisection_Method.pdf</loc><priority>0.5</priority></url>
+  <url><loc>https://shahaduddin.com/PDF/Newton-Raphson.pdf</loc><priority>0.5</priority></url>
+  <url><loc>https://shahaduddin.com/PDF/Gaussian_Elimination.pdf</loc><priority>0.5</priority></url>
+  <url><loc>https://shahaduddin.com/PDF/LU_Decomposition.pdf</loc><priority>0.5</priority></url>
+  <url><loc>https://shahaduddin.com/PDF/Lagrange_Interpolation.pdf</loc><priority>0.5</priority></url>
+  <url><loc>https://shahaduddin.com/PDF/Simpson's_1/3_Rule.pdf</loc><priority>0.5</priority></url>
+  <url><loc>https://shahaduddin.com/PDF/Runge-Kutta_4th_Order.pdf</loc><priority>0.5</priority></url>
+  
+  <!-- Android Application Resource -->
+  <url><loc>https://shahaduddin.com/APK/PyNum-app-release.apk</loc><priority>0.8</priority></url>
+</urlset>
