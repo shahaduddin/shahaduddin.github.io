@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- ==============================================
+         SEO: Primary Meta Tags 
+         ============================================== -->
+    <!-- Title: Brand | Main Keyword | Secondary Keyword -->
+    <title>PyNum Studio | Interactive Numerical Analysis & Python Solver</title>
+    
+    <!-- Canonical URL: Prevents duplicate content issues -->
+    <link rel="canonical" href="https://shahaduddin.com/PyNum/" />
+    
+    <!-- Description: Action-oriented, includes "Free", mentions languages -->
+    <meta name="description" content="Master Numerical Analysis with real-time simulations and AI tutoring. Get production-ready Python, C++, and Fortran code for Root Finding, Linear Algebra, and ODEs. The ultimate online numerical solver." />
+    
+    <!-- Keywords: Updated with high-volume search terms -->
+    <meta name="keywords" content="numerical analysis solver, bisection method calculator, newton raphson python code, runge kutta visualizer, matrix inverse online, engineering mathematics, interpolation calculator, math AI tutor, shahaduddin" />
+    
+    <meta name="author" content="Shahad Uddin" />
+    <meta name="theme-color" content="#059669" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicon & Web App Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/PyNum/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/PyNum/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/PyNum/favicon-16x16.png">
+    <link rel="manifest" href="./manifest.json" />
+
+
+    <!-- ==============================================
+         Social Media (Open Graph / Facebook)
+         ============================================== -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shahaduddin.com/PyNum/" />
+    <meta property="og:title" content="PyNum Studio - Visualize Numerical Methods Instantly" />
+    <meta property="og:description" content="Interactive simulations for Engineering Math. Visualize Bisection, Newton-Raphson, and Matrix ops in real-time with generated code." />
+    <meta property="og:image" content="https://shahaduddin.com/PyNum/pynum_social_banner.png" />
+    <meta property="og:site_name" content="Shahad Uddin Portfolio" />
+
+    <!-- ==============================================
+         Twitter Cards
+         ============================================== -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://shahaduddin.com/PyNum/" />
+    <meta property="twitter:title" content="PyNum Studio - Advanced Numerical Analysis Solver" />
+    <meta property="twitter:description" content="Visualize algorithms and generate Python code for numerical analysis problems instantly." />
+    <meta property="twitter:image" content="https://shahaduddin.com/PyNum/pynum_social_banner.png" />
+
+    <!-- ==============================================
+         Structured Data (JSON-LD) - CRITICAL FOR RANKING
+         This tells Google this is a Software Application
+         ============================================== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PyNum Studio",
+      "url": "https://shahaduddin.com/PyNum/",
+      "description": "Interactive Numerical Analysis studio with real-time algorithm visualizations, code generation (Python/C++/Fortran), and AI tutoring.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Shahad Uddin",
+        "url": "https://shahaduddin.com"
+      },
+      "featureList": "Root Finding, Linear Algebra Solver, Interpolation, Numerical Integration, ODE Solver"
+    }
+    </script>
+
+    <!-- Tailwind CDN (Optional: Remove this if you build Tailwind into index.css via Vite) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['Fira Code', 'monospace'],
+            },
+          },
+        },
+      }
+    </script>
+
+    <!-- Styles -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+      body { font-family: 'Inter', sans-serif; }
+      pre, code { font-family: 'Fira Code', monospace; }
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      .dark ::-webkit-scrollbar-thumb { background: #334155; }
+      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+      .dark ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+
+    <!-- Theme Logic -->
+    <script>
+      (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <!-- Vite Styles -->
+    <link rel="stylesheet" href="./index.css">
+</head>
+  <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased overflow-hidden selection:bg-emerald-100 selection:text-emerald-900 dark:selection:bg-emerald-900 dark:selection:text-emerald-100">
+    <div id="root"></div>
+    
+    <!-- Vite Main Entry -->
+    <script type="module" src="./index.tsx"></script>
+</body>
+</html>
