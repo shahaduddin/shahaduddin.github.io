@@ -57,8 +57,11 @@ export const Home: React.FC = () => {
                 <a href="/APK/PyNum-app-release.apk" 
               download="PyNum-app-release.apk" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Mobile</a>
             </div>
+
+            {/* {`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}/demo`} */}
+            
             <Link 
-              to={`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}/demo`}
+              to="/tools/calculator"
               className="group bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl flex items-center gap-2"
             >
               Launch App
@@ -97,7 +100,7 @@ export const Home: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
             <Link 
-              to={`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}/demo`}
+              to="/tools/calculator"
               className="w-full sm:w-auto h-16 px-10 rounded-[1.5rem] bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-widest flex items-center justify-center gap-4 shadow-2xl shadow-emerald-600/30 transition-all hover:-translate-y-1 hover:shadow-emerald-600/50 active:scale-95"
             >
               <Play className="w-5 h-5 fill-current" />
