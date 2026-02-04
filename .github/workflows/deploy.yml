@@ -24,14 +24,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          # REMOVE cache: 'npm' since you don't have package-lock.json
+          # It is best practice to commit your package-lock.json to the repo
+          # If you don't have one, this config is fine.
 
       - name: Install dependencies
         run: npm install
           
       - name: Build
         env:
+          # Map to VITE_ for import.meta.env usage
           VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Map to standard name just in case vite.config.ts needs it for 'define'
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npm run build
 
       - name: Upload artifact

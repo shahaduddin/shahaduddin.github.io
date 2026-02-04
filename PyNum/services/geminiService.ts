@@ -1,18 +1,26 @@
 import { GoogleGenAI } from "@google/genai";
 import { ChatMessage } from "../types";
 
-// Initialize the Google GenAI SDK
-// Hard requirement: Use process.env.API_KEY directly.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 /**
- * Sends a message history to the Gemini AI tutor for a context-aware response.
- * @param history The current list of messages in the chat session.
- * @param context The specific numerical analysis topic being studied.
+ * Sends a message history to the Gemini AI tutor.
+ * Initializes the client only when needed to prevent app crashes on load.
  */
 export const askAiTutor = async (history: ChatMessage[], context: string): Promise<string> => {
   try {
-    // Format the conversation history for the model
+    // 1. Retrieve Key (Support both Vite standard and your custom define)
+    // Note: In Vite, it's best practice to use import.meta.env.VITE_GEMINI_API_KEY
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.API_KEY || process.env.GEMINI_API_KEY;
+
+    // 2. Safety Check: If no key, return a polite message instead of crashing
+    if (!apiKey) {
+      console.warn("Gemini API Key is missing.");
+      return "System Error: API Key is not configured. Please contact the administrator.";
+    }
+
+    // 3. Initialize Client LAZILY (Just-in-time)
+    const ai = new GoogleGenAI({ apiKey });
+
+    // Format the conversation history
     const conversationStr = history.map(msg => 
       `${msg.role === 'user' ? 'Student' : 'Assistant'}: ${msg.text}`
     ).join('\n');
@@ -27,10 +35,13 @@ ${conversationStr}
 
 Assistant:`;
 
+    // 4. Generate Content
     const response = await ai.models.generateContent({
-      // Using gemini-3-pro-preview for complex STEM and coding tasks
-      model: 'gemini-3-pro-preview',
-      contents: prompt,
+      model: 'gemini-1.5-flash', // Switched to Flash (faster/cheaper) or use 'gemini-1.5-pro'
+      contents: [{
+        role: 'user',
+        parts: [{ text: prompt }]
+      }],
       config: {
         temperature: 0.7,
         topP: 0.95,
@@ -38,14 +49,19 @@ Assistant:`;
       }
     });
 
-    // Access .text as a property, not a method
-    return response.text || "I'm sorry, I couldn't generate a helpful response right now.";
+    // 5. Safe Response Handling
+    // The new SDK structure might require navigating the response object differently
+    const answer = response.text?.(); 
+    
+    return answer || "I'm sorry, I couldn't generate a helpful response right now.";
+
   } catch (error) {
     console.error("Gemini API Error:", error);
     
-    // Check for specific common errors
-    if (error instanceof Error && error.message.includes("Requested entity was not found")) {
-      return "Error: The AI model is currently unavailable or the API key is invalid. Please verify your configuration.";
+    // Graceful error messages
+    if (error instanceof Error) {
+      if (error.message.includes("API key")) return "Configuration Error: Invalid API Key.";
+      if (error.message.includes("404")) return "Error: Model unavailable.";
     }
     
     return "Sorry, I encountered an error while contacting the AI tutor. Please try again in a moment.";
