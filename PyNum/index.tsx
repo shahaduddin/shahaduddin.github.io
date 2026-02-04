@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
+// Remove BrowserRouter import
 import App from './App';
 
 const rootElement = document.getElementById('root');
@@ -11,9 +11,7 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    {/* Add the basename prop here */}
-    <BrowserRouter basename="/PyNum">
-      <App />
-    </BrowserRouter>
+    {/* Do NOT add BrowserRouter here, because App.tsx already has HashRouter */}
+    <App />
   </React.StrictMode>
 );
