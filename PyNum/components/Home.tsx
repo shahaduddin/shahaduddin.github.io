@@ -104,7 +104,8 @@ export const Home: React.FC = () => {
               Launch Web Studio
             </Link>
             <a 
-              href="#download"
+              href="/APK/PyNum-app-release.apk" 
+              download="PyNum-app-release.apk"
               className="w-full sm:w-auto h-16 px-10 rounded-[1.5rem] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-100 font-black text-xs uppercase tracking-widest flex items-center justify-center gap-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-xl active:scale-95"
             >
               <Smartphone className="w-5 h-5" />
