@@ -195,7 +195,7 @@ export const Home: React.FC = () => {
           <div className="flex flex-col lg:flex-row gap-20 items-start">
             
             {/* Left: Syntax Guide */}
-            <div className="lg:w-1/2 space-y-8 sticky top-32">
+              <div className="lg:w-1/2 space-y-8 lg:sticky lg:top-32">
               <div className="inline-block p-4 rounded-3xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 mb-2">
                 <Command className="w-8 h-8" />
               </div>
