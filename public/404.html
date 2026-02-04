@@ -1,318 +1,320 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found | Redirecting...</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 800px;
-            width: 100%;
-            padding: 40px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: fadeIn 0.8s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .error-code {
-            font-size: 8rem;
-            font-weight: 900;
-            color: #ff6b6b;
-            text-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-            line-height: 1;
-            margin-bottom: 10px;
-            letter-spacing: -5px;
-        }
-        
-        .error-code span {
-            display: inline-block;
-            animation: bounce 2s infinite;
-        }
-        
-        .error-code span:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-        
-        .error-code span:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #f8f9fa;
-        }
-        
-        .message {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: #dee2e6;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .redirect-info {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 30px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .countdown {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #4dabf7;
-            margin: 15px 0;
-            font-family: monospace;
-        }
-        
-        .destination-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #4dabf7;
-            color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(77, 171, 247, 0.4);
-        }
-        
-        .destination-link:hover {
-            background: #339af0;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(77, 171, 247, 0.6);
-        }
-        
-        .destination-link i {
-            font-size: 1.2rem;
-        }
-        
-        .search-box {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            max-width: 500px;
-            margin: 30px auto;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .search-box input {
-            border: none;
-            background: transparent;
-            padding: 12px;
-            width: 100%;
-            font-size: 1rem;
-            outline: none;
-        }
-        
-        .search-box button {
-            background: #4dabf7;
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .search-box button:hover {
-            background: #339af0;
-            transform: scale(1.05);
-        }
-        
-        .help-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        .help-link {
-            background: rgba(255, 255, 255, 0.1);
-            color: #dee2e6;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .help-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .footer {
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #adb5bd;
-            opacity: 0.8;
-        }
-        
-        .pulse {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            background-color: #51cf66;
-            border-radius: 50%;
-            margin-right: 8px;
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(81, 207, 102, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(81, 207, 102, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(81, 207, 102, 0); }
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
-            }
-            
-            .error-code {
-                font-size: 6rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .message {
-                font-size: 1rem;
-            }
-            
-            .countdown {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .error-code {
-                font-size: 4rem;
-            }
-            
-            h1 {
-                font-size: 1.6rem;
-            }
-            
-            .help-links {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="error-code">
-            <span>4</span>
-            <span>0</span>
-            <span>4</span>
-        </div>
-        
-        <h1>Oops! Page Not Found</h1>
-        
-        <p class="message">
-            It seems the page you're looking for doesn't exist or may have been moved. 
-            Don't worry though, we'll automatically redirect you to the main website.
-        </p>
-        
-        <div class="redirect-info">
-            <p><span class="pulse"></span> You will be redirected in <span class="countdown" id="countdown">10</span> seconds</p>
-            <p>Redirecting to:</p>
-            <a href="https://shahaduddin.com/PyNum" class="destination-link" id="redirect-link">
-                <i class="fas fa-external-link-alt"></i>
-                shahaduddin.com
-            </a>
-        </div>
-        
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search for something else...">
-            <button id="searchBtn">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-        
-        <div class="help-links">
-            <a href="https://shahaduddin.com/PyNum" class="help-link">
-                <i class="fas fa-home"></i> Go to Homepage
-            </a>
-            <a href="javascript:history.back()" class="help-link">
-                <i class="fas fa-arrow-left"></i> Go Back
-            </a>
-            <a href="https://shahaduddin.com/#contact" class="help-link">
-                <i class="fas fa-envelope"></i> Contact Support
-            </a>
-        </div>
-    </div>
+    <title>404 - Page Not Found | PyNum Studio</title>
     
-    <div class="footer">
-        <p>© 2023 Shahaduddin.com | 404 Error Page</p>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Page not found. Redirecting to PyNum Studio - Interactive Numerical Analysis & Python Solver">
+    <meta name="theme-color" content="#059669">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/PyNum/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/PyNum/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/PyNum/favicon-16x16.png">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['Fira Code', 'monospace'],
+            },
+            colors: {
+              emerald: {
+                50: '#ecfdf5',
+                100: '#d1fae5',
+                200: '#a7f3d0',
+                300: '#6ee7b7',
+                400: '#34d399',
+                500: '#10b981',
+                600: '#059669',
+                700: '#047857',
+                800: '#065f46',
+                900: '#064e3b',
+              }
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'bounce-slow': 'bounce 2s infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+      body { 
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+      }
+      
+      pre, code { 
+        font-family: 'Fira Code', monospace; 
+      }
+      
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      .dark ::-webkit-scrollbar-thumb { background: #334155; }
+      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+      .dark ::-webkit-scrollbar-thumb:hover { background: #475569; }
+      
+      /* Selection */
+      ::selection {
+        background-color: rgba(16, 185, 129, 0.2);
+        color: #065f46;
+      }
+      
+      .dark ::selection {
+        background-color: rgba(6, 95, 70, 0.5);
+        color: #a7f3d0;
+      }
+      
+      /* Animated background elements */
+      .bg-grid-pattern {
+        background-image: 
+          linear-gradient(to right, rgba(6, 95, 70, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(6, 95, 70, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      
+      .dark .bg-grid-pattern {
+        background-image: 
+          linear-gradient(to right, rgba(167, 243, 208, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(167, 243, 208, 0.05) 1px, transparent 1px);
+      }
+      
+      .math-symbol {
+        font-family: 'Fira Code', monospace;
+        color: #10b981;
+        opacity: 0.7;
+      }
+    </style>
+    
+    <!-- Theme Logic -->
+    <script>
+      (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-emerald-100 selection:text-emerald-900 dark:selection:bg-emerald-900 dark:selection:text-emerald-100">
+    <!-- Animated Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-emerald-300 dark:bg-emerald-700 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20 animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-emerald-400 dark:bg-emerald-600 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20 animate-float" style="animation-delay: -3s;"></div>
+        <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-emerald-200 dark:bg-emerald-800 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20 animate-float" style="animation-delay: -6s;"></div>
+        <div class="bg-grid-pattern absolute inset-0 opacity-30 dark:opacity-10"></div>
     </div>
 
+    <!-- Main Content -->
+    <div class="relative min-h-screen flex flex-col items-center justify-center p-6 z-10">
+        <div class="w-full max-w-4xl mx-auto">
+            <!-- Header with Logo -->
+            <div class="flex items-center justify-center mb-8">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-emerald-700 dark:text-emerald-400">PyNum Studio</h1>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Interactive Numerical Analysis Solver</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 404 Error Content -->
+            <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 md:p-12 border border-slate-200 dark:border-slate-800 mb-8">
+                <!-- Error Code with Math Symbols -->
+                <div class="text-center mb-10">
+                    <div class="inline-flex items-center justify-center mb-6">
+                        <span class="text-9xl font-bold text-emerald-600 dark:text-emerald-500 mr-4">4</span>
+                        <div class="relative">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg">
+                                <span class="text-4xl font-bold text-white">0</span>
+                            </div>
+                            <div class="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-md">
+                                <span class="text-lg font-bold text-white">∂</span>
+                            </div>
+                            <div class="absolute -bottom-2 -left-2 w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center shadow-md">
+                                <span class="text-lg font-bold text-white">∫</span>
+                            </div>
+                        </div>
+                        <span class="text-9xl font-bold text-emerald-600 dark:text-emerald-500 ml-4">4</span>
+                    </div>
+                    
+                    <h1 class="text-4xl font-bold text-slate-800 dark:text-slate-200 mb-4">
+                        Numerical Error Detected
+                    </h1>
+                    
+                    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">
+                        The page you're looking for doesn't exist or has been moved. 
+                        <span class="text-emerald-600 dark:text-emerald-400 font-medium">Returning to the main solver interface in <span id="countdown" class="font-mono font-bold">10</span> seconds.</span>
+                    </p>
+                </div>
+
+                <!-- Redirect Card -->
+                <div class="bg-gradient-to-br from-emerald-50 to-slate-50 dark:from-emerald-900/20 dark:to-slate-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800 mb-8">
+                    <div class="flex flex-col md:flex-row items-center justify-between">
+                        <div class="mb-6 md:mb-0 md:mr-6">
+                            <h3 class="text-xl font-semibold text-emerald-800 dark:text-emerald-300 mb-2">
+                                <span class="inline-block w-3 h-3 rounded-full bg-emerald-500 animate-pulse mr-2"></span>
+                                Automatic Redirection
+                            </h3>
+                            <p class="text-slate-700 dark:text-slate-300">
+                                You're being redirected to PyNum Studio's homepage where you can continue solving numerical analysis problems.
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-col items-center">
+                            <div class="text-center mb-4">
+                                <div class="text-5xl font-mono font-bold text-emerald-600 dark:text-emerald-400 mb-2" id="countdown-large">10</div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">seconds remaining</div>
+                            </div>
+                            
+                            <a href="https://shahaduddin.com/PyNum/" 
+                               class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Go to PyNum Studio Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggested Actions -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-5 border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mr-3">
+                                <span class="text-emerald-600 dark:text-emerald-400 font-mono text-xl">∫</span>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 dark:text-slate-200">Numerical Methods</h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                            Solve root finding, linear algebra, interpolation, and ODE problems with instant code generation.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-5 border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mr-3">
+                                <span class="text-emerald-600 dark:text-emerald-400 font-mono text-xl">∇</span>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 dark:text-slate-200">Real-time Visualization</h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                            Visualize algorithms like Bisection, Newton-Raphson, and Runge-Kutta with interactive graphs.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-5 border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mr-3">
+                                <span class="text-emerald-600 dark:text-emerald-400 font-mono text-xl">Σ</span>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 dark:text-slate-200">Code Generation</h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                            Get production-ready Python, C++, and Fortran code for all numerical methods.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Footer with Home Link -->
+                <div class="text-center pt-6 border-t border-slate-200 dark:border-slate-800">
+                    <p class="text-slate-500 dark:text-slate-400 mb-4">
+                        Need help? Try these options:
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="javascript:history.back()" class="inline-flex items-center px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Go Back
+                        </a>
+                        <a href="https://shahaduddin.com/" class="inline-flex items-center px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                            Portfolio Home
+                        </a>
+                        <a href="https://shahaduddin.com/contact/" class="inline-flex items-center px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Contact Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center text-sm text-slate-500 dark:text-slate-400">
+                <p>© 2023 PyNum Studio | Numerical Analysis Solver | <span class="text-emerald-600 dark:text-emerald-400">404 Error Page</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Math Symbols -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-10 left-10 text-3xl math-symbol animate-float" style="animation-delay: -1s;">∫</div>
+        <div class="absolute top-1/3 right-20 text-4xl math-symbol animate-float" style="animation-delay: -2s;">∑</div>
+        <div class="absolute bottom-1/4 left-20 text-3xl math-symbol animate-float" style="animation-delay: -3s;">∇</div>
+        <div class="absolute bottom-20 right-1/4 text-4xl math-symbol animate-float" style="animation-delay: -4s;">∂</div>
+        <div class="absolute top-1/2 left-1/3 text-2xl math-symbol animate-float" style="animation-delay: -5s;">Δ</div>
+    </div>
+
+    <!-- Script -->
     <script>
-        // Countdown and redirect functionality
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        
+        // Countdown and redirect
         let countdown = 10;
         const countdownElement = document.getElementById('countdown');
-        const redirectLink = document.getElementById('redirect-link');
+        const countdownLargeElement = document.getElementById('countdown-large');
         
         function updateCountdown() {
             countdownElement.textContent = countdown;
+            countdownLargeElement.textContent = countdown;
             
             if (countdown <= 0) {
-                // Redirect to shahaduddin.com
-                window.location.href = "https://shahaduddin.com/PyNum";
+                // Redirect to PyNum Studio
+                window.location.href = "https://shahaduddin.com/PyNum/";
             } else {
                 countdown--;
                 setTimeout(updateCountdown, 1000);
@@ -322,102 +324,29 @@
         // Start the countdown
         updateCountdown();
         
-        // Manual redirect on link click
-        redirectLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Show immediate redirect confirmation
-            countdownElement.textContent = "0";
-            document.querySelector('.redirect-info p').innerHTML = '<span class="pulse"></span> Redirecting now...';
-            setTimeout(() => {
-                window.location.href = "https://shahaduddin.com/PyNum";
-            }, 500);
+        // Add event listeners to redirect links
+        document.querySelectorAll('a[href="https://shahaduddin.com/PyNum/"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Update UI to show immediate redirect
+                countdownElement.textContent = "0";
+                countdownLargeElement.textContent = "0";
+                document.querySelector('.text-emerald-600').innerHTML = 'Redirecting now...';
+                
+                setTimeout(() => {
+                    window.location.href = "https://shahaduddin.com/PyNum/";
+                }, 300);
+            });
         });
         
-        // Search functionality (using Google search)
-        const searchInput = document.getElementById('searchInput');
-        const searchBtn = document.getElementById('searchBtn');
-        
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-        
-        function performSearch() {
-            const query = searchInput.value.trim();
-            if (query) {
-                // Using Google search as an example
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
-            }
-        }
-        
-        // Add some visual effects
+        // Add subtle animation to the 404 numbers
         document.addEventListener('DOMContentLoaded', function() {
-            // Add floating particles effect
-            createParticles();
-            
-            // Add typing effect to the search placeholder
-            const placeholderText = "Search for something else...";
-            let i = 0;
-            function typePlaceholder() {
-                if (i < placeholderText.length) {
-                    searchInput.placeholder += placeholderText.charAt(i);
-                    i++;
-                    setTimeout(typePlaceholder, 50);
-                }
-            }
-            
-            // Start typing effect after a short delay
-            setTimeout(typePlaceholder, 1000);
+            const numbers = document.querySelectorAll('.text-9xl');
+            numbers.forEach((num, index) => {
+                num.style.animationDelay = `${index * 0.2}s`;
+                num.classList.add('animate-bounce-slow');
+            });
         });
-        
-        // Create simple floating particles
-        function createParticles() {
-            const colors = ['rgba(255, 107, 107, 0.5)', 'rgba(77, 171, 247, 0.5)', 'rgba(81, 207, 102, 0.5)'];
-            
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'absolute';
-                particle.style.width = Math.random() * 20 + 5 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.borderRadius = '50%';
-                particle.style.top = Math.random() * 100 + 'vh';
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.zIndex = '-1';
-                particle.style.opacity = Math.random() * 0.5 + 0.2;
-                
-                document.body.appendChild(particle);
-                
-                // Animate particle
-                animateParticle(particle);
-            }
-        }
-        
-        // Animate particle floating
-        function animateParticle(element) {
-            let x = parseFloat(element.style.left);
-            let y = parseFloat(element.style.top);
-            let xSpeed = (Math.random() - 0.5) * 0.5;
-            let ySpeed = (Math.random() - 0.5) * 0.5;
-            
-            function move() {
-                x += xSpeed;
-                y += ySpeed;
-                
-                // Bounce off edges
-                if (x <= 0 || x >= 100) xSpeed = -xSpeed;
-                if (y <= 0 || y >= 100) ySpeed = -ySpeed;
-                
-                element.style.left = x + 'vw';
-                element.style.top = y + 'vh';
-                
-                requestAnimationFrame(move);
-            }
-            
-            move();
-        }
     </script>
 </body>
 </html>
