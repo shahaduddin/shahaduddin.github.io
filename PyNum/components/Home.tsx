@@ -54,7 +54,8 @@ export const Home: React.FC = () => {
             <div className="hidden lg:flex items-center gap-6">
                 <a href="#features" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Features</a>
                 <a href="#docs" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Documentation</a>
-                <a href="#download" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Mobile</a>
+                <a href="/APK/PyNum-app-release.apk" 
+              download="PyNum-app-release.apk" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Mobile</a>
             </div>
             <Link 
               to={`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}/demo`}
@@ -299,20 +300,97 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-20 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 text-center transition-colors">
-        <div className="flex flex-col items-center gap-6">
-            <div className="flex items-center gap-3 opacity-80">
-               <Terminal className="w-6 h-6 text-emerald-600" />
-               <span className="text-lg font-black tracking-tighter uppercase">PyNum Studio</span>
-            </div>
-            <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                <a href="#" className="hover:text-emerald-600 transition-colors">Open Source</a>
-                <a href="#" className="hover:text-emerald-600 transition-colors">Security</a>
-                <a href="#" className="hover:text-emerald-600 transition-colors">Github</a>
-            </div>
-            <p className="text-xs text-slate-400 font-medium">© 2024 PyNum Analysis Engine. Distributed under MIT License.</p>
+      {/* Footer Section */}
+<footer className="relative pt-24 pb-12 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 overflow-hidden transition-colors">
+  
+  {/* Ambient Background Glow matching Hero */}
+  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-emerald-500/5 dark:bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+      
+      {/* Brand Column */}
+      <div className="lg:col-span-5 space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+            <Terminal className="w-5 h-5" />
+          </div>
+          <span className="text-xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
+            PyNum<span className="text-emerald-500">Studio</span>
+          </span>
         </div>
-      </footer>
+        <p className="text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm font-medium">
+          The open-source standard for numerical analysis visualization. 
+          Bridging the gap between theory and production code for engineers worldwide.
+        </p>
+        
+        {/* Newsletter / CTA */}
+        <div className="flex gap-2 max-w-sm pt-2">
+           <input 
+             type="email" 
+             placeholder="Enter email for updates" 
+             className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-xs font-bold focus:outline-none focus:border-emerald-500 transition-colors dark:text-white placeholder:text-slate-400"
+           />
+           <button className="bg-emerald-600 text-white p-3 rounded-xl hover:bg-emerald-500 transition-colors shadow-lg shadow-emerald-600/20">
+             <ArrowRight className="w-4 h-4" />
+           </button>
+        </div>
+      </div>
+
+      {/* Navigation Columns */}
+      <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8">
+        
+        <div className="space-y-6">
+          <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Algorithms</h4>
+          <ul className="space-y-4">
+            <FooterLink to={`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}`}>Root Finding</FooterLink>
+            <FooterLink to={`/${slugify(TopicCategory.LINEAR)}/${slugify(AlgorithmType.GAUSSIAN)}`}>Linear Algebra</FooterLink>
+            <FooterLink to={`/${slugify(TopicCategory.INTERPOLATION)}/${slugify(AlgorithmType.LAGRANGE)}`}>Interpolation</FooterLink>
+            <FooterLink to={`/${slugify(TopicCategory.ODE)}/${slugify(AlgorithmType.RK4)}`}>Differential Eq</FooterLink>
+          </ul>
+        </div>
+
+        <div className="space-y-6">
+          <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Resources</h4>
+          <ul className="space-y-4">
+            <FooterLink to="/docs/manual">Documentation</FooterLink>
+            <FooterLink to="/docs/api">Python API</FooterLink>
+            <a href="/APK/PyNum-app-release.apk" className="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
+              Android APK
+              <span className="text-[9px] bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded font-black uppercase">New</span>
+            </a>
+            <FooterLink to="/tools/grapher">Graphing Tool</FooterLink>
+          </ul>
+        </div>
+
+        <div className="space-y-6">
+          <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Company</h4>
+          <ul className="space-y-4">
+            <FooterLink to="/about">About Us</FooterLink>
+            <FooterLink to="/github">GitHub Repo</FooterLink>
+            <FooterLink to="/license">MIT License</FooterLink>
+            <FooterLink to="/privacy">Privacy Policy</FooterLink>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    {/* Bottom Bar */}
+    <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">
+        © 2026 Shahad Uddin. All rights reserved.
+      </p>
+      
+      {/* Social Icons */}
+      <div className="flex items-center gap-4">
+        <SocialButton icon={Globe} href="https://shahaduddin.com" />
+        <SocialButton icon={Code} href="https://github.com/shahaduddin" />
+        <SocialButton icon={Command} href="#" />
+      </div>
+    </div>
+  </div>
+</footer>
     </div>
   );
 };
@@ -349,4 +427,23 @@ const SyntaxItem = ({ label, example, desc }: { label: string, example: string, 
       <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{desc}</p>
     </div>
   </div>
+);
+
+const FooterLink = ({ to, children }: { to: string, children: React.ReactNode }) => (
+  <li>
+    <Link to={to} className="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors block">
+      {children}
+    </Link>
+  </li>
+);
+
+const SocialButton = ({ icon: Icon, href }: { icon: any, href: string }) => (
+  <a 
+    href={href} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white transition-all duration-300"
+  >
+    <Icon className="w-4 h-4" />
+  </a>
 );
