@@ -31,30 +31,28 @@ export const Home: React.FC = () => {
 // 1. APP DASHBOARD (For Installed Users)
 // ==========================================
 const AppDashboard: React.FC = () => {
-  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  // Removed the 'time' variable as it is no longer needed
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-20">
-      {/* App Header */}
-      <header className="px-6 pt-8 pb-6 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 shadow-sm">
-        <div className="flex justify-between items-center mb-4">
+      
+      {/* App Header - Compact & Fixed */}
+      <header className="px-6 py-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 shadow-sm safe-area-top">
+        <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white">
+            <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white shadow-emerald-500/20 shadow-lg">
               <Terminal className="w-4 h-4" />
             </div>
-            <span className="font-black text-lg tracking-tighter">PyNum</span>
+            <span className="font-black text-lg tracking-tighter text-slate-900 dark:text-white">
+              PyNum<span className="text-emerald-500">Studio</span>
+            </span>
           </div>
+          
+          {/* Status Indicator (Pulse only) */}
           <div className="flex items-center gap-3">
-             <span className="text-xs font-mono font-bold text-slate-400">{time}</span>
-             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]"></div>
           </div>
         </div>
-
-        {/* <div className="space-y-1">
-          <h1 className="text-2xl font-black tracking-tight">System Ready.</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Select a module to begin analysis.</p>
-        </div> */}
-        
       </header>
 
       <div className="p-6 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
