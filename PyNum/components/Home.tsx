@@ -156,161 +156,198 @@ const AppDashboard: React.FC = () => {
 };
 
 // ==========================================
-// 2. WEB LANDING PAGE (Full Code)
+// 2. WEB LANDING PAGE (Dashboard-Matched Theme)
 // ==========================================
 const WebLanding: React.FC = () => {
-  const algorithms = Object.values(AlgorithmType);
-
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-emerald-500/30">
       
-      {/* Animation Styles */}
-      <style>{`
-        @keyframes float {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-          100% { transform: translateY(0px); }
-        }
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-      `}</style>
-
-      {/* Navigation */}
+      {/* Navigation - Matches App Header style */}
       <nav className="fixed w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-all">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <div className="w-9 h-9 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
               <Terminal className="w-5 h-5" />
             </div>
-            <span className="text-xl font-black tracking-tighter">PyNum<span className="text-emerald-500">Studio</span></span>
+            <span className="text-xl font-black tracking-tighter">
+              PyNum<span className="text-emerald-500">Studio</span>
+            </span>
           </div>
-          <div className="flex items-center gap-6">
-            <div className="hidden lg:flex items-center gap-6">
-                <a href="#features" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Features</a>
-                <a href="#docs" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Docs</a>
-                <a href="/APK/PyNum-app-release.apk" 
-              download="PyNum-app-release.apk" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Mobile</a>
+          
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-6 mr-4">
+                <a href="#features" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Modules</a>
+                <a href="#mobile" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Mobile APK</a>
             </div>
-
             <Link 
               to="/tools/calculator"
-              className="group bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl flex items-center gap-2"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
             >
-              Launch App
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              Open Studio
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-40 pb-28 px-6 overflow-hidden">
-        <div className="absolute inset-0 -z-10 w-full h-full overflow-hidden">
-            <div className="absolute top-[-10%] left-[10%] w-[500px] h-[500px] bg-emerald-400/20 dark:bg-emerald-600/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] opacity-70 animate-blob"></div>
-            <div className="absolute bottom-[-10%] right-[10%] w-[500px] h-[500px] bg-blue-400/20 dark:bg-blue-600/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] opacity-70 animate-blob animation-delay-2000"></div>
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-[0.03] dark:opacity-[0.07] pointer-events-none"></div>
-        </div>
+      <main className="pt-24 pb-20 px-6 max-w-7xl mx-auto space-y-16">
         
-        <div className="max-w-6xl mx-auto flex flex-col items-center text-center relative z-10">
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/50 border border-emerald-100/50 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000 backdrop-blur-md shadow-sm">
-            <Sparkles className="w-3.5 h-3.5" />
-            Empowering the next generation of engineers
-          </div>
-          
-          <h1 className="text-6xl md:text-8xl font-black tracking-[-0.04em] text-slate-900 dark:text-white leading-[0.9] mb-8 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-100">
-            Precision <br className="hidden md:block" /> 
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-emerald-400 via-emerald-600 to-blue-600">Calculations</span> 
-            <br className="hidden md:block" /> at scale.
-          </h1>
-          
-          <p className="text-lg md:text-2xl text-slate-500 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium mb-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-            A world-class suite of numerical analysis tools. Visualize complex math, 
-            benchmarked algorithms, and production-ready Python implementations in one immersive studio.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
-            <Link 
-              to="/tools/calculator"
-              className="w-full sm:w-auto h-16 px-10 rounded-[1.5rem] bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-widest flex items-center justify-center gap-4 shadow-2xl shadow-emerald-600/30 transition-all hover:-translate-y-1 hover:shadow-emerald-600/50 active:scale-95"
-            >
-              <Play className="w-5 h-5 fill-current" />
-              Launch Web Studio
-            </Link>
-            <a 
-              href="/APK/PyNum-app-release.apk" 
-              download="PyNum-app-release.apk"
-              className="w-full sm:w-auto h-16 px-10 rounded-[1.5rem] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-100 font-black text-xs uppercase tracking-widest flex items-center justify-center gap-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-xl active:scale-95"
-            >
-              <Smartphone className="w-5 h-5" />
-              Download APK
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="py-32 bg-white dark:bg-slate-900 border-y border-slate-100 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <FeatureCard icon={Zap} title="Roots of Equations" desc="Bisection, Newton-Raphson, and Muller's Method." color="emerald" />
-            <FeatureCard icon={Grid3X3} title="Linear Algebra" desc="Gaussian, LU/QR/Cholesky Decompositions." color="blue" />
-            <FeatureCard icon={Cpu} title="Interpolation" desc="Lagrange, Newton Divided Difference, Splines." color="purple" />
-            <FeatureCard icon={Command} title="Calculus Suite" desc="Numerical integration and ODE solvers." color="amber" />
-            <FeatureCard icon={Terminal} title="Multi-Lang Code" desc="Python, C++, and Fortran implementations." color="slate" />
-            <FeatureCard icon={Globe} title="Web & Mobile Sync" desc="Access your calculations anywhere." color="indigo" />
-          </div>
-        </div>
-      </section>
-
-      {/* Docs */}
-      <section id="docs" className="py-32 bg-slate-50 dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto px-6">
-           <div className="flex flex-col lg:flex-row gap-20 items-start">
-              <div className="lg:w-1/2 space-y-8">
-                <h2 className="text-4xl font-black tracking-tight">Theory Repository.</h2>
-                <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 shadow-sm border border-slate-200 dark:border-slate-800 space-y-6">
-                  <SyntaxItem label="Exponents" example="x^2" desc="Natural power notation" />
-                  <SyntaxItem label="Trigonometry" example="sin(x)" desc="Full constant support" />
-                </div>
+        {/* Hero Section: Dashboard Preview Style */}
+        <section className="relative">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950 border border-emerald-100 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest">
+                <Sparkles className="w-3 h-3" />
+                V2.2.4 Stable Release
               </div>
-              <div className="lg:w-1/2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {algorithms.slice(0, 6).map((algo, i) => (
-                    <div key={i} className="flex items-center p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl">
-                       <FileText className="w-5 h-5 mr-3 text-slate-400" />
-                       <span className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-slate-300 truncate">{algo}</span>
-                    </div>
-                  ))}
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-slate-900 dark:text-white">
+                Numerical Analysis <br />
+                <span className="text-emerald-600">Redefined.</span>
+              </h1>
+              <p className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-md">
+                A high-performance studio for engineering mathematics. Real-time visualizations, symbolic engines, and production-ready code.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                 <Link to="/tools/calculator" className="flex items-center gap-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-4 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:scale-105 transition-transform">
+                    <Play className="w-4 h-4 fill-current" />
+                    Launch Web App
+                 </Link>
+                 <a href="/APK/PyNum-app-release.apk" download className="flex items-center gap-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-6 py-4 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                    <Download className="w-4 h-4" />
+                    Get APK
+                 </a>
+              </div>
+            </div>
+
+            {/* Visual Feature Grid (Mimics the Dashboard) */}
+            <div className="lg:col-span-7 grid grid-cols-2 gap-4">
+               <div className="space-y-4 pt-8">
+                  <div className="bg-emerald-600 p-6 rounded-[2rem] text-white shadow-xl shadow-emerald-600/20">
+                    <Calculator className="w-8 h-8 mb-4 opacity-50" />
+                    <h3 className="font-bold text-xl mb-1">Sci-Calc</h3>
+                    <p className="text-emerald-100 text-xs font-medium">Symbolic math engine for complex evaluations.</p>
+                  </div>
+                  <AppModuleCard 
+                    to={`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}/demo`}
+                    title="Root Finding" desc="Bisection & Newton" icon={Zap} color="emerald"
+                  />
+               </div>
+               <div className="space-y-4">
+                  <div className="bg-white dark:bg-slate-800 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <Activity className="w-8 h-8 mb-4 text-blue-500" />
+                    <h3 className="font-bold text-xl mb-1">Grapher</h3>
+                    <p className="text-slate-400 text-xs font-medium">Interactive 2D function plotter with zoom.</p>
+                  </div>
+                  <AppModuleCard 
+                    to={`/${slugify(TopicCategory.LINEAR)}/${slugify(AlgorithmType.GAUSSIAN)}/demo`}
+                    title="Linear Systems" desc="Matrix Decompositions" icon={Grid3X3} color="blue"
+                  />
+                  <AppModuleCard 
+                    to={`/${slugify(TopicCategory.ODE)}/${slugify(AlgorithmType.RK4)}/demo`}
+                    title="Calculus" desc="ODEs & Integration" icon={Command} color="amber"
+                  />
+               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Modular Features Section */}
+        <section id="features" className="space-y-8">
+          <div className="flex items-center gap-2 opacity-70">
+            <LayoutGrid className="w-4 h-4 text-emerald-500" />
+            <span className="text-[10px] font-black uppercase tracking-widest">All Core Libraries</span>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+             <FeatureDetailCard 
+                title="Iterative Solvers" 
+                desc="High-precision root finding using Bisection, Regula-Falsi, and Newton-Raphson methods."
+                icon={Zap}
+                algorithms={["Bisection", "Newton-Raphson", "Secant"]}
+             />
+             <FeatureDetailCard 
+                title="Matrix Studio" 
+                desc="Full suite for linear algebra: LU, QR, Cholesky decompositions and Gaussian elimination."
+                icon={Grid3X3}
+                algorithms={["Gaussian", "LU/QR", "Jacobi/Seidel"]}
+             />
+             <FeatureDetailCard 
+                title="Interpolation" 
+                desc="Map discrete data to continuous functions using Splines and Lagrange polynomials."
+                icon={Cpu}
+                algorithms={["Cubic Spline", "Lagrange", "Newton"]}
+             />
+          </div>
+        </section>
+
+        {/* Documentation/Mobile Section */}
+        <section id="mobile" className="grid md:grid-cols-2 gap-6">
+           <div className="p-8 bg-indigo-600 rounded-[2.5rem] text-white flex flex-col justify-between overflow-hidden relative">
+              <Smartphone className="absolute -bottom-10 -right-10 w-64 h-64 text-white/10 rotate-12" />
+              <div className="relative z-10">
+                <h3 className="text-3xl font-black tracking-tight mb-4">Take the studio <br />with you.</h3>
+                <p className="text-indigo-100 text-sm font-medium max-w-xs mb-8">
+                  Install the PWA or download the native Android APK for a full offline experience.
+                </p>
+                <a href="/APK/PyNum-app-release.apk" download className="inline-flex items-center gap-2 bg-white text-indigo-600 px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest">
+                  Download APK
+                </a>
               </div>
            </div>
-        </div>
-      </section>
+
+           <div className="p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] flex flex-col justify-between">
+              <div>
+                <div className="p-3 bg-emerald-50 dark:bg-emerald-900/30 w-fit rounded-xl text-emerald-600 mb-6">
+                  <Book className="w-6 h-6" />
+                </div>
+                <h3 className="text-3xl font-black tracking-tight mb-4">Theoretical <br />Reference.</h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm font-medium max-w-xs">
+                  In-depth documentation for every algorithm with step-by-step mathematical proofs.
+                </p>
+              </div>
+              <Link to="/docs/manual" className="flex items-center gap-2 text-emerald-600 font-black text-[10px] uppercase tracking-widest mt-8">
+                View Documentation <ArrowRight className="w-4 h-4" />
+              </Link>
+           </div>
+        </section>
+      </main>
 
       {/* Footer */}
-      <footer className="relative pt-24 pb-12 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-          <div className="max-w-7xl mx-auto px-6 text-center">
-             <div className="flex items-center justify-center gap-3 mb-6">
-                <Terminal className="w-6 h-6 text-emerald-600" />
-                <span className="text-lg font-black tracking-tighter uppercase">PyNum Studio</span>
+      <footer className="py-12 border-t border-slate-200 dark:border-slate-800">
+          <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+             <div className="flex items-center gap-2">
+                <Terminal className="w-5 h-5 text-emerald-600" />
+                <span className="font-black text-sm tracking-tighter uppercase">PyNum Studio</span>
              </div>
-             <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">© 2026 Shahad Uddin. All rights reserved.</p>
+             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">© 2026 Shahad Uddin. Built for Engineers.</p>
           </div>
       </footer>
     </div>
   );
 };
+
+// ==========================================
+// NEW SHARED COMPONENT
+// ==========================================
+
+const FeatureDetailCard = ({ icon: Icon, title, desc, algorithms }: any) => (
+  <div className="p-8 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group hover:border-emerald-500/50 transition-all shadow-sm">
+    <div className="flex items-center justify-between mb-6">
+       <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-2xl text-slate-600 dark:text-slate-300 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+          <Icon className="w-6 h-6" />
+       </div>
+       <ChevronRight className="w-4 h-4 text-slate-300" />
+    </div>
+    <h3 className="font-black text-xl mb-3 uppercase tracking-tight">{title}</h3>
+    <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-6">{desc}</p>
+    <div className="flex flex-wrap gap-2">
+      {algorithms.map((algo: string) => (
+        <span key={algo} className="text-[9px] font-black uppercase tracking-widest px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-md">
+          {algo}
+        </span>
+      ))}
+    </div>
+  </div>
+);
 
 // ==========================================
 // SHARED COMPONENTS
