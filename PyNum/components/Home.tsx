@@ -1,14 +1,192 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Smartphone, Monitor, ChevronRight, Download, Terminal, 
   Cpu, Grid3X3, Activity, Command, Apple, Play, ShieldCheck, FileText, Book,
-  Code, Sparkles, Zap, BrainCircuit, Globe, ArrowRight
+  Code, Sparkles, Zap, BrainCircuit, Globe, ArrowRight, Calculator,
+  TrendingUp, Clock, Settings, Search, LayoutGrid
 } from 'lucide-react';
 import { slugify } from '../App';
 import { TopicCategory, AlgorithmType } from '../types';
 
+// ==========================================
+// MAIN WRAPPER (Detects Web vs App)
+// ==========================================
 export const Home: React.FC = () => {
+  const [isAppMode, setIsAppMode] = useState(false);
+
+  useEffect(() => {
+    // Detect if running as PWA (standalone) or inside a TWA/Webview
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
+                      || (window.navigator as any).standalone 
+                      || document.referrer.includes('android-app://');
+    
+    setIsAppMode(isStandalone);
+  }, []);
+
+  return isAppMode ? <AppDashboard /> : <WebLanding />;
+};
+
+// ==========================================
+// 1. APP DASHBOARD (For Installed Users)
+// ==========================================
+const AppDashboard: React.FC = () => {
+  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  return (
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-20">
+      {/* App Header */}
+      <header className="px-6 pt-8 pb-6 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 shadow-sm">
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white">
+              <Terminal className="w-4 h-4" />
+            </div>
+            <span className="font-black text-lg tracking-tighter">PyNum</span>
+          </div>
+          <div className="flex items-center gap-3">
+             <span className="text-xs font-mono font-bold text-slate-400">{time}</span>
+             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+          </div>
+        </div>
+        
+        <div className="space-y-1">
+          <h1 className="text-2xl font-black tracking-tight">System Ready.</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Select a module to begin analysis.</p>
+        </div>
+      </header>
+
+      <div className="p-6 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        
+        {/* Primary Tools Grid */}
+        <section>
+          <div className="flex items-center gap-2 mb-4 opacity-70">
+            <Sparkles className="w-4 h-4 text-emerald-500" />
+            <span className="text-[10px] font-black uppercase tracking-widest">Quick Tools</span>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Link to="/tools/calculator" className="col-span-1 bg-emerald-600 text-white p-5 rounded-3xl shadow-lg shadow-emerald-600/20 active:scale-95 transition-transform relative overflow-hidden group">
+               <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <Calculator className="w-16 h-16" />
+               </div>
+               <div className="relative z-10 h-full flex flex-col justify-between space-y-4">
+                  <div className="p-2 bg-white/20 w-fit rounded-xl backdrop-blur-md">
+                    <Calculator className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg leading-none mb-1">Sci-Calc</h3>
+                    <p className="text-emerald-100 text-xs">Symbolic Engine</p>
+                  </div>
+               </div>
+            </Link>
+
+            <Link to="/tools/grapher" className="col-span-1 bg-white dark:bg-slate-800 p-5 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95 transition-transform relative overflow-hidden group">
+               <div className="absolute -bottom-4 -right-4 text-slate-100 dark:text-slate-700">
+                  <TrendingUp className="w-20 h-20 opacity-50" />
+               </div>
+               <div className="relative z-10 h-full flex flex-col justify-between space-y-4">
+                  <div className="p-2 bg-slate-100 dark:bg-slate-700 w-fit rounded-xl text-slate-600 dark:text-slate-300">
+                    <Activity className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg leading-none mb-1 text-slate-900 dark:text-white">Grapher</h3>
+                    <p className="text-slate-400 text-xs">2D Plotter</p>
+                  </div>
+               </div>
+            </Link>
+          </div>
+        </section>
+
+        {/* Categories / Modules */}
+        <section>
+           <div className="flex items-center gap-2 mb-4 opacity-70">
+            <LayoutGrid className="w-4 h-4 text-blue-500" />
+            <span className="text-[10px] font-black uppercase tracking-widest">Core Libraries</span>
+          </div>
+          
+          <div className="space-y-3">
+             <AppModuleCard 
+                to={`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}/demo`}
+                title="Root Finding"
+                desc="Bisection, Newton, Secant"
+                icon={Zap}
+                color="emerald"
+             />
+             <AppModuleCard 
+                to={`/${slugify(TopicCategory.LINEAR)}/${slugify(AlgorithmType.GAUSSIAN)}/demo`}
+                title="Linear Algebra"
+                desc="Matrix Ops, Decompositions"
+                icon={Grid3X3}
+                color="blue"
+             />
+             <AppModuleCard 
+                to={`/${slugify(TopicCategory.INTERPOLATION)}/${slugify(AlgorithmType.LAGRANGE)}/demo`}
+                title="Interpolation"
+                desc="Splines, Lagrange, Curves"
+                icon={Cpu}
+                color="purple"
+             />
+             <AppModuleCard 
+                to={`/${slugify(TopicCategory.ODE)}/${slugify(AlgorithmType.RK4)}/demo`}
+                title="Calculus & ODEs"
+                desc="Integration, Runge-Kutta"
+                icon={Command}
+                color="amber"
+             />
+          </div>
+        </section>
+
+        {/* Documentation / Help */}
+        <section>
+          <Link to="/docs/manual" className="flex items-center justify-between p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl border border-indigo-100 dark:border-indigo-800/50 active:scale-95 transition-transform">
+             <div className="flex items-center gap-4">
+                <div className="p-2 bg-white dark:bg-indigo-900 rounded-xl text-indigo-600 dark:text-indigo-300">
+                   <Book className="w-5 h-5" />
+                </div>
+                <div>
+                   <h4 className="font-bold text-slate-900 dark:text-white text-sm">Reference Manual</h4>
+                   <p className="text-xs text-slate-500 dark:text-slate-400">Offline Documentation</p>
+                </div>
+             </div>
+             <ChevronRight className="w-4 h-4 text-indigo-400" />
+          </Link>
+        </section>
+
+        <div className="text-center pt-8">
+           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">v2.2.4 (Stable)</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AppModuleCard = ({ to, title, desc, icon: Icon, color }: any) => {
+  const colors: any = {
+    emerald: "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20",
+    blue: "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20",
+    purple: "text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20",
+    amber: "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20",
+  };
+
+  return (
+    <Link to={to} className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm active:scale-[0.98] transition-all">
+      <div className={`p-3 rounded-xl ${colors[color]}`}>
+        <Icon className="w-5 h-5" />
+      </div>
+      <div className="flex-1">
+        <h4 className="font-bold text-slate-900 dark:text-white text-sm">{title}</h4>
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{desc}</p>
+      </div>
+      <ChevronRight className="w-4 h-4 text-slate-300" />
+    </Link>
+  );
+};
+
+
+// ==========================================
+// 2. WEB LANDING PAGE (Original Marketing Page)
+// ==========================================
+const WebLanding: React.FC = () => {
   const algorithms = Object.values(AlgorithmType);
 
   return (
@@ -58,8 +236,6 @@ export const Home: React.FC = () => {
               download="PyNum-app-release.apk" className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-600 transition-colors">Mobile</a>
             </div>
 
-            {/* {`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}/demo`} */}
-            
             <Link 
               to="/tools/calculator"
               className="group bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl flex items-center gap-2"
@@ -303,98 +479,97 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Footer */}
       {/* Footer Section */}
-<footer className="relative pt-24 pb-12 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 overflow-hidden transition-colors">
-  
-  {/* Ambient Background Glow matching Hero */}
-  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-emerald-500/5 dark:bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+      <footer className="relative pt-24 pb-12 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 overflow-hidden transition-colors">
+        
+        {/* Ambient Background Glow matching Hero */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-emerald-500/5 dark:bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-  <div className="max-w-7xl mx-auto px-6 relative z-10">
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
-      
-      {/* Brand Column */}
-      <div className="lg:col-span-5 space-y-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
-            <Terminal className="w-5 h-5" />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+            
+            {/* Brand Column */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+                  <Terminal className="w-5 h-5" />
+                </div>
+                <span className="text-xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
+                  PyNum<span className="text-emerald-500">Studio</span>
+                </span>
+              </div>
+              <p className="text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm font-medium">
+                The open-source standard for numerical analysis visualization. 
+                Bridging the gap between theory and production code for engineers worldwide.
+              </p>
+              
+              {/* Newsletter / CTA */}
+              <div className="flex gap-2 max-w-sm pt-2">
+                 <input 
+                   type="email" 
+                   placeholder="Enter email for updates" 
+                   className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-xs font-bold focus:outline-none focus:border-emerald-500 transition-colors dark:text-white placeholder:text-slate-400"
+                 />
+                 <button className="bg-emerald-600 text-white p-3 rounded-xl hover:bg-emerald-500 transition-colors shadow-lg shadow-emerald-600/20">
+                   <ArrowRight className="w-4 h-4" />
+                 </button>
+              </div>
+            </div>
+
+            {/* Navigation Columns */}
+            <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8">
+              
+              <div className="space-y-6">
+                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Algorithms</h4>
+                <ul className="space-y-4">
+                  <FooterLink to={`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}`}>Root Finding</FooterLink>
+                  <FooterLink to={`/${slugify(TopicCategory.LINEAR)}/${slugify(AlgorithmType.GAUSSIAN)}`}>Linear Algebra</FooterLink>
+                  <FooterLink to={`/${slugify(TopicCategory.INTERPOLATION)}/${slugify(AlgorithmType.LAGRANGE)}`}>Interpolation</FooterLink>
+                  <FooterLink to={`/${slugify(TopicCategory.ODE)}/${slugify(AlgorithmType.RK4)}`}>Differential Eq</FooterLink>
+                </ul>
+              </div>
+
+              <div className="space-y-6">
+                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Resources</h4>
+                <ul className="space-y-4">
+                  <FooterLink to="/docs/manual">Documentation</FooterLink>
+                  <FooterLink to="/docs/api">Python API</FooterLink>
+                  <a href="/APK/PyNum-app-release.apk" className="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
+                    Android APK
+                    <span className="text-[9px] bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded font-black uppercase">New</span>
+                  </a>
+                  <FooterLink to="/tools/grapher">Graphing Tool</FooterLink>
+                </ul>
+              </div>
+
+              <div className="space-y-6">
+                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Company</h4>
+                <ul className="space-y-4">
+                  <FooterLink to="/about">About Us</FooterLink>
+                  <FooterLink to="/github">GitHub Repo</FooterLink>
+                  <FooterLink to="/license">MIT License</FooterLink>
+                  <FooterLink to="/privacy">Privacy Policy</FooterLink>
+                </ul>
+              </div>
+
+            </div>
           </div>
-          <span className="text-xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
-            PyNum<span className="text-emerald-500">Studio</span>
-          </span>
-        </div>
-        <p className="text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm font-medium">
-          The open-source standard for numerical analysis visualization. 
-          Bridging the gap between theory and production code for engineers worldwide.
-        </p>
-        
-        {/* Newsletter / CTA */}
-        <div className="flex gap-2 max-w-sm pt-2">
-           <input 
-             type="email" 
-             placeholder="Enter email for updates" 
-             className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-xs font-bold focus:outline-none focus:border-emerald-500 transition-colors dark:text-white placeholder:text-slate-400"
-           />
-           <button className="bg-emerald-600 text-white p-3 rounded-xl hover:bg-emerald-500 transition-colors shadow-lg shadow-emerald-600/20">
-             <ArrowRight className="w-4 h-4" />
-           </button>
-        </div>
-      </div>
 
-      {/* Navigation Columns */}
-      <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8">
-        
-        <div className="space-y-6">
-          <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Algorithms</h4>
-          <ul className="space-y-4">
-            <FooterLink to={`/${slugify(TopicCategory.ROOTS)}/${slugify(AlgorithmType.BISECTION)}`}>Root Finding</FooterLink>
-            <FooterLink to={`/${slugify(TopicCategory.LINEAR)}/${slugify(AlgorithmType.GAUSSIAN)}`}>Linear Algebra</FooterLink>
-            <FooterLink to={`/${slugify(TopicCategory.INTERPOLATION)}/${slugify(AlgorithmType.LAGRANGE)}`}>Interpolation</FooterLink>
-            <FooterLink to={`/${slugify(TopicCategory.ODE)}/${slugify(AlgorithmType.RK4)}`}>Differential Eq</FooterLink>
-          </ul>
+          {/* Bottom Bar */}
+          <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">
+              © 2026 Shahad Uddin. All rights reserved.
+            </p>
+            
+            {/* Social Icons */}
+            <div className="flex items-center gap-4">
+              <SocialButton icon={Globe} href="https://shahaduddin.com" />
+              <SocialButton icon={Code} href="https://github.com/shahaduddin" />
+              <SocialButton icon={Command} href="#" />
+            </div>
+          </div>
         </div>
-
-        <div className="space-y-6">
-          <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Resources</h4>
-          <ul className="space-y-4">
-            <FooterLink to="/docs/manual">Documentation</FooterLink>
-            <FooterLink to="/docs/api">Python API</FooterLink>
-            <a href="/APK/PyNum-app-release.apk" className="text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
-              Android APK
-              <span className="text-[9px] bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded font-black uppercase">New</span>
-            </a>
-            <FooterLink to="/tools/grapher">Graphing Tool</FooterLink>
-          </ul>
-        </div>
-
-        <div className="space-y-6">
-          <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Company</h4>
-          <ul className="space-y-4">
-            <FooterLink to="/about">About Us</FooterLink>
-            <FooterLink to="/github">GitHub Repo</FooterLink>
-            <FooterLink to="/license">MIT License</FooterLink>
-            <FooterLink to="/privacy">Privacy Policy</FooterLink>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-
-    {/* Bottom Bar */}
-    <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">
-        © 2026 Shahad Uddin. All rights reserved.
-      </p>
-      
-      {/* Social Icons */}
-      <div className="flex items-center gap-4">
-        <SocialButton icon={Globe} href="https://shahaduddin.com" />
-        <SocialButton icon={Code} href="https://github.com/shahaduddin" />
-        <SocialButton icon={Command} href="#" />
-      </div>
-    </div>
-  </div>
-</footer>
+      </footer>
     </div>
   );
 };
