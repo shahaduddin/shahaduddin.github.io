@@ -49,11 +49,12 @@ const AppDashboard: React.FC = () => {
              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
           </div>
         </div>
-        
-        <div className="space-y-1">
+
+        {/* <div className="space-y-1">
           <h1 className="text-2xl font-black tracking-tight">System Ready.</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Select a module to begin analysis.</p>
-        </div>
+        </div> */}
+        
       </header>
 
       <div className="p-6 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
