@@ -458,7 +458,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
             <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-950/50 backdrop-blur-md shrink-0">
               <div className="flex items-center gap-3">
                 <Activity className="text-emerald-500" size={18} />
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Visual Plot</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Plot</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-px h-4 bg-slate-200 dark:bg-slate-800 mx-1"></div>
