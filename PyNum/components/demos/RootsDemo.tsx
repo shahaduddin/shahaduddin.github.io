@@ -327,7 +327,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
           {isIncrementalSearch ? (
              <section className="bg-white dark:bg-slate-900 rounded-[2rem] p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden relative">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-500 flex items-center justify-center">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-500 flex items-center justify-center">
                     <Search size={20} />
                   </div>
                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Domain Analysis Configuration</span>
@@ -336,10 +336,10 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
                 <div className="flex flex-col gap-6">
                    {/* Equation Input */}
                    <div className="relative group">
-                      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-500 font-mono font-black italic text-base">f(x)=</div>
+                      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500 font-mono font-black italic text-base">f(x)=</div>
                       <input 
                         type="text" value={funcStr} onChange={e => { setFuncStr(e.target.value); setFoundBrackets([]); }}
-                        className="w-full h-14 bg-slate-50 dark:bg-slate-950 border-2 border-slate-100 dark:border-slate-800 rounded-2xl pl-16 pr-4 font-mono text-sm focus:border-blue-500 outline-none transition-all shadow-inner"
+                        className="w-full h-14 bg-slate-50 dark:bg-slate-950 border-2 border-slate-100 dark:border-slate-800 rounded-2xl pl-16 pr-4 font-mono text-sm focus:border-emerald-500 outline-none transition-all shadow-inner"
                       />
                    </div>
 
@@ -360,7 +360,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
                    <button 
                       onClick={scanIntervals} 
                       disabled={isScanning}
-                      className="w-full h-12 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] active:shadow-sm duration-150 text-white font-black rounded-xl transition-all shadow-lg shadow-blue-600/20 text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
+                      className="w-full h-12 bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] active:shadow-sm duration-150 text-white font-black rounded-xl transition-all shadow-lg shadow-emerald-600/20 text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
                     >
                       {isScanning ? <Activity className="animate-spin" size={16}/> : <Zap size={16}/>}
                       {isScanning ? 'Scanning...' : 'Analyze Domain'}
@@ -377,7 +377,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
                            {foundBrackets.map((b, i) => (
                              <div 
                                key={i} 
-                               className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-lg text-[10px] font-mono font-bold text-blue-700 dark:text-blue-300"
+                               className="px-3 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-900/30 rounded-lg text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-300"
                              >
                                [{b.low.toFixed(2)}, {b.high.toFixed(2)}]
                              </div>
@@ -423,7 +423,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
                   </button>
                   <button 
                     onClick={() => setShowScanner(!showScanner)} 
-                    className={`flex-1 h-full rounded-2xl border-2 flex items-center justify-center gap-2 transition-all active:scale-95 duration-150 ${showScanner ? 'bg-amber-500 border-amber-500 text-white shadow-lg shadow-amber-500/20' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:text-amber-600 hover:border-amber-300'}`}
+                    className={`flex-1 h-full rounded-2xl border-2 flex items-center justify-center gap-2 transition-all active:scale-95 duration-150 ${showScanner ? 'bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:text-emerald-600 hover:border-emerald-300'}`}
                     title="Detect Intervals"
                   >
                     <Compass size={18} />
@@ -445,13 +445,13 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
               </section>
 
               {showScanner && (
-                <section className="bg-amber-50 dark:bg-amber-900/10 rounded-[2rem] p-6 border border-amber-200 dark:border-amber-900/20 animate-in slide-in-from-top-4">
+                <section className="bg-emerald-50 dark:bg-emerald-900/10 rounded-[2rem] p-6 border border-emerald-200 dark:border-emerald-900/20 animate-in slide-in-from-top-4">
                   <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3 text-amber-700 dark:text-amber-400">
+                    <div className="flex items-center gap-3 text-emerald-700 dark:text-emerald-400">
                       <Compass size={18} strokeWidth={2.5} />
                       <span className="text-[10px] font-black uppercase tracking-widest">Bracket Scanner</span>
                     </div>
-                    <button onClick={() => setFoundBrackets([])} className="p-1.5 text-amber-400 hover:text-amber-700 transition-transform active:scale-75 duration-150"><Trash2 size={16} /></button>
+                    <button onClick={() => setFoundBrackets([])} className="p-1.5 text-emerald-400 hover:text-emerald-700 transition-transform active:scale-75 duration-150"><Trash2 size={16} /></button>
                   </div>
                   <div className="grid grid-cols-3 gap-3 mb-6">
                     <ModernInput label="Start" value={scanRange.start} onChange={v => setScanRange(s => ({...s, start: v}))} light />
@@ -461,7 +461,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
                   <button 
                     onClick={scanIntervals} 
                     disabled={isScanning}
-                    className="w-full h-11 bg-amber-600 hover:bg-amber-500 active:scale-[0.98] active:shadow-sm duration-150 text-white font-black rounded-xl transition-all shadow-lg shadow-amber-600/20 text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full h-11 bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] active:shadow-sm duration-150 text-white font-black rounded-xl transition-all shadow-lg shadow-emerald-600/20 text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {isScanning ? 'Scanning...' : 'Detect Intervals'}
                   </button>
@@ -471,7 +471,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
                         <button 
                           key={i} 
                           onClick={() => { setP1Str(b.low.toString()); setP2Str(b.high.toString()); }} 
-                          className="px-3 py-1.5 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-900/30 rounded-lg text-[9px] font-mono font-bold text-amber-700 hover:bg-amber-50 active:scale-95 active:bg-amber-100 transition-all shadow-sm duration-150"
+                          className="px-3 py-1.5 bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-900/30 rounded-lg text-[9px] font-mono font-bold text-emerald-700 hover:bg-emerald-50 active:scale-95 active:bg-emerald-100 transition-all shadow-sm duration-150"
                         >
                           [{b.low.toFixed(2)}, {b.high.toFixed(2)}]
                         </button>
@@ -487,7 +487,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
           {(iterations.length > 0 || (isIncrementalSearch && foundBrackets.length > 0)) && (
             <section className="bg-white dark:bg-slate-900 rounded-[2rem] p-6 border border-slate-200 dark:border-slate-800 shadow-sm animate-in fade-in slide-in-from-left-4">
               <div className="flex items-center gap-3 mb-6">
-                <Target className={isIncrementalSearch ? "text-blue-500" : "text-emerald-500"} size={18} />
+                <Target className={isIncrementalSearch ? "text-emerald-500" : "text-emerald-500"} size={18} />
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                   {isIncrementalSearch ? "Scan Summary" : "Analysis Result"}
                 </span>
@@ -504,7 +504,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
                              {foundBrackets.length}
                           </p>
                         </div>
-                        <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 flex items-center justify-center">
                            <Search size={20} />
                         </div>
                      </div>
@@ -551,7 +551,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
                           <Percent size={12} />
                           <span className="text-[8px] font-black uppercase">Rel. Error</span>
                         </div>
-                        <span className={`text-sm font-mono font-black ${iterations[iterations.length-1]?.error! < 0.001 ? 'text-emerald-500' : 'text-amber-500'}`}>
+                        <span className={`text-sm font-mono font-black ${iterations[iterations.length-1]?.error! < 0.001 ? 'text-emerald-500' : 'text-emerald-500'}`}>
                           {iterations[iterations.length-1]?.error?.toFixed(6)}%
                         </span>
                       </div>
@@ -739,12 +739,12 @@ const ToolbarButton = ({ active, onClick, icon }: { active: boolean, onClick: ()
 
 const ModernInput = ({ label, value, onChange, light = false }: { label: string, value: string, onChange: (v: string) => void, light?: boolean }) => (
   <div className="flex flex-col gap-1.5 group">
-    <label className={`text-[9px] font-black uppercase tracking-widest transition-colors ml-1 ${light ? 'text-amber-700/60' : 'text-slate-400 group-focus-within:text-emerald-500'}`}>{label}</label>
+    <label className={`text-[9px] font-black uppercase tracking-widest transition-colors ml-1 ${light ? 'text-emerald-700/60' : 'text-slate-400 group-focus-within:text-emerald-500'}`}>{label}</label>
     <input 
       type="text" value={value} 
       spellCheck={false}
       onChange={e => isValidPartialNumeric(e.target.value) && onChange(e.target.value)}
-      className={`h-11 border-2 rounded-xl px-4 text-xs font-mono outline-none transition-all shadow-sm ${light ? 'bg-white dark:bg-slate-900 border-amber-200 dark:border-amber-900/30 focus:border-amber-500' : 'bg-white dark:bg-slate-950 border-slate-50 dark:border-slate-800/50 focus:border-emerald-500'}`}
+      className={`h-11 border-2 rounded-xl px-4 text-xs font-mono outline-none transition-all shadow-sm ${light ? 'bg-white dark:bg-slate-900 border-emerald-200 dark:border-emerald-900/30 focus:border-emerald-500' : 'bg-white dark:bg-slate-950 border-slate-50 dark:border-slate-800/50 focus:border-emerald-500'}`}
     />
   </div>
 );
