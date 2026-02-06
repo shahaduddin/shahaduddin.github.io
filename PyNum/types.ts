@@ -8,13 +8,13 @@ export enum TopicCategory {
   INTERPOLATION = 'Interpolation',
   DIFFERENTIATION = 'Differentiation',
   INTEGRATION = 'Integration',
-  ODE = 'Differential Equations (ODE)',
+  ODE = 'Differential Equations',
 }
 
 export enum AlgorithmType {
-  INCREMENTAL_SEARCH = 'Incremental Search (Root Location)',
+  INCREMENTAL_SEARCH = 'Incremental Search',
   BISECTION = 'Bisection Method',
-  FALSE_POSITION = 'False Position (Regula Falsi)',
+  FALSE_POSITION = 'False Position',
   NEWTON_RAPHSON = 'Newton-Raphson',
   SECANT = 'Secant Method',
   FIXED_POINT_ITERATION = 'Fixed Point Iteration',

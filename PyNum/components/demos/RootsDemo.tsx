@@ -3,8 +3,8 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, 
   ResponsiveContainer, ReferenceLine, ReferenceArea, ReferenceDot 
 } from 'recharts';
-import { AlgorithmType } from '../../types'; // Adjusted path to match app config
-import { compileMathFunction, isValidPartialNumeric, isCompleteNumber } from '../../utils/mathUtils'; // Adjusted path
+import { AlgorithmType } from '../../types';
+import { compileMathFunction } from '../../utils/mathUtils';
 import { 
   AlertCircle,
   Zap, Activity, 
@@ -21,10 +21,24 @@ import {
   MousePointer2,
   ZoomIn,
   ZoomOut,
-  RotateCcw
+  RotateCcw,
+  Search,
+  ArrowRightLeft,
+  ScanLine
 } from 'lucide-react';
 
-// Interfaces defined locally to ensure stability with existing types.ts
+// --- Local Helpers for Input Validation ---
+const isValidPartialNumeric = (val: string) => {
+  if (val === '') return true;
+  return /^-?\d*\.?\d*$/.test(val);
+};
+
+const isCompleteNumber = (val: string) => {
+  if (val === '' || val === '-') return false;
+  return !isNaN(Number(val));
+};
+
+// --- Interfaces ---
 export interface IterationData {
   iter: number;
   a?: number;
@@ -52,7 +66,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
   const [showPoints, setShowPoints] = useState(true);
   const [zoom, setZoom] = useState(1);
 
-  // Input states - Using strings for smooth typing
+  // Input states
   const [funcStr, setFuncStr] = useState('x^2 - 4');
   const [p1Str, setP1Str] = useState('0'); 
   const [p2Str, setP2Str] = useState('4');
@@ -77,10 +91,9 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
   const isFixedPoint = type === AlgorithmType.FIXED_POINT_ITERATION;
   const isIncrementalSearch = type === AlgorithmType.INCREMENTAL_SEARCH;
   const isMuller = type === AlgorithmType.MULLER;
-  const isSecant = type === AlgorithmType.SECANT;
   const isBracketing = type === AlgorithmType.BISECTION || type === AlgorithmType.FALSE_POSITION;
 
-  // Dynamic Labels based on Algorithm
+  // Dynamic Labels
   const labels = useMemo(() => {
     switch (type) {
       case AlgorithmType.NEWTON_RAPHSON: return { p1: "Initial Guess (x₀)", p2: null, p3: null };
@@ -92,7 +105,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
     }
   }, [type]);
 
-  // Sync inputs when algorithm changes
+  // Sync inputs
   useEffect(() => {
     setErrorMsg(null);
     setIterations([]);
@@ -107,7 +120,9 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
     } else if (isFixedPoint) {
       setFuncStr('sqrt(x + 2)'); setP1Str('1.5');
     } else if (isIncrementalSearch) {
-      setFuncStr('exp(x) - 3*x'); setShowScanner(true);
+      setFuncStr('exp(x) - 3*x'); 
+      // Auto-set reasonable defaults for search
+      setScanRange({ start: '-5', end: '5', step: '0.1' });
     } else if (isMuller) {
       setFuncStr('x^3 - x - 2'); setP1Str('0'); setP2Str('1'); setP3Str('2');
     } else {
@@ -263,171 +278,295 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
     try {
       const f = compileMathFunction(funcStr);
       const data = [];
-      const p1 = Number(p1Str) || 0;
-      const p2 = Number(p2Str) || 5;
-      let min = Math.min(p1, p2, root || 0);
-      let max = Math.max(p1, p2, root || 0);
-      if (iterations.length > 0) iterations.forEach(it => { min = Math.min(min, it.x); max = Math.max(max, it.x); });
       
-      let span = Math.max(2, max - min);
+      let start = -5; 
+      let end = 5;
+      
+      if (isIncrementalSearch) {
+        start = parseFloat(scanRange.start) || -5;
+        end = parseFloat(scanRange.end) || 5;
+      } else {
+        const p1 = Number(p1Str) || 0;
+        const p2 = Number(p2Str) || 5;
+        let min = Math.min(p1, p2, root || 0);
+        let max = Math.max(p1, p2, root || 0);
+        if (iterations.length > 0) iterations.forEach(it => { min = Math.min(min, it.x); max = Math.max(max, it.x); });
+        start = min;
+        end = max;
+      }
+
+      let span = Math.max(2, end - start);
       // Apply zoom factor
       span = span / zoom;
 
-      const center = (min + max) / 2;
-      const start = center - span * 0.6;
-      const end = center + span * 0.6;
+      const center = (start + end) / 2;
+      const plotStart = center - span * 0.6;
+      const plotEnd = center + span * 0.6;
       
       for (let i = 0; i <= 150; i++) {
-        const val = start + i * (end - start) / 150;
+        const val = plotStart + i * (plotEnd - plotStart) / 150;
         const y = f(val);
         if (isFinite(y) && Math.abs(y) < 1e5) data.push({ x: val, y, yLine: isFixedPoint ? val : undefined });
       }
-      return { data, domain: { min: start, max: end } };
+      return { data, domain: { min: plotStart, max: plotEnd } };
     } catch { return { data: [], domain: { min: -5, max: 5 } }; }
-  }, [funcStr, iterations, root, p1Str, p2Str, isFixedPoint, zoom]);
+  }, [funcStr, iterations, root, p1Str, p2Str, isFixedPoint, zoom, isIncrementalSearch, scanRange]);
 
   const activeIter = selectedIterIndex !== null ? iterations[selectedIterIndex] : null;
 
   return (
     <div className="flex flex-col gap-8 max-w-7xl mx-auto pb-10 animate-in fade-in duration-500">
       
-      {/* Grid container: Vertically stacked on mobile, dashboard on desktop */}
+      {/* Grid container */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
         
-        {/* Left/Top Column: Input & Summary */}
+        {/* Left Column: Input & Summary */}
         <div className="lg:col-span-4 flex flex-col gap-6">
-          <section className="bg-white dark:bg-slate-900 rounded-[2rem] p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-[#10b981]/10 text-emerald-500 flex items-center justify-center">
-                <Binary size={20} />
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Equation Input</span>
-            </div>
-
-            <div className="relative mb-8 group">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500 font-mono font-black italic text-base">{isFixedPoint ? 'g(x)=' : 'f(x)='}</div>
-              <input 
-                type="text" value={funcStr} onChange={e => { setFuncStr(e.target.value); setFoundBrackets([]); }}
-                className="w-full h-14 bg-slate-50 dark:bg-slate-950 border-2 border-slate-100 dark:border-slate-800 rounded-2xl pl-16 pr-4 font-mono text-sm focus:border-emerald-500 outline-none transition-all shadow-inner"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              {labels.p1 && <ModernInput label={labels.p1} value={p1Str} onChange={setP1Str} />}
-              {labels.p2 && <ModernInput label={labels.p2} value={p2Str} onChange={setP2Str} />}
-              {labels.p3 && <ModernInput label={labels.p3} value={p3Str} onChange={setP3Str} />}
-            </div>
-
-            {/* Same Row Buttons */}
-            <div className="flex gap-2 h-14">
-              <button 
-                onClick={solve} 
-                disabled={isScanning}
-                className="flex-[2] h-full bg-emerald-600 hover:bg-emerald-500 active:scale-95 active:shadow-sm duration-150 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/30 transition-all flex items-center justify-center gap-3 text-xs uppercase tracking-[0.2em] disabled:opacity-50"
-              >
-                <Zap size={18} />
-                Solve
-              </button>
-              <button 
-                onClick={() => setShowScanner(!showScanner)} 
-                className={`flex-1 h-full rounded-2xl border-2 flex items-center justify-center gap-2 transition-all active:scale-95 duration-150 ${showScanner ? 'bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:text-emerald-600 hover:border-emerald-300'}`}
-                title="Detect Intervals"
-              >
-                <Compass size={18} />
-              </button>
-              <button 
-                onClick={() => setShowSettings(!showSettings)} 
-                className={`w-14 h-full rounded-2xl border-2 flex items-center justify-center transition-all active:scale-95 duration-150 ${showSettings ? 'bg-slate-900 dark:bg-slate-100 border-slate-900 dark:border-slate-100 text-white dark:text-slate-900' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:text-slate-900'}`}
-              >
-                <SettingsIcon size={18} />
-              </button>
-            </div>
-
-            {showSettings && (
-              <div className="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-4 animate-in slide-in-from-top-4">
-                <ModernInput label="Accuracy (ε)" value={toleranceStr} onChange={setToleranceStr} />
-                <ModernInput label="Max Steps" value={maxIterStr} onChange={setMaxIterStr} />
-              </div>
-            )}
-          </section>
-
-          {showScanner && (
-            <section className="bg-emerald-50 dark:bg-emerald-900/10 rounded-[2rem] p-6 border border-emerald-200 dark:border-emerald-900/20 animate-in slide-in-from-top-4">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3 text-emerald-700 dark:text-emerald-400">
-                  <Compass size={18} strokeWidth={2.5} />
-                  <span className="text-[10px] font-black uppercase tracking-widest">Bracket Scanner</span>
+          
+          {/* --- Logic for INCREMENTAL SEARCH Input --- */}
+          {isIncrementalSearch ? (
+             <section className="bg-white dark:bg-slate-900 rounded-[2rem] p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden relative">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-500 flex items-center justify-center">
+                    <Search size={20} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Domain Analysis Configuration</span>
                 </div>
-                <button onClick={() => setFoundBrackets([])} className="p-1.5 text-emerald-400 hover:text-emerald-700 transition-transform active:scale-75 duration-150"><Trash2 size={16} /></button>
-              </div>
-              <div className="grid grid-cols-3 gap-3 mb-6">
-                <ModernInput label="Start" value={scanRange.start} onChange={v => setScanRange(s => ({...s, start: v}))} light />
-                <ModernInput label="End" value={scanRange.end} onChange={v => setScanRange(s => ({...s, end: v}))} light />
-                <ModernInput label="Step" value={scanRange.step} onChange={v => setScanRange(s => ({...s, step: v}))} light />
-              </div>
-              <button 
-                onClick={scanIntervals} 
-                disabled={isScanning}
-                className="w-full h-11 bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] active:shadow-sm duration-150 text-white font-black rounded-xl transition-all shadow-lg shadow-emerald-600/20 text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
-              >
-                {isScanning ? 'Scanning...' : 'Detect Intervals'}
-              </button>
-              {foundBrackets.length > 0 && (
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {foundBrackets.map((b, i) => (
-                    <button 
-                      key={i} 
-                      onClick={() => { setP1Str(b.low.toString()); setP2Str(b.high.toString()); }} 
-                      className="px-3 py-1.5 bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-900/30 rounded-lg text-[9px] font-mono font-bold text-emerald-700 hover:bg-emerald-50 active:scale-95 active:bg-emerald-100 transition-all shadow-sm duration-150"
+
+                <div className="flex flex-col gap-6">
+                   {/* Equation Input */}
+                   <div className="relative group">
+                      <div className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-500 font-mono font-black italic text-base">f(x)=</div>
+                      <input 
+                        type="text" value={funcStr} onChange={e => { setFuncStr(e.target.value); setFoundBrackets([]); }}
+                        className="w-full h-14 bg-slate-50 dark:bg-slate-950 border-2 border-slate-100 dark:border-slate-800 rounded-2xl pl-16 pr-4 font-mono text-sm focus:border-blue-500 outline-none transition-all shadow-inner"
+                      />
+                   </div>
+
+                   {/* Combined Range Inputs */}
+                   <div className="bg-slate-50 dark:bg-slate-950/50 rounded-2xl p-4 border border-slate-100 dark:border-slate-800">
+                      <div className="flex items-center gap-2 mb-3 text-slate-400">
+                         <ScanLine size={14} />
+                         <span className="text-[9px] font-black uppercase tracking-widest">Search Parameters</span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-3">
+                         <ModernInput label="Start" value={scanRange.start} onChange={v => setScanRange(s => ({...s, start: v}))} />
+                         <ModernInput label="End" value={scanRange.end} onChange={v => setScanRange(s => ({...s, end: v}))} />
+                         <ModernInput label="Step" value={scanRange.step} onChange={v => setScanRange(s => ({...s, step: v}))} />
+                      </div>
+                   </div>
+
+                   {/* Action Button */}
+                   <button 
+                      onClick={scanIntervals} 
+                      disabled={isScanning}
+                      className="w-full h-12 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] active:shadow-sm duration-150 text-white font-black rounded-xl transition-all shadow-lg shadow-blue-600/20 text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
                     >
-                      [{b.low.toFixed(2)}, {b.high.toFixed(2)}]
-                    </button>
-                  ))}
+                      {isScanning ? <Activity className="animate-spin" size={16}/> : <Zap size={16}/>}
+                      {isScanning ? 'Scanning...' : 'Analyze Domain'}
+                   </button>
+
+                   {/* Result Chips Area (Built into this card for Incremental) */}
+                   {foundBrackets.length > 0 && (
+                      <div className="pt-6 border-t border-slate-100 dark:border-slate-800 animate-in slide-in-from-top-2">
+                         <div className="flex justify-between items-center mb-3">
+                            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Intervals Detected</span>
+                            <button onClick={() => setFoundBrackets([])} className="text-slate-400 hover:text-red-500"><Trash2 size={14}/></button>
+                         </div>
+                         <div className="flex flex-wrap gap-2 max-h-[150px] overflow-y-auto custom-scrollbar">
+                           {foundBrackets.map((b, i) => (
+                             <div 
+                               key={i} 
+                               className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-lg text-[10px] font-mono font-bold text-blue-700 dark:text-blue-300"
+                             >
+                               [{b.low.toFixed(2)}, {b.high.toFixed(2)}]
+                             </div>
+                           ))}
+                         </div>
+                      </div>
+                   )}
                 </div>
+             </section>
+
+          ) : (
+             /* --- Logic for STANDARD Algorithms (Newton, Bisection, etc.) --- */
+            <>
+              <section className="bg-white dark:bg-slate-900 rounded-[2rem] p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-[#10b981]/10 text-emerald-500 flex items-center justify-center">
+                    <Binary size={20} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Equation Input</span>
+                </div>
+
+                <div className="relative mb-8 group">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500 font-mono font-black italic text-base">{isFixedPoint ? 'g(x)=' : 'f(x)='}</div>
+                  <input 
+                    type="text" value={funcStr} onChange={e => { setFuncStr(e.target.value); setFoundBrackets([]); }}
+                    className="w-full h-14 bg-slate-50 dark:bg-slate-950 border-2 border-slate-100 dark:border-slate-800 rounded-2xl pl-16 pr-4 font-mono text-sm focus:border-emerald-500 outline-none transition-all shadow-inner"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  {labels.p1 && <ModernInput label={labels.p1} value={p1Str} onChange={setP1Str} />}
+                  {labels.p2 && <ModernInput label={labels.p2} value={p2Str} onChange={setP2Str} />}
+                  {labels.p3 && <ModernInput label={labels.p3} value={p3Str} onChange={setP3Str} />}
+                </div>
+
+                <div className="flex gap-2 h-14">
+                  <button 
+                    onClick={solve} 
+                    className="flex-[2] h-full bg-emerald-600 hover:bg-emerald-500 active:scale-95 active:shadow-sm duration-150 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/30 transition-all flex items-center justify-center gap-3 text-xs uppercase tracking-[0.2em]"
+                  >
+                    <Zap size={18} />
+                    Solve
+                  </button>
+                  <button 
+                    onClick={() => setShowScanner(!showScanner)} 
+                    className={`flex-1 h-full rounded-2xl border-2 flex items-center justify-center gap-2 transition-all active:scale-95 duration-150 ${showScanner ? 'bg-amber-500 border-amber-500 text-white shadow-lg shadow-amber-500/20' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:text-amber-600 hover:border-amber-300'}`}
+                    title="Detect Intervals"
+                  >
+                    <Compass size={18} />
+                  </button>
+                  <button 
+                    onClick={() => setShowSettings(!showSettings)} 
+                    className={`w-14 h-full rounded-2xl border-2 flex items-center justify-center transition-all active:scale-95 duration-150 ${showSettings ? 'bg-slate-900 dark:bg-slate-100 border-slate-900 dark:border-slate-100 text-white dark:text-slate-900' : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:text-slate-900'}`}
+                  >
+                    <SettingsIcon size={18} />
+                  </button>
+                </div>
+
+                {showSettings && (
+                  <div className="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-4 animate-in slide-in-from-top-4">
+                    <ModernInput label="Accuracy (ε)" value={toleranceStr} onChange={setToleranceStr} />
+                    <ModernInput label="Max Steps" value={maxIterStr} onChange={setMaxIterStr} />
+                  </div>
+                )}
+              </section>
+
+              {showScanner && (
+                <section className="bg-amber-50 dark:bg-amber-900/10 rounded-[2rem] p-6 border border-amber-200 dark:border-amber-900/20 animate-in slide-in-from-top-4">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3 text-amber-700 dark:text-amber-400">
+                      <Compass size={18} strokeWidth={2.5} />
+                      <span className="text-[10px] font-black uppercase tracking-widest">Bracket Scanner</span>
+                    </div>
+                    <button onClick={() => setFoundBrackets([])} className="p-1.5 text-amber-400 hover:text-amber-700 transition-transform active:scale-75 duration-150"><Trash2 size={16} /></button>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3 mb-6">
+                    <ModernInput label="Start" value={scanRange.start} onChange={v => setScanRange(s => ({...s, start: v}))} light />
+                    <ModernInput label="End" value={scanRange.end} onChange={v => setScanRange(s => ({...s, end: v}))} light />
+                    <ModernInput label="Step" value={scanRange.step} onChange={v => setScanRange(s => ({...s, step: v}))} light />
+                  </div>
+                  <button 
+                    onClick={scanIntervals} 
+                    disabled={isScanning}
+                    className="w-full h-11 bg-amber-600 hover:bg-amber-500 active:scale-[0.98] active:shadow-sm duration-150 text-white font-black rounded-xl transition-all shadow-lg shadow-amber-600/20 text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    {isScanning ? 'Scanning...' : 'Detect Intervals'}
+                  </button>
+                  {foundBrackets.length > 0 && (
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {foundBrackets.map((b, i) => (
+                        <button 
+                          key={i} 
+                          onClick={() => { setP1Str(b.low.toString()); setP2Str(b.high.toString()); }} 
+                          className="px-3 py-1.5 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-900/30 rounded-lg text-[9px] font-mono font-bold text-amber-700 hover:bg-amber-50 active:scale-95 active:bg-amber-100 transition-all shadow-sm duration-150"
+                        >
+                          [{b.low.toFixed(2)}, {b.high.toFixed(2)}]
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </section>
               )}
-            </section>
+            </>
           )}
 
-          {iterations.length > 0 && (
+          {/* --- Analysis Result Card (Modified for Incremental Search) --- */}
+          {(iterations.length > 0 || (isIncrementalSearch && foundBrackets.length > 0)) && (
             <section className="bg-white dark:bg-slate-900 rounded-[2rem] p-6 border border-slate-200 dark:border-slate-800 shadow-sm animate-in fade-in slide-in-from-left-4">
               <div className="flex items-center gap-3 mb-6">
-                <Target className="text-emerald-500" size={18} />
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Analysis Result</span>
+                <Target className={isIncrementalSearch ? "text-blue-500" : "text-emerald-500"} size={18} />
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  {isIncrementalSearch ? "Scan Summary" : "Analysis Result"}
+                </span>
               </div>
+              
               <div className="space-y-4">
-                <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800">
-                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Final Root Estimate</p>
-                  <p className="text-xl font-mono font-black text-slate-900 dark:text-white break-all">
-                    {root !== null ? root.toPrecision(12) : iterations[iterations.length-1].x.toPrecision(10)}
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
-                    <div className="flex items-center gap-1.5 text-slate-400">
-                      <Clock size={12} />
-                      <span className="text-[8px] font-black uppercase">Steps</span>
+                {isIncrementalSearch ? (
+                  /* Incremental Search Specific Metrics */
+                  <>
+                     <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <div>
+                          <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Intervals Found</p>
+                          <p className="text-xl font-mono font-black text-slate-900 dark:text-white">
+                             {foundBrackets.length}
+                          </p>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center">
+                           <Search size={20} />
+                        </div>
+                     </div>
+                     <div className="grid grid-cols-2 gap-3">
+                        <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+                          <div className="flex items-center gap-1.5 text-slate-400">
+                            <ArrowRightLeft size={12} />
+                            <span className="text-[8px] font-black uppercase">Search Domain</span>
+                          </div>
+                          <span className="text-xs font-mono font-black text-slate-900 dark:text-white">
+                             [{scanRange.start}, {scanRange.end}]
+                          </span>
+                        </div>
+                        <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+                          <div className="flex items-center gap-1.5 text-slate-400">
+                            <ScanLine size={12} />
+                            <span className="text-[8px] font-black uppercase">Resolution</span>
+                          </div>
+                          <span className="text-xs font-mono font-black text-slate-900 dark:text-white">
+                             Δx = {scanRange.step}
+                          </span>
+                        </div>
+                     </div>
+                  </>
+                ) : (
+                  /* Standard Solver Metrics */
+                  <>
+                    <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-100 dark:border-slate-800">
+                      <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Final Root Estimate</p>
+                      <p className="text-xl font-mono font-black text-slate-900 dark:text-white break-all">
+                        {root !== null ? root.toPrecision(12) : iterations[iterations.length-1]?.x.toPrecision(10)}
+                      </p>
                     </div>
-                    <span className="text-lg font-mono font-black text-slate-900 dark:text-white">{iterations.length}</span>
-                  </div>
-                  <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
-                    <div className="flex items-center gap-1.5 text-slate-400">
-                      <Percent size={12} />
-                      <span className="text-[8px] font-black uppercase">Rel. Error</span>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+                        <div className="flex items-center gap-1.5 text-slate-400">
+                          <Clock size={12} />
+                          <span className="text-[8px] font-black uppercase">Steps</span>
+                        </div>
+                        <span className="text-lg font-mono font-black text-slate-900 dark:text-white">{iterations.length}</span>
+                      </div>
+                      <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+                        <div className="flex items-center gap-1.5 text-slate-400">
+                          <Percent size={12} />
+                          <span className="text-[8px] font-black uppercase">Rel. Error</span>
+                        </div>
+                        <span className={`text-sm font-mono font-black ${iterations[iterations.length-1]?.error! < 0.001 ? 'text-emerald-500' : 'text-amber-500'}`}>
+                          {iterations[iterations.length-1]?.error?.toFixed(6)}%
+                        </span>
+                      </div>
                     </div>
-                    <span className={`text-sm font-mono font-black ${iterations[iterations.length-1].error! < 0.001 ? 'text-emerald-500' : 'text-emerald-500'}`}>
-                      {iterations[iterations.length-1].error?.toFixed(6)}%
-                    </span>
-                  </div>
-                </div>
-                <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
-                  <div className="flex items-center gap-1.5 text-slate-400">
-                    <TrendingUp size={12} />
-                    <span className="text-[8px] font-black uppercase">Final Residue</span>
-                  </div>
-                  <span className="text-xs font-mono font-black text-slate-500">
-                    {iterations[iterations.length-1].fx.toExponential(8)}
-                  </span>
-                </div>
+                    <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-1">
+                      <div className="flex items-center gap-1.5 text-slate-400">
+                        <TrendingUp size={12} />
+                        <span className="text-[8px] font-black uppercase">Final Residue</span>
+                      </div>
+                      <span className="text-xs font-mono font-black text-slate-500">
+                        {iterations[iterations.length-1]?.fx.toExponential(8)}
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
             </section>
           )}
@@ -458,7 +597,7 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
             <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-950/50 backdrop-blur-md shrink-0">
               <div className="flex items-center gap-3">
                 <Activity className="text-emerald-500" size={18} />
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Plot</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Visual Plot</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-px h-4 bg-slate-200 dark:bg-slate-800 mx-1"></div>
@@ -527,53 +666,56 @@ export const RootsDemo: React.FC<RootsDemoProps> = ({ type }) => {
             </div>
           </section>
 
-          <section className="bg-white dark:bg-slate-900 md:rounded-[2.5rem] rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
-            <div className="px-6 md:px-10 py-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <ListOrdered className="text-slate-300" size={18} />
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Step History Matrix</span>
-              </div>
-              <button 
-                onClick={() => {
-                  const csv = iterations.map(it => `${it.iter},${it.x},${it.fx},${it.error}`).join('\n');
-                  const blob = new Blob([`Iter,Value,FX,Error\n${csv}`], { type: 'text/csv' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a'); a.href = url; a.download = `roots_${type.toLowerCase()}.csv`; a.click();
-                }}
-                className="p-2 text-slate-400 hover:text-emerald-500 transition-all active:scale-90 active:text-emerald-500 duration-150"
-              >
-                <Download size={18} />
-              </button>
-            </div>
-            <div className="overflow-x-auto max-h-[500px]">
-              <table className="w-full text-left border-collapse min-w-[600px]">
-                <thead className="sticky top-0 bg-slate-50 dark:bg-slate-950 text-[9px] font-black uppercase text-slate-400 tracking-[0.25em] border-b border-slate-100 dark:border-slate-800 z-10">
-                  <tr>
-                    <th className="px-8 py-4">Step</th>
-                    <th className="px-8 py-4">Value (x)</th>
-                    <th className="px-8 py-4 text-right">Rel Error</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-50 dark:divide-slate-800 text-xs font-mono">
-                  {iterations.map((row, i) => (
-                    <tr 
-                      key={i} 
-                      onClick={() => setSelectedIterIndex(i)} 
-                      className={`cursor-pointer transition-colors ${selectedIterIndex === i ? 'bg-emerald-50/50 dark:bg-emerald-900/10' : 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
-                    >
-                      <td className="px-8 py-4 text-slate-400 font-bold">{row.iter}</td>
-                      <td className="px-8 py-4 font-black text-slate-900 dark:text-slate-100 tracking-tight">{row.x.toPrecision(10)}</td>
-                      <td className="px-8 py-4 text-right">
-                        <span className={`px-2 py-1 rounded-lg font-black text-[9px] ${row.error !== undefined && row.error < 0.1 ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
-                          {row.error?.toFixed(6)}%
-                        </span>
-                      </td>
+          {/* Only show History Table if NOT incremental search */}
+          {!isIncrementalSearch && (
+            <section className="bg-white dark:bg-slate-900 md:rounded-[2.5rem] rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+                <div className="px-6 md:px-10 py-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                <div className="flex items-center gap-3">
+                    <ListOrdered className="text-slate-300" size={18} />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Step History Matrix</span>
+                </div>
+                <button 
+                    onClick={() => {
+                    const csv = iterations.map(it => `${it.iter},${it.x},${it.fx},${it.error}`).join('\n');
+                    const blob = new Blob([`Iter,Value,FX,Error\n${csv}`], { type: 'text/csv' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a'); a.href = url; a.download = `roots_${type.toLowerCase()}.csv`; a.click();
+                    }}
+                    className="p-2 text-slate-400 hover:text-emerald-500 transition-all active:scale-90 active:text-emerald-500 duration-150"
+                >
+                    <Download size={18} />
+                </button>
+                </div>
+                <div className="overflow-x-auto max-h-[500px]">
+                <table className="w-full text-left border-collapse min-w-[600px]">
+                    <thead className="sticky top-0 bg-slate-50 dark:bg-slate-950 text-[9px] font-black uppercase text-slate-400 tracking-[0.25em] border-b border-slate-100 dark:border-slate-800 z-10">
+                    <tr>
+                        <th className="px-8 py-4">Step</th>
+                        <th className="px-8 py-4">Value (x)</th>
+                        <th className="px-8 py-4 text-right">Rel Error</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
+                    </thead>
+                    <tbody className="divide-y divide-slate-50 dark:divide-slate-800 text-xs font-mono">
+                    {iterations.map((row, i) => (
+                        <tr 
+                        key={i} 
+                        onClick={() => setSelectedIterIndex(i)} 
+                        className={`cursor-pointer transition-colors ${selectedIterIndex === i ? 'bg-emerald-50/50 dark:bg-emerald-900/10' : 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
+                        >
+                        <td className="px-8 py-4 text-slate-400 font-bold">{row.iter}</td>
+                        <td className="px-8 py-4 font-black text-slate-900 dark:text-slate-100 tracking-tight">{row.x.toPrecision(10)}</td>
+                        <td className="px-8 py-4 text-right">
+                            <span className={`px-2 py-1 rounded-lg font-black text-[9px] ${row.error !== undefined && row.error < 0.1 ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
+                            {row.error?.toFixed(6)}%
+                            </span>
+                        </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+                </div>
+            </section>
+          )}
         </div>
       </div>
     </div>
@@ -597,12 +739,12 @@ const ToolbarButton = ({ active, onClick, icon }: { active: boolean, onClick: ()
 
 const ModernInput = ({ label, value, onChange, light = false }: { label: string, value: string, onChange: (v: string) => void, light?: boolean }) => (
   <div className="flex flex-col gap-1.5 group">
-    <label className={`text-[9px] font-black uppercase tracking-widest transition-colors ml-1 ${light ? 'text-emerald-700/60' : 'text-slate-400 group-focus-within:text-emerald-500'}`}>{label}</label>
+    <label className={`text-[9px] font-black uppercase tracking-widest transition-colors ml-1 ${light ? 'text-amber-700/60' : 'text-slate-400 group-focus-within:text-emerald-500'}`}>{label}</label>
     <input 
       type="text" value={value} 
       spellCheck={false}
       onChange={e => isValidPartialNumeric(e.target.value) && onChange(e.target.value)}
-      className={`h-11 border-2 rounded-xl px-4 text-xs font-mono outline-none transition-all shadow-sm ${light ? 'bg-white dark:bg-slate-900 border-emerald-200 dark:border-emerald-900/30 focus:border-emerald-500' : 'bg-white dark:bg-slate-950 border-slate-50 dark:border-slate-800/50 focus:border-emerald-500'}`}
+      className={`h-11 border-2 rounded-xl px-4 text-xs font-mono outline-none transition-all shadow-sm ${light ? 'bg-white dark:bg-slate-900 border-amber-200 dark:border-amber-900/30 focus:border-amber-500' : 'bg-white dark:bg-slate-950 border-slate-50 dark:border-slate-800/50 focus:border-emerald-500'}`}
     />
   </div>
 );
