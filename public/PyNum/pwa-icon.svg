@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 
+    Background: Matches your CSS .splash-icon background-color: #059669 
+    We make it a full square so Android can crop it (Maskable)
+  -->
+  <rect width="512" height="512" fill="#059669"/>
+  
+  <!-- 
+    Icon: Matches your inner SVG 
+    Centered and scaled to fit the 512x512 canvas
+  -->
+  <g transform="translate(106, 106) scale(12.5)">
+    <polyline points="4 17 10 11 4 5" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="12" y1="19" x2="20" y2="19" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>
