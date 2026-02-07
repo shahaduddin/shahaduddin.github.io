@@ -150,63 +150,72 @@ export const Home: React.FC = () => {
 };
 
 // ==========================================
-// INSTALL PROMPT COMPONENT
+// INSTALL PROMPT COMPONENT - UPDATED POSITIONING
 // ==========================================
 const InstallPrompt: React.FC<{ 
   onInstall: () => void; 
   onDismiss: () => void;
 }> = ({ onInstall, onDismiss }) => {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 p-4 animate-in slide-in-up duration-300">
-      <div className="max-w-md mx-auto bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl shadow-2xl p-6 text-white">
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-white/20 rounded-xl">
-              <Smartphone className="w-6 h-6" />
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 animate-in fade-in duration-300">
+      {/* Backdrop */}
+      <div 
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onClick={onDismiss}
+      />
+      
+      {/* Prompt Card - Positioned 20% from bottom (or centered on mobile) */}
+      <div className="relative w-full max-w-md animate-in slide-in-up duration-300 sm:slide-in-bottom">
+        <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl shadow-2xl p-6 text-white transform sm:translate-y-[20%]">
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-white/20 rounded-xl">
+                <Smartphone className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg">Install PyNum Studio</h3>
+                <p className="text-sm text-emerald-100 opacity-90">
+                  Get the full app experience with offline access
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-bold text-lg">Install PyNum Studio</h3>
-              <p className="text-sm text-emerald-100 opacity-90">
-                Get the full app experience with offline access
-              </p>
+            <button 
+              onClick={onDismiss}
+              className="p-1 hover:bg-white/10 rounded-lg transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center gap-2 text-sm">
+              <Check className="w-4 h-4 text-emerald-200" />
+              <span>Full offline functionality</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <Check className="w-4 h-4 text-emerald-200" />
+              <span>Home screen access</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <Check className="w-4 h-4 text-emerald-200" />
+              <span>Native app experience</span>
             </div>
           </div>
-          <button 
-            onClick={onDismiss}
-            className="p-1 hover:bg-white/10 rounded-lg transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-        
-        <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-2 text-sm">
-            <Check className="w-4 h-4 text-emerald-200" />
-            <span>Full offline functionality</span>
+          
+          <div className="flex gap-3">
+            <button
+              onClick={onInstall}
+              className="flex-1 bg-white text-emerald-700 font-bold py-3 rounded-xl hover:bg-emerald-50 transition-colors shadow-lg active:scale-95"
+            >
+              Install App
+            </button>
+            <button
+              onClick={onDismiss}
+              className="px-6 py-3 border border-white/30 rounded-xl hover:bg-white/10 transition-colors font-medium active:scale-95"
+            >
+              Later
+            </button>
           </div>
-          <div className="flex items-center gap-2 text-sm">
-            <Check className="w-4 h-4 text-emerald-200" />
-            <span>Home screen access</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm">
-            <Check className="w-4 h-4 text-emerald-200" />
-            <span>Native app experience</span>
-          </div>
-        </div>
-        
-        <div className="flex gap-3">
-          <button
-            onClick={onInstall}
-            className="flex-1 bg-white text-emerald-700 font-bold py-3 rounded-xl hover:bg-emerald-50 transition-colors shadow-lg"
-          >
-            Install App
-          </button>
-          <button
-            onClick={onDismiss}
-            className="px-6 py-3 border border-white/30 rounded-xl hover:bg-white/10 transition-colors font-medium"
-          >
-            Later
-          </button>
         </div>
       </div>
     </div>
