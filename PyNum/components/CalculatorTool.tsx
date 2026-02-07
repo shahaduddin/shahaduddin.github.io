@@ -8,7 +8,7 @@ import {
   Filter, Grid, ChevronDown
 } from 'lucide-react';
 import * as math from 'mathjs';
-import { findRoots } from '../services/mathService';
+import { findRoots } from '../utils/mathUtils.ts';
 
 interface HistoryItem {
   expression: string;
