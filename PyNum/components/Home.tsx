@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Smartphone, ChevronRight, Download, Terminal, 
   Cpu, Grid3X3, Activity, Command, Play, ShieldCheck, 
   Book, Sparkles, Zap, ArrowRight, Calculator,
-  LayoutGrid, Globe, Code2, Database, Laptop
+  LayoutGrid, Globe, Code2, Database, Laptop,
+  X, Check, AlertCircle
 } from 'lucide-react';
 import { slugify } from '../App';
 import { TopicCategory, AlgorithmType } from '../types';
@@ -13,20 +14,279 @@ import { TopicCategory, AlgorithmType } from '../types';
 // MAIN WRAPPER (Detects Web vs App)
 // ==========================================
 export const Home: React.FC = () => {
-  const [isAppMode] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia('(display-mode: standalone)').matches 
-        || (window.navigator as any).standalone 
-        || document.referrer.includes('android-app://');
-  });
+  const [isAppMode, setIsAppMode] = useState<boolean>(false);
+  const [detectionMethod, setDetectionMethod] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [showInstallPrompt, setShowInstallPrompt] = useState<boolean>(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
-  return isAppMode ? <AppDashboard /> : <WebLanding />;
+  useEffect(() => {
+    // Check for PWA/App installation
+    const checkAppMode = () => {
+      if (typeof window === 'undefined') return false;
+      
+      // Multiple methods to detect PWA/installed app
+      const detectionMethods = {
+        displayMode: window.matchMedia('(display-mode: standalone)').matches,
+        navigatorStandalone: (window.navigator as any).standalone === true,
+        referrerCheck: document.referrer.includes('android-app://') || 
+                       document.referrer.includes('ios-app://'),
+        // Check if launched from home screen
+        isStandalone: window.matchMedia('(display-mode: standalone)').matches ||
+                     (window.navigator as any).standalone ||
+                     window.location.search.includes('source=pwa'),
+        // Check for service worker registration
+        hasServiceWorker: 'serviceWorker' in navigator && 
+                         navigator.serviceWorker.controller !== null,
+        // Check viewport for PWA
+        isInApp: window.innerHeight === window.screen.height || 
+                (window.navigator as any).userAgentData?.mobile
+      };
+
+      // Log detection for debugging
+      console.log('App Detection Methods:', detectionMethods);
+
+      // Determine if app is installed
+      const isInstalled = 
+        detectionMethods.displayMode ||
+        detectionMethods.navigatorStandalone ||
+        detectionMethods.referrerCheck ||
+        detectionMethods.isStandalone;
+
+      setIsAppMode(isInstalled);
+      
+      // Set detection method for debugging/UI
+      if (detectionMethods.displayMode) setDetectionMethod('display-mode: standalone');
+      else if (detectionMethods.navigatorStandalone) setDetectionMethod('navigator.standalone');
+      else if (detectionMethods.referrerCheck) setDetectionMethod('referrer check');
+      else if (detectionMethods.isStandalone) setDetectionMethod('standalone mode');
+      else setDetectionMethod('browser mode');
+
+      setIsLoading(false);
+    };
+
+    // Handle beforeinstallprompt event for PWA installation
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      
+      // Show install prompt if not in app mode
+      if (!isAppMode) {
+        setShowInstallPrompt(true);
+      }
+    };
+
+    // Add event listener for PWA installation
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // Check app mode on mount and on visibility change
+    checkAppMode();
+    document.addEventListener('visibilitychange', checkAppMode);
+    window.addEventListener('resize', checkAppMode);
+
+    // Check URL parameters for PWA launch
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('pwa') === 'true') {
+      setIsAppMode(true);
+      setDetectionMethod('url parameter');
+    }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      document.removeEventListener('visibilitychange', checkAppMode);
+      window.removeEventListener('resize', checkAppMode);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      
+      if (outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+        setShowInstallPrompt(false);
+        // Refresh to show app mode
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      
+      setDeferredPrompt(null);
+    }
+  };
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 mx-auto border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+            Detecting application mode...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {showInstallPrompt && !isAppMode && (
+        <InstallPrompt 
+          onInstall={handleInstallClick}
+          onDismiss={() => setShowInstallPrompt(false)}
+        />
+      )}
+      
+      {isAppMode ? <AppDashboard detectionMethod={detectionMethod} /> : <WebLanding />}
+      
+      {/* Debug Panel - Remove in production */}
+      {process.env.NODE_ENV === 'development' && (
+        <DebugPanel isAppMode={isAppMode} detectionMethod={detectionMethod} />
+      )}
+    </>
+  );
+};
+
+// ==========================================
+// INSTALL PROMPT COMPONENT
+// ==========================================
+const InstallPrompt: React.FC<{ 
+  onInstall: () => void; 
+  onDismiss: () => void;
+}> = ({ onInstall, onDismiss }) => {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-50 p-4 animate-in slide-in-up duration-300">
+      <div className="max-w-md mx-auto bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl shadow-2xl p-6 text-white">
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-white/20 rounded-xl">
+              <Smartphone className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="font-bold text-lg">Install PyNum Studio</h3>
+              <p className="text-sm text-emerald-100 opacity-90">
+                Get the full app experience with offline access
+              </p>
+            </div>
+          </div>
+          <button 
+            onClick={onDismiss}
+            className="p-1 hover:bg-white/10 rounded-lg transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        
+        <div className="space-y-3 mb-6">
+          <div className="flex items-center gap-2 text-sm">
+            <Check className="w-4 h-4 text-emerald-200" />
+            <span>Full offline functionality</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <Check className="w-4 h-4 text-emerald-200" />
+            <span>Home screen access</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <Check className="w-4 h-4 text-emerald-200" />
+            <span>Native app experience</span>
+          </div>
+        </div>
+        
+        <div className="flex gap-3">
+          <button
+            onClick={onInstall}
+            className="flex-1 bg-white text-emerald-700 font-bold py-3 rounded-xl hover:bg-emerald-50 transition-colors shadow-lg"
+          >
+            Install App
+          </button>
+          <button
+            onClick={onDismiss}
+            className="px-6 py-3 border border-white/30 rounded-xl hover:bg-white/10 transition-colors font-medium"
+          >
+            Later
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ==========================================
+// DEBUG PANEL (Development Only)
+// ==========================================
+const DebugPanel: React.FC<{
+  isAppMode: boolean;
+  detectionMethod: string;
+}> = ({ isAppMode, detectionMethod }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  
+  return (
+    <>
+      <button
+        onClick={() => setIsVisible(!isVisible)}
+        className="fixed bottom-4 right-4 z-50 w-10 h-10 bg-slate-800 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg"
+        title="Debug Info"
+      >
+        {isAppMode ? 'A' : 'W'}
+      </button>
+      
+      {isVisible && (
+        <div className="fixed bottom-20 right-4 z-50 bg-slate-900 text-white rounded-xl p-4 text-sm max-w-xs shadow-2xl border border-slate-700">
+          <div className="flex items-center justify-between mb-2">
+            <span className="font-bold">App Detection Debug</span>
+            <button 
+              onClick={() => setIsVisible(false)}
+              className="p-1 hover:bg-slate-700 rounded"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${isAppMode ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`}></div>
+              <span>Mode: <strong>{isAppMode ? 'App Dashboard' : 'Web Landing'}</strong></span>
+            </div>
+            
+            <div className="text-xs text-slate-300">
+              Method: {detectionMethod}
+            </div>
+            
+            <div className="pt-2 border-t border-slate-700">
+              <button
+                onClick={() => {
+                  localStorage.setItem('forceAppMode', (!isAppMode).toString());
+                  window.location.reload();
+                }}
+                className="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-lg w-full"
+              >
+                Force {isAppMode ? 'Web' : 'App'} Mode
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 // ==========================================
 // 1. APP DASHBOARD (The Mobile-First View)
 // ==========================================
-const AppDashboard: React.FC = () => {
+const AppDashboard: React.FC<{ detectionMethod?: string }> = ({ detectionMethod }) => {
+  // Force app mode if localStorage flag is set (for debugging)
+  const [forceAppMode] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('forceAppMode') === 'true';
+  });
+
+  if (!forceAppMode && !detectionMethod?.includes('standalone') && !detectionMethod?.includes('referrer')) {
+    // Fallback to web landing if detection might be incorrect
+    return <WebLanding />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-20">
       <header className="px-6 py-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 shadow-sm safe-area-top">
@@ -39,11 +299,26 @@ const AppDashboard: React.FC = () => {
               PyNum<span className="text-emerald-500">Studio</span>
             </span>
           </div>
-          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]"></div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]"></div>
+            <span className="text-[10px] text-slate-500 uppercase tracking-widest">App</span>
+          </div>
         </div>
       </header>
 
       <div className="p-6 space-y-8 animate-in fade-in zoom-in-95 duration-700">
+        {/* Welcome Message */}
+        <section className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-3xl p-6 text-white">
+          <div className="flex items-center gap-3 mb-2">
+            <Check className="w-5 h-5 text-emerald-100" />
+            <span className="text-sm font-bold">App Mode Active</span>
+          </div>
+          <h1 className="text-2xl font-black mb-2">Welcome to PyNum Studio</h1>
+          <p className="text-emerald-100 text-sm opacity-90">
+            All tools available offline. Your calculations are saved locally.
+          </p>
+        </section>
+
         <section>
           <div className="flex items-center gap-2 mb-4 opacity-70">
             <Sparkles className="w-4 h-4 text-emerald-500" />
@@ -73,6 +348,28 @@ const AppDashboard: React.FC = () => {
              <AppModuleCard to={`/${slugify(TopicCategory.LINEAR)}/${slugify(AlgorithmType.GAUSSIAN)}/demo`} title="Linear Algebra" desc="Matrix Ops, Decompositions" icon={Grid3X3} color="blue" />
              <AppModuleCard to={`/${slugify(TopicCategory.INTERPOLATION)}/${slugify(AlgorithmType.LAGRANGE)}/demo`} title="Interpolation" desc="Splines, Lagrange, Curves" icon={Cpu} color="purple" />
              <AppModuleCard to={`/${slugify(TopicCategory.ODE)}/${slugify(AlgorithmType.RK4)}/demo`} title="Calculus & ODEs" desc="Integration, Runge-Kutta" icon={Command} color="amber" />
+          </div>
+        </section>
+
+        {/* App Features */}
+        <section className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-2 mb-4">
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span className="text-[10px] font-black uppercase tracking-widest">App Features</span>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="text-center p-3">
+              <div className="w-10 h-10 mx-auto mb-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center">
+                <Database className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <span className="text-xs font-bold">Offline Storage</span>
+            </div>
+            <div className="text-center p-3">
+              <div className="w-10 h-10 mx-auto mb-2 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
+                <Globe className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              </div>
+              <span className="text-xs font-bold">No Internet</span>
+            </div>
           </div>
         </section>
 
