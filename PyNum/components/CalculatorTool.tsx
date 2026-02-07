@@ -1,12 +1,14 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Delete, Equal, Plus, Minus, X, Divide, 
   Clock, Trash2, Copy, History as HistoryIcon,
   X as CloseIcon, Calculator, Layout, 
-  Binary, Atom, ChevronRight, Search, Info,
+  Binary, Atom, ChevronRight, Hash, Search, Info,
   Filter, Grid, ChevronDown
 } from 'lucide-react';
 import * as math from 'mathjs';
+import { findRoots } from '../services/mathService';
 
 interface HistoryItem {
   expression: string;
@@ -80,39 +82,50 @@ const SymbolRenderer: React.FC<{ symbol: string; className?: string }> = ({ symb
 };
 
 /**
- * Find polynomial roots (simplified version for old app compatibility)
+ * Renders mathematical text into a professional visual format
  */
-const findRoots = (expr: string): string[] => {
-  try {
-    // Simple root finding for linear equations
-    if (expr.includes('x')) {
-      // Extract coefficients for ax + b = 0
-      const exprWithoutSpaces = expr.replace(/\s+/g, '');
-      const match = exprWithoutSpaces.match(/([+-]?\d*\.?\d*)x\s*([+-]?\d+\.?\d*)?/);
-      
-      if (match) {
-        const a = match[1] === '' || match[1] === '+' ? 1 : match[1] === '-' ? -1 : parseFloat(match[1]);
-        const b = match[2] ? parseFloat(match[2]) : 0;
-        
-        if (a === 0) {
-          return b === 0 ? ["Infinite solutions"] : ["No solution"];
-        }
-        
-        const root = -b / a;
-        return [math.format(root, { precision: 8 })];
-      }
+const MathDisplayRenderer: React.FC<{ text: string }> = ({ text }) => {
+  if (!text) return <span className="text-slate-200 dark:text-slate-800">0</span>;
+
+  const renderNthRoot = (input: string) => {
+    if (!input) return [];
+    const regex = /nthRoot\(([^,]+),\s*([^)]+)\)/g;
+    const items: (string | React.ReactNode)[] = [];
+    let lastIdx = 0;
+    let match;
+
+    while ((match = regex.exec(input)) !== null) {
+      items.push(input.substring(lastIdx, match.index));
+      items.push(
+        <span key={match.index} className="inline-flex items-center -mb-1">
+          <sup className="text-[0.55em] -mr-0.5 mb-1.5 font-bold text-emerald-600 dark:text-emerald-500">{match[2]}</sup>
+          <span className="text-[1.15em] font-serif italic">√</span>
+          <span className="border-t-2 border-slate-800 dark:border-slate-100 px-1 pt-0.5 -mt-0.5 leading-none font-mono">
+            {match[1]}
+          </span>
+        </span>
+      );
+      lastIdx = regex.lastIndex;
     }
-    
-    // Try to evaluate normally
-    const res = math.evaluate(expr);
-    if (typeof res === 'number') {
-      return [math.format(res, { precision: 8 })];
-    }
-    
-    return ["Expression evaluation failed"];
-  } catch (err) {
-    return ["Calculation error"];
-  }
+    items.push(input.substring(lastIdx));
+    return items;
+  };
+
+  const basicPretty = (content: any) => {
+    if (typeof content !== 'string') return content;
+    return content
+      .replace(/\*/g, '×')
+      .replace(/\//g, '÷')
+      .replace(/pi/g, 'π')
+      .replace(/sqrt/g, '√');
+  };
+
+  const firstPass = renderNthRoot(text);
+  const finalPass = firstPass.map((part, i) => (
+     <React.Fragment key={i}>{basicPretty(part)}</React.Fragment>
+  ));
+
+  return <>{finalPass}</>;
 };
 
 export const CalculatorTool: React.FC = () => {
@@ -125,11 +138,16 @@ export const CalculatorTool: React.FC = () => {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isConstOpen, setIsConstOpen] = useState(false);
   const [isFuncOpen, setIsFuncOpen] = useState(false);
+  const [isNthRootOpen, setIsNthRootOpen] = useState(false);
   const [angleMode, setAngleMode] = useState<'RAD' | 'DEG'>('RAD');
   const [constSearch, setConstSearch] = useState('');
   const [constCategory, setConstCategory] = useState<ConstantCategory>('All');
   const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [detailConst, setDetailConst] = useState<Constant | null>(null);
+  
+  // Nth Root Modal State
+  const [nrValue, setNrValue] = useState('');
+  const [nrIndex, setNrIndex] = useState('');
   
   const inputRef = useRef<HTMLInputElement>(null);
   const resultContainerRef = useRef<HTMLDivElement>(null);
@@ -140,11 +158,6 @@ export const CalculatorTool: React.FC = () => {
       resultContainerRef.current.scrollLeft = resultContainerRef.current.scrollWidth;
     }
   }, [result]);
-
-  // Focus input on component mount (old app behavior)
-  useEffect(() => {
-    setTimeout(() => inputRef.current?.focus(), 100);
-  }, []);
 
   const insertAtCursor = (val: string) => {
     if (val === undefined || val === null) return;
@@ -163,12 +176,7 @@ export const CalculatorTool: React.FC = () => {
     }, 0);
   };
 
-  const clearInput = () => { 
-    setInput(''); 
-    setResult(''); 
-    setError(null); 
-    setTimeout(() => inputRef.current?.focus(), 0);
-  };
+  const clearInput = () => { setInput(''); setResult(''); setError(null); inputRef.current?.focus(); };
   
   const backspace = () => {
     const inputEl = inputRef.current;
@@ -192,6 +200,8 @@ export const CalculatorTool: React.FC = () => {
       .replace(/÷/g, '/')
       .replace(/π/g, 'pi')
       .replace(/√/g, 'sqrt')
+      .replace(/(\d+(\.\d+)?)\s*P\s*(\d+(\.\d+)?)/g, 'permutations($1, $3)')
+      .replace(/(\d+(\.\d+)?)\s*C\s*(\d+(\.\d+)?)/g, 'combinations($1, $3)')
       .replace(/Ans/g, history[0]?.result || '0');
   };
 
@@ -203,9 +213,27 @@ export const CalculatorTool: React.FC = () => {
         sin: (x: number) => Math.sin(toRad(x)),
         cos: (x: number) => Math.cos(toRad(x)),
         tan: (x: number) => Math.tan(toRad(x)),
+        sec: (x: number) => 1 / Math.cos(toRad(x)),
+        csc: (x: number) => 1 / Math.sin(toRad(x)),
+        cot: (x: number) => 1 / Math.tan(toRad(x)),
         asin: (x: number) => fromRad(Math.asin(x)),
         acos: (x: number) => fromRad(Math.acos(x)),
         atan: (x: number) => fromRad(Math.atan(x)),
+        asec: (x: number) => fromRad(Math.acos(1 / x)),
+        acsc: (x: number) => fromRad(Math.asin(1 / x)),
+        acot: (x: number) => fromRad(Math.atan(1 / x)),
+        sinh: (x: number) => Math.sinh(toRad(x)),
+        cosh: (x: number) => Math.cosh(toRad(x)),
+        tanh: (x: number) => Math.tanh(toRad(x)),
+        sech: (x: number) => 1 / Math.cosh(toRad(x)),
+        csch: (x: number) => 1 / Math.sinh(toRad(x)),
+        coth: (x: number) => 1 / Math.tanh(toRad(x)),
+        asinh: (x: number) => fromRad(Math.asinh(x)),
+        acosh: (x: number) => fromRad(Math.acosh(x)),
+        atanh: (x: number) => fromRad(Math.atanh(x)),
+        asech: (x: number) => fromRad(Math.acosh(1 / x)),
+        acsch: (x: number) => fromRad(Math.asinh(1 / x)),
+        acoth: (x: number) => fromRad(Math.atanh(1 / x)),
       };
     }
     return {};
@@ -216,78 +244,54 @@ export const CalculatorTool: React.FC = () => {
       if (!input.trim()) return;
       const sanitized = getSanitizedExpression(input);
 
-      // Check if expression contains 'x' for root finding
       if (input.toLowerCase().includes('x')) {
         const roots = findRoots(sanitized);
         const resString = roots.join('; ');
         setResult(resString);
-        setHistory(prev => [{
-          expression: input,
-          result: resString,
-          timestamp: Date.now(),
-          isRoots: true
-        }, ...prev].slice(0, 50));
+        addToHistory(input, resString, true);
         setError(null);
         return;
       }
 
       const scope = getEvaluationScope();
       const res = math.evaluate(sanitized, scope);
-      
-      let formatted = "";
-      if (typeof res === 'number') {
-          formatted = math.format(res, { precision: 12 });
-      } else {
-          formatted = String(res);
-      }
-
+      const formatted = math.format(res, { precision: 12 });
       setResult(formatted);
-      setHistory(prev => [{
-          expression: input,
-          result: formatted,
-          timestamp: Date.now()
-      }, ...prev].slice(0, 50));
+      addToHistory(input, formatted);
       setError(null);
     } catch (e: any) {
-      setError("Syntax Error");
+      setError("Calculation Error");
     }
-    setTimeout(() => inputRef.current?.focus(), 0);
+    inputRef.current?.focus();
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-    setError(null);
+  const addToHistory = (expr: string, res: string, isRoots = false) => {
+    setHistory(prev => [{ expression: expr, result: res, timestamp: Date.now(), isRoots }, ...prev].slice(0, 50));
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      safeEvaluate();
-    }
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      clearInput();
-    }
+  const confirmNthRoot = () => {
+    if (!nrValue || !nrIndex) return;
+    insertAtCursor(`nthRoot(${nrValue}, ${nrIndex})`);
+    setIsNthRootOpen(false);
+    setNrValue('');
+    setNrIndex('');
   };
 
-  const KeyBtn = ({ label, val, color = "default", onClick, className = "", colSpan = 1, title = "" }: any) => {
-    const baseClass = `relative h-16 md:h-20 rounded-2xl flex items-center justify-center text-sm md:text-lg font-bold transition-all active:scale-95 select-none overflow-hidden group border shadow-sm cursor-pointer`;
-    const colors: any = {
-      default: "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-800 hover:border-emerald-200 dark:hover:border-emerald-800",
-      slate: "bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-800",
-      emerald: "bg-emerald-600 text-white hover:bg-emerald-500 shadow-lg shadow-emerald-600/20 border-emerald-500",
-      amber: "bg-amber-50 dark:bg-amber-900/10 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 border-amber-100 dark:border-amber-900/30",
-      red: "bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 border-red-100 dark:border-red-900/30"
+  const KeyBtn = ({ label, val, variant = "default", onClick, colSpan = 1, title = "" }: any) => {
+    const variants: any = {
+      default: "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-800 hover:border-emerald-300 dark:hover:border-emerald-700 shadow-sm",
+      function: "bg-slate-50/60 dark:bg-slate-800/40 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 border-slate-200 dark:border-slate-800",
+      action: "bg-emerald-600 text-white hover:bg-emerald-500 border-emerald-500 shadow-lg shadow-emerald-600/10",
+      operator: "bg-amber-50/60 dark:bg-amber-950/20 text-amber-600 dark:text-amber-500 hover:bg-amber-100 dark:hover:bg-amber-950/30 border-amber-100 dark:border-amber-900/30",
+      danger: "bg-red-50/60 dark:bg-red-950/20 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-950/30 border-red-100 dark:border-red-900/30"
     };
     return (
       <button 
-        type="button"
-        title={title}
+        type="button" title={title}
         onClick={() => onClick ? onClick() : insertAtCursor(val)} 
-        className={`${baseClass} ${colors[color]} ${className}`} 
-        style={{ gridColumn: colSpan > 1 ? `span ${colSpan} / span ${colSpan}` : undefined }}
+        className={`h-14 rounded-2xl flex items-center justify-center text-[15px] font-bold transition-all active:scale-95 border ${variants[variant]} ${colSpan > 1 ? `col-span-${colSpan}` : ''}`} 
       >
-        <span className="relative z-10">{label}</span>
+        {label}
       </button>
     );
   };
@@ -300,8 +304,45 @@ export const CalculatorTool: React.FC = () => {
   });
 
   return (
-    <div className="flex w-full h-[calc(100vh-3.5rem)] bg-white dark:bg-slate-950 overflow-hidden relative animate-in fade-in duration-500">
+    <div className="flex flex-col lg:flex-row w-full h-screen bg-white dark:bg-slate-950 overflow-hidden relative selection:bg-emerald-200 dark:selection:bg-emerald-900/40">
       
+      {/* Nth Root Dialog Modal */}
+      {isNthRootOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 scale-100 transform transition-all animate-in zoom-in-95">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="font-black text-xs uppercase tracking-[0.2em] text-slate-400">nth Root Input</h3>
+              <button onClick={() => setIsNthRootOpen(false)} className="p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"><CloseIcon size={18}/></button>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-950 p-6 rounded-3xl border border-slate-100 dark:border-slate-800">
+                <div className="flex flex-col items-center">
+                   <input 
+                      type="text" value={nrIndex} onChange={(e) => setNrIndex(e.target.value)}
+                      placeholder="n" className="w-12 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-bold text-emerald-600 outline-none p-1 mb-1"
+                   />
+                   <span className="text-3xl font-serif">√</span>
+                </div>
+                <div className="flex-1">
+                   <input 
+                      type="text" value={nrValue} onChange={(e) => setNrValue(e.target.value)}
+                      placeholder="Value" className="w-full text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xl font-mono font-bold outline-none p-3"
+                   />
+                </div>
+              </div>
+
+              <button 
+                onClick={confirmNthRoot}
+                className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-emerald-600/20 transition-all active:scale-95"
+              >
+                Insert Root
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Constant Detail Dialog */}
       {detailConst && (
         <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md animate-in fade-in">
@@ -344,133 +385,104 @@ export const CalculatorTool: React.FC = () => {
         </div>
       )}
 
-      {/* Main Workspace */}
-      <div className="flex-1 flex flex-col min-w-0 bg-white dark:bg-slate-950">
-           
-           {/* Immersive Header/Display */}
-           <div className="flex-none p-6 md:p-10 bg-slate-50/50 dark:bg-black/20 border-b border-slate-200 dark:border-slate-800 relative min-h-[220px] md:min-h-[280px] flex flex-col justify-end">
-              <div className="absolute top-6 left-6 md:left-10 flex gap-3 z-10">
-                 <button 
-                   type="button"
-                   onClick={() => setAngleMode(m => m === 'DEG' ? 'RAD' : 'DEG')} 
-                   className="px-4 py-2 bg-white dark:bg-slate-900 text-[10px] font-black text-emerald-600 dark:text-emerald-500 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm min-w-[70px] transition-all hover:border-emerald-300 uppercase tracking-widest"
-                 >
-                   {angleMode}
-                 </button>
-                 <button 
-                   type="button"
-                   onClick={() => { setIsHistoryOpen(!isHistoryOpen); setIsConstOpen(false); setIsFuncOpen(false); }} 
-                   className={`p-2.5 rounded-xl border transition-all ${isHistoryOpen ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 shadow-sm hover:text-emerald-500'}`}
-                 >
-                    <HistoryIcon className="w-5 h-5" />
-                 </button>
-                 <button 
-                   type="button"
-                   onClick={() => { setIsConstOpen(!isConstOpen); setIsHistoryOpen(false); setIsFuncOpen(false); }} 
-                   className={`p-2.5 rounded-xl border transition-all ${isConstOpen ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 hover:text-emerald-500 shadow-sm'}`}
-                 >
-                    <Atom className="w-5 h-5" />
-                 </button>
-                 <button 
-                   type="button"
-                   onClick={() => { setIsFuncOpen(!isFuncOpen); setIsHistoryOpen(false); setIsConstOpen(false); }} 
-                   className={`p-2.5 rounded-xl border transition-all ${isFuncOpen ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 hover:text-emerald-500 shadow-sm'}`}
-                 >
-                    <Grid className="w-5 h-5" />
-                 </button>
+      {/* Main Area */}
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+        
+        {/* Display Area */}
+        <div className="flex-none p-6 md:p-12 flex flex-col justify-end min-h-[280px] md:min-h-[350px] bg-gradient-to-b from-slate-50/50 to-transparent dark:from-slate-900/30 dark:to-transparent relative border-b border-slate-100 dark:border-slate-900">
+          <div className="absolute top-8 left-8 flex items-center gap-3 z-10">
+            <button onClick={() => setAngleMode(m => m === 'DEG' ? 'RAD' : 'DEG')} className="px-4 py-2 text-[10px] font-black bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm hover:border-emerald-500 transition-all uppercase tracking-widest active:scale-95">{angleMode}</button>
+            <button onClick={() => { setIsHistoryOpen(!isHistoryOpen); setIsConstOpen(false); setIsFuncOpen(false); }} className={`p-2.5 rounded-xl border transition-all active:scale-95 ${isHistoryOpen ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 shadow-sm hover:text-emerald-500'}`}><HistoryIcon size={18}/></button>
+            <button onClick={() => { setIsConstOpen(!isConstOpen); setIsHistoryOpen(false); setIsFuncOpen(false); }} className={`p-2.5 rounded-xl border transition-all active:scale-95 ${isConstOpen ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 hover:text-emerald-500 shadow-sm'}`}><Atom size={18}/></button>
+            <button onClick={() => { setIsFuncOpen(!isFuncOpen); setIsHistoryOpen(false); setIsConstOpen(false); }} className={`p-2.5 rounded-xl border transition-all active:scale-95 ${isFuncOpen ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 hover:text-emerald-500 shadow-sm'}`}><Grid size={18}/></button>
+          </div>
+
+          {error && <div className="absolute top-8 right-8 px-5 py-2.5 rounded-2xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-[10px] font-black uppercase tracking-widest border border-red-100 dark:border-red-900/50 flex items-center gap-3 animate-in slide-in-from-right-8"><div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"/> {error}</div>}
+
+          <div className="max-w-5xl mx-auto w-full flex flex-col items-end gap-6">
+            <div className="w-full text-right text-4xl md:text-6xl lg:text-7xl font-light text-slate-800 dark:text-slate-100 tracking-tight font-mono whitespace-pre-wrap break-all min-h-[1.5em] flex justify-end items-end transition-all">
+               <MathDisplayRenderer text={input} />
+            </div>
+            
+            <input 
+              ref={inputRef} type="text" value={input} 
+              onChange={(e) => setInput(e.target.value)} 
+              onKeyDown={(e) => { if (e.key === 'Enter') safeEvaluate(); if (e.key === 'Escape') clearInput(); }}
+              inputMode="none" autoComplete="off" autoFocus className="sr-only"
+            />
+
+            <div 
+              ref={resultContainerRef}
+              className="h-16 flex items-center justify-end w-full overflow-x-auto no-scrollbar scroll-smooth"
+            >
+              <div className="text-2xl md:text-3xl font-black text-emerald-500 dark:text-emerald-400 font-mono tracking-tighter drop-shadow-md whitespace-nowrap min-w-full text-right px-1">
+                {result}
               </div>
+            </div>
+          </div>
+        </div>
 
-              {error && (
-                <div className="absolute top-6 right-6 md:right-10 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-red-100 dark:border-red-900/50 flex items-center gap-2 animate-in slide-in-from-top-2">
-                   <div className="w-1.5 h-1.5 rounded-full bg-red-500"></div>
-                   {error}
-                </div>
-              )}
-              
-              <div className="max-w-5xl mx-auto w-full space-y-6">
-                 <input 
-                    ref={inputRef}
-                    type="text"
-                    value={input}
-                    onChange={handleInputChange}
-                    onKeyDown={handleKeyDown}
-                    className="w-full bg-transparent text-right text-4xl md:text-7xl font-light text-slate-800 dark:text-slate-100 outline-none placeholder:text-slate-200 dark:placeholder:text-slate-800 font-mono tracking-tight transition-all caret-emerald-500"
-                    placeholder="0"
-                    autoComplete="off"
-                    autoFocus
-                 />
-                 <div 
-                    ref={resultContainerRef}
-                    className="h-16 text-2xl md:text-4xl font-bold text-emerald-500 font-mono tracking-wider opacity-90 truncate text-right drop-shadow-sm flex items-center justify-end gap-3 overflow-x-auto no-scrollbar"
-                 >
-                    {result && <span className="text-slate-300 dark:text-slate-700 text-lg md:text-2xl font-light">=</span>}
-                    {result || ''}
-                 </div>
+        {/* Scrollable Keypad */}
+        <div className="flex-1 overflow-y-auto p-4 md:p-12 lg:p-16 bg-white dark:bg-slate-950 custom-scrollbar">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-20">
+            
+            {/* Advanced Lab Section - Frequently used operators */}
+            <div className="md:col-span-5 grid grid-cols-4 gap-3 h-fit">
+              <div className="col-span-4 flex items-center gap-3 mb-4 px-1">
+                <Binary size={16} className="text-emerald-500"/>
+                <span className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-600 tracking-[0.4em]">Primary Ops</span>
               </div>
-           </div>
+              {[
+                {label: 'x²', val: '^2'}, {label: '^', val: '^'}, {label: '√', val: 'sqrt('}, {label: 'ⁿ√', onClick: () => setIsNthRootOpen(true), variant: 'function'},
+                {label: 'log', val: 'log10('}, {label: 'ln', val: 'ln('}, {label: 'x!', val: '!'}, {label: 'mod', val: ' mod '},
+                {label: 'π', val: 'π'}, {label: 'e', val: 'e'}, {label: '(', val: '('}, {label: ')', val: ')'},
+                {label: <span className="italic font-serif text-lg">x</span>, val: 'x', colSpan: 2}, {label: ',', val: ','}, {label: 'abs', val: 'abs('}
+              ].map((k, i) => (
+                <KeyBtn key={i} {...k} variant={k.variant || "function"} />
+              ))}
+            </div>
 
-           {/* Full Page Keypad */}
-           <div className="flex-1 overflow-y-auto p-6 md:p-10 bg-white dark:bg-slate-950 custom-scrollbar">
-              <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 h-full">
-                  
-                  {/* Scientific Section */}
-                  <div className="grid grid-cols-4 gap-4 lg:flex-1 content-start border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800 pb-8 lg:pb-0 lg:pr-8">
-                     <div className="col-span-4 mb-2 flex items-center gap-2">
-                        <Binary className="w-4 h-4 text-emerald-500" />
-                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Scientific Functions</span>
-                     </div>
-                     {[
-                       {l: 'sin', v: 'sin('}, {l: 'cos', v: 'cos('}, {l: 'tan', v: 'tan('}, {l: 'π', v: 'π'},
-                       {l: 'asin', v: 'asin('}, {l: 'acos', v: 'acos('}, {l: 'atan', v: 'atan('}, {l: 'e', v: 'e'},
-                       {l: 'ln', v: 'ln('}, {l: 'log', v: 'log10('}, {l: 'x²', v: '^2'}, {l: '√', v: 'sqrt('},
-                       {l: '^', v: '^'}, {l: '(', v: '('}, {l: ')', v: ')'}, {l: '!', v: '!'},
-                       {l: <span className="italic font-serif text-lg">x</span>, v: 'x', col: 2}, {l: ',', v: ','}, {l: 'abs', v: 'abs('}
-                     ].map(key => (
-                         <KeyBtn 
-                           key={key.l} 
-                           label={key.l} 
-                           val={key.v} 
-                           color="slate" 
-                           colSpan={key.col || 1}
-                         />
-                     ))}
-                  </div>
-
-                  {/* Numeric/Action Section */}
-                  <div className="grid grid-cols-4 gap-4 lg:flex-[1.2] content-start">
-                     <div className="col-span-4 mb-2 flex items-center gap-2">
-                        <Layout className="w-4 h-4 text-emerald-500" />
-                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Calculations</span>
-                     </div>
-                     <KeyBtn label="AC" onClick={clearInput} color="red" />
-                     <KeyBtn label={<Delete className="w-6 h-6" />} onClick={backspace} color="red" />
-                     <KeyBtn label="Ans" val="Ans" className="text-xs font-black uppercase tracking-widest" color="slate" />
-                     <KeyBtn label={<Divide className="w-7 h-7" />} val="/" color="amber" />
-
-                     <KeyBtn label="7" val="7" />
-                     <KeyBtn label="8" val="8" />
-                     <KeyBtn label="9" val="9" />
-                     <KeyBtn label={<X className="w-7 h-7" />} val="×" color="amber" />
-
-                     <KeyBtn label="4" val="4" />
-                     <KeyBtn label="5" val="5" />
-                     <KeyBtn label="6" val="6" />
-                     <KeyBtn label={<Minus className="w-7 h-7" />} val="-" color="amber" />
-
-                     <KeyBtn label="1" val="1" />
-                     <KeyBtn label="2" val="2" />
-                     <KeyBtn label="3" val="3" />
-                     <KeyBtn label={<Plus className="w-7 h-7" />} val="+" color="amber" />
-
-                     <KeyBtn label="0" val="0" />
-                     <KeyBtn label="." val="." />
-                     <KeyBtn label={<Equal className="w-10 h-10" />} onClick={safeEvaluate} color="emerald" colSpan={2} />
-                  </div>
+            {/* Arithmetic Section */}
+            <div className="md:col-span-7 grid grid-cols-4 gap-3 h-fit">
+              <div className="col-span-4 flex items-center gap-3 mb-4 px-1">
+                <Layout size={16} className="text-emerald-500"/>
+                <span className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-600 tracking-[0.4em]">Main Logic</span>
               </div>
-           </div>
+              <KeyBtn label="AC" onClick={clearInput} variant="danger"/>
+              <KeyBtn label={<Delete size={22}/>} onClick={backspace} variant="danger"/>
+              <KeyBtn label="Ans" val="Ans" variant="function"/>
+              <KeyBtn label={<Divide size={24}/>} val="/" variant="operator"/>
+
+              <KeyBtn label="7" val="7"/>
+              <KeyBtn label="8" val="8"/>
+              <KeyBtn label="9" val="9"/>
+              <KeyBtn label={<X size={22}/>} val="×" variant="operator"/>
+
+              <KeyBtn label="4" val="4"/>
+              <KeyBtn label="5" val="5"/>
+              <KeyBtn label="6" val="6"/>
+              <KeyBtn label={<Minus size={24}/>} val="-" variant="operator"/>
+
+              <KeyBtn label="1" val="1"/>
+              <KeyBtn label="2" val="2"/>
+              <KeyBtn label="3" val="3"/>
+              <KeyBtn label={<Plus size={24}/>} val="+" variant="operator"/>
+
+              <KeyBtn label="0" val="0"/>
+              <KeyBtn label="." val="."/>
+              <KeyBtn label={<Equal size={36}/>} onClick={safeEvaluate} variant="action" colSpan={2}/>
+            </div>
+          </div>
+          <div className="h-20"></div>
+        </div>
       </div>
 
-      {/* Functions Lab Side Panel */}
+      {/* Side Panels Overlay (for mobile/tablet) */}
+      {(isHistoryOpen || isConstOpen || isFuncOpen) && (
+        <div className="lg:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-[105]" onClick={() => { setIsHistoryOpen(false); setIsConstOpen(false); setIsFuncOpen(false); }} />
+      )}
+
+      {/* Functions Lab Side Panel - Trigonometry, Statistics, etc. */}
       <div className={`fixed inset-y-0 right-0 w-full sm:w-[480px] bg-white dark:bg-slate-900 border-l border-slate-100 dark:border-slate-800 z-[110] transform transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col shadow-[-40px_0_80px_-20px_rgba(0,0,0,0.1)] ${isFuncOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="p-10 border-b border-slate-50 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-5">
@@ -535,8 +547,26 @@ export const CalculatorTool: React.FC = () => {
             </div>
             <div className="grid grid-cols-3 gap-3">
               {[
-                {label: 'nPr', val: 'permutations('}, {label: 'nCr', val: 'combinations('}, {label: 'mean', val: 'mean('},
+                {label: 'nPr', val: ' P '}, {label: 'nCr', val: ' C '}, {label: 'mean', val: 'mean('},
                 {label: 'median', val: 'median('}, {label: 'std', val: 'std('}, {label: 'var', val: 'var('}
+              ].map((f, i) => (
+                <button key={i} onClick={() => insertAtCursor(f.val)} className="py-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 text-[13px] font-bold text-slate-600 dark:text-slate-300 hover:border-emerald-400 hover:text-emerald-600 transition-all active:scale-95 shadow-sm">
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Section: Advanced Algebra */}
+          <div>
+            <div className="flex items-center gap-3 mb-6 px-1">
+              <span className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-[0.4em]">Advanced Alg</span>
+              <div className="h-[1px] flex-1 bg-slate-100 dark:bg-slate-800"/>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                {label: 'floor', val: 'floor('}, {label: 'ceil', val: 'ceil('}, {label: 'round', val: 'round('},
+                {label: 'exp', val: 'exp('}, {label: 'gamma', val: 'gamma('}, {label: 'to', val: ' to '}
               ].map((f, i) => (
                 <button key={i} onClick={() => insertAtCursor(f.val)} className="py-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 text-[13px] font-bold text-slate-600 dark:text-slate-300 hover:border-emerald-400 hover:text-emerald-600 transition-all active:scale-95 shadow-sm">
                   {f.label}
@@ -634,79 +664,48 @@ export const CalculatorTool: React.FC = () => {
       </div>
 
       {/* History Side Panel */}
-      <div className={`fixed inset-y-0 right-0 w-full sm:w-96 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 z-50 transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col ${isHistoryOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="p-8 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-black/20">
-              <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-emerald-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-slate-100">Activity Log</h3>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{history.length} Entries</p>
-                  </div>
-              </div>
-              <button 
-                type="button"
-                onClick={() => setIsHistoryOpen(false)} 
-                className="p-2.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all hover:text-slate-900 active:scale-90"
-              >
-                <CloseIcon className="w-5 h-5" />
-              </button>
+      <div className={`fixed inset-y-0 right-0 w-full sm:w-[480px] bg-white dark:bg-slate-900 border-l border-slate-100 dark:border-slate-800 z-[110] transform transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col shadow-[-40px_0_80px_-20px_rgba(0,0,0,0.1)] ${isHistoryOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="p-10 border-b border-slate-50 dark:border-slate-800 flex items-center justify-between">
+          <div className="flex items-center gap-5">
+            <div className="w-14 h-14 rounded-3xl bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center">
+              <Clock className="text-emerald-600 dark:text-emerald-400" size={24}/>
+            </div>
+            <div>
+              <h3 className="font-black text-slate-900 dark:text-slate-100 text-base tracking-[0.2em] uppercase">Session Lab</h3>
+              <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest opacity-60">Log Analysis</p>
+            </div>
           </div>
+          <button onClick={() => setIsHistoryOpen(false)} className="p-4 text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-2xl transition-all"><CloseIcon size={24}/></button>
+        </div>
 
-          <div className="flex-1 overflow-y-auto p-8 space-y-10 custom-scrollbar bg-white dark:bg-slate-950/20">
-              {history.length === 0 ? (
-                  <div className="h-full flex flex-col items-center justify-center text-center opacity-30">
-                      <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-6">
-                        <Calculator className="w-10 h-10 text-slate-300" />
-                      </div>
-                      <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-400">Memory is clear</p>
-                  </div>
-              ) : (
-                  <div className="relative border-l-2 border-slate-100 dark:border-slate-800 ml-3 space-y-10">
-                    {history.map((item, idx) => (
-                        <div key={idx} className="relative pl-8 group">
-                            <div className="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-white dark:bg-slate-900 border-2 border-emerald-500 group-hover:scale-125 transition-transform" />
-                            <div className="bg-slate-50/50 dark:bg-slate-900 rounded-3xl p-5 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 dark:hover:border-emerald-900 transition-all cursor-pointer shadow-sm relative overflow-hidden" onClick={() => { setInput(item.expression); setIsHistoryOpen(false); setTimeout(() => inputRef.current?.focus(), 100); }}>
-                                <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                  <Copy className="w-3.5 h-3.5 text-emerald-500" />
-                                </div>
-                                <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono mb-3 truncate pr-4">{item.expression}</div>
-                                <div className="flex items-center justify-between gap-4">
-                                    <span className="text-lg font-black text-slate-800 dark:text-emerald-400 font-mono tracking-tight">{item.result}</span>
-                                    <button 
-                                      type="button"
-                                      onClick={(e) => { 
-                                        e.stopPropagation(); 
-                                        navigator.clipboard.writeText(item.result);
-                                      }} 
-                                      className="p-1.5 text-slate-300 hover:text-emerald-600 transition-colors"
-                                      title="Copy Result"
-                                    >
-                                      <Copy className="w-3.5 h-3.5" />
-                                    </button>
-                                </div>
-                                {item.isRoots && <div className="mt-3 flex items-center gap-2">
-                                  <div className="px-2 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 text-[8px] font-black uppercase tracking-[0.1em] rounded-full border border-emerald-100/50 dark:border-emerald-900/30">Root Solving</div>
-                                </div>}
-                            </div>
-                        </div>
-                    ))}
-                  </div>
-              )}
-          </div>
-
-          {history.length > 0 && (
-              <div className="p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-black/10">
-                  <button 
-                    type="button"
-                    onClick={() => setHistory([])} 
-                    className="w-full py-4 flex items-center justify-center gap-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] transition-all"
-                  >
-                      <Trash2 className="w-4 h-4" /> Clear All Records
-                  </button>
+        <div className="flex-1 overflow-y-auto p-10 space-y-8 custom-scrollbar bg-slate-50/20 dark:bg-slate-950/20 pb-24">
+          {history.length === 0 ? (
+            <div className="h-full flex flex-col items-center justify-center text-slate-200 dark:text-slate-800/40">
+              <Calculator size={100} className="mb-8 stroke-[0.3px]"/>
+              <p className="text-xs font-black uppercase tracking-[0.5em]">No Data Logs</p>
+            </div>
+          ) : history.map((item, idx) => (
+            <div key={idx} onClick={() => { setInput(item.expression); setIsHistoryOpen(false); }} className="group relative bg-white dark:bg-slate-900/40 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 hover:border-emerald-400/40 dark:hover:border-emerald-600/40 transition-all cursor-pointer hover:shadow-2xl hover:shadow-emerald-500/5">
+              <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0"><ChevronRight size={18} className="text-emerald-500"/></div>
+              <div className="text-[11px] font-mono font-black text-slate-300 dark:text-slate-600 mb-4 truncate pr-12 uppercase tracking-tighter flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-slate-200 dark:bg-slate-800 group-hover:bg-emerald-400 transition-colors"/>
+                {item.expression}
               </div>
-          )}
+              <div className="text-2xl font-black text-slate-900 dark:text-emerald-400 font-mono tracking-tighter break-all leading-tight drop-shadow-sm">{item.result}</div>
+              {item.isRoots && <div className="mt-5 flex items-center gap-2">
+                 <div className="px-3 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-emerald-100/50 dark:border-emerald-900/30">Root Solving Log</div>
+              </div>}
+            </div>
+          ))}
+        </div>
+
+        {history.length > 0 && (
+          <div className="p-10 border-t border-slate-50 dark:border-slate-800 bg-white dark:bg-slate-900 absolute bottom-0 left-0 right-0">
+            <button onClick={() => setHistory([])} className="w-full py-5 rounded-[2rem] border border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400 text-[10px] font-black uppercase tracking-[0.4em] hover:bg-red-50 dark:hover:bg-red-950/20 transition-all flex items-center justify-center gap-4">
+              <Trash2 size={16}/> Wipe Entire Log
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
