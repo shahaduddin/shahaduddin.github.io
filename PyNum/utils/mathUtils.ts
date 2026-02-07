@@ -6,6 +6,10 @@
  * (LaTeX support, implicit multiplication) and UI validation helpers.
  */
 
+import * as math from 'mathjs';
+
+// ========== INPUT VALIDATION UTILITIES ==========
+
 /**
  * Validates if a string is a valid partial or complete numeric input.
  * Allows "-", ".", and empty string for better UX during typing.
@@ -26,6 +30,8 @@ export const isCompleteNumber = (val: string): boolean => {
   const num = Number(val);
   return !isNaN(num) && isFinite(num);
 };
+
+// ========== EXPRESSION COMPILATION UTILITIES ==========
 
 /**
  * Compiles a mathematical expression string into a high-performance JavaScript function.
@@ -112,3 +118,109 @@ export const compileMathFunction = (expression: string, args: string[] = ['x']):
     throw new Error(`Syntax Error in generated code: ${expr}`);
   }
 };
+
+// ========== POLYNOMIAL UTILITIES (using mathjs) ==========
+
+/**
+ * Extracts coefficients from a polynomial expression of x.
+ * Supports expressions like "x^2 + 2x + 1"
+ */
+export function getPolynomialCoefficients(expr: string): number[] | null {
+  try {
+    if (!expr || typeof expr !== 'string') return null;
+    const simplified = math.simplify(expr);
+    
+    // To get coefficients, we must pass 'true' as the detailed argument to rationalize.
+    const rationalized = (math.rationalize(simplified, {}, true) as any);
+    
+    if (rationalized && Array.isArray(rationalized.coefficients)) {
+      // Coefficients are returned from lowest degree (c0 + c1*x + c2*x^2...)
+      return rationalized.coefficients.map((c: any) => {
+        try {
+          return math.number(c);
+        } catch {
+          return 0;
+        }
+      });
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Solves a polynomial of any degree using numerical or analytical methods.
+ */
+export function findRoots(expr: string): string[] {
+  try {
+    const coeffs = getPolynomialCoefficients(expr);
+    if (!coeffs || !Array.isArray(coeffs) || coeffs.length < 2) {
+      return ["No variable x or invalid expression"];
+    }
+
+    // degree 1: ax + b = 0 => x = -b/a
+    if (coeffs.length === 2) {
+      if (coeffs[1] === 0) return ["No solution (division by zero)"];
+      const root = -coeffs[0] / coeffs[1];
+      return [math.format(root, { precision: 8 })];
+    }
+
+    // degree 2 or 3: use math.polynomialRoot
+    try {
+      const solver = (math as any).polynomialRoot;
+      if (typeof solver !== 'function') {
+        return ["Solver not available in current environment"];
+      }
+      
+      const roots = solver(...coeffs);
+      if (Array.isArray(roots)) {
+        return roots.map(r => math.format(r, { precision: 8 }));
+      }
+      return [math.format(roots, { precision: 8 })];
+    } catch (e) {
+      return ["Analytical solver limit reached or complex roots."];
+    }
+  } catch (err) {
+    return ["Calculation error"];
+  }
+}
+
+// ========== ADDITIONAL HELPER FUNCTIONS ==========
+
+/**
+ * Evaluates a mathematical expression string using mathjs.
+ * More robust than compileMathFunction for complex expressions.
+ */
+export function evaluateExpression(expr: string, scope?: Record<string, any>): number | null {
+  try {
+    const result = math.evaluate(expr, scope);
+    return typeof result === 'number' ? result : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Simplifies a mathematical expression using mathjs.
+ */
+export function simplifyExpression(expr: string): string {
+  try {
+    const simplified = math.simplify(expr);
+    return math.format(simplified);
+  } catch (e) {
+    return expr; // Return original if simplification fails
+  }
+}
+
+/**
+ * Checks if an expression contains a specific variable.
+ */
+export function containsVariable(expr: string, variable: string = 'x'): boolean {
+  try {
+    const node = math.parse(expr);
+    return node.filter(n => n.isSymbolNode && n.name === variable).length > 0;
+  } catch (e) {
+    return false;
+  }
+}
