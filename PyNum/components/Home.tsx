@@ -165,7 +165,7 @@ const InstallPrompt: React.FC<{
       />
       
       {/* Prompt Card - Positioned 20% from bottom (or centered on mobile) */}
-      <div className="relative w-full max-w-md animate-in slide-in-up duration-300 sm:slide-in-bottom">
+      <div className="relative w-full max-w-md mb-[20%] animate-in slide-in-up duration-300 sm:slide-in-bottom">
         <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl shadow-2xl p-6 text-white transform sm:translate-y-[20%]">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-3">
