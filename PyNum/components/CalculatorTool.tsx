@@ -361,8 +361,8 @@ export const CalculatorTool: React.FC = () => {
       {/* Main Area */}
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         
-        {/* Display Area: Tightened spacing and responsive height based on content */}
-        <div className="flex-none px-6 md:px-8 pt-16 pb-2 flex flex-col justify-start bg-gradient-to-b from-slate-50/50 to-transparent dark:from-slate-900/30 dark:to-transparent relative border-b border-slate-100 dark:border-slate-900 transition-all">
+        {/* Display Area: Tight vertical padding, safe top for controls */}
+        <div className="flex-none px-6 md:px-8 pt-16 pb-1 flex flex-col justify-start bg-gradient-to-b from-slate-50/50 to-transparent dark:from-slate-900/30 dark:to-transparent relative border-b border-slate-100 dark:border-slate-900 transition-all">
           <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
             <button onClick={() => setAngleMode(m => m === 'DEG' ? 'RAD' : 'DEG')} className="px-3 py-1.5 text-[10px] font-black bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm hover:border-emerald-500 transition-all uppercase tracking-widest active:scale-95">{angleMode}</button>
             <button onClick={() => { setIsHistoryOpen(!isHistoryOpen); setIsConstOpen(false); setIsFuncOpen(false); }} className={`p-2 rounded-lg border transition-all active:scale-95 ${isHistoryOpen ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 hover:text-emerald-500'}`}><HistoryIcon size={16}/></button>
@@ -372,13 +372,13 @@ export const CalculatorTool: React.FC = () => {
 
           {error && <div className="absolute top-4 right-4 px-4 py-2 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-[9px] font-black uppercase tracking-widest border border-red-100 dark:border-red-900/50 flex items-center gap-2 animate-in slide-in-from-right-8"><div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"/> {error}</div>}
 
-          <div className="max-w-5xl mx-auto w-full flex flex-col items-end gap-1">
-            {/* Expression Display: Tight vertical footprint with horizontal scrolling and no scrollbar */}
+          <div className="max-w-5xl mx-auto w-full flex flex-col items-end gap-0">
+            {/* Expression Display: Tight horizontal scrolling, no visible scrollbar */}
             <div 
               ref={expressionContainerRef}
               className="w-full text-right overflow-x-auto no-scrollbar scroll-smooth cursor-text py-1"
             >
-              <div className="flex flex-row justify-end items-center text-right text-4xl md:text-5xl lg:text-6xl font-light text-slate-800 dark:text-slate-100 tracking-tight font-mono whitespace-nowrap px-1 leading-none min-h-[3rem] md:min-h-[4rem]">
+              <div className="flex flex-row justify-end items-center text-right text-4xl md:text-5xl lg:text-6xl font-light text-slate-800 dark:text-slate-100 tracking-tight font-mono whitespace-nowrap px-1 leading-tight">
                 <MathDisplayRenderer text={input} />
               </div>
             </div>
@@ -390,12 +390,12 @@ export const CalculatorTool: React.FC = () => {
               inputMode="none" autoComplete="off" autoFocus className="sr-only"
             />
 
-            {/* Result Display: Compact horizontal scroll for large results */}
+            {/* Result Display: Hidden scrollbars, horizontal scroll only, fixed vertical height to avoid Y-axis scroll */}
             <div 
               ref={resultContainerRef}
-              className="h-8 flex items-center justify-end w-full overflow-x-auto no-scrollbar scroll-smooth"
+              className="h-10 flex items-center justify-end w-full overflow-x-auto overflow-y-hidden no-scrollbar scroll-smooth"
             >
-              <div className="text-xl md:text-2xl font-black text-emerald-500 dark:text-emerald-400 font-mono tracking-tighter drop-shadow-sm whitespace-nowrap min-w-full text-right px-1">
+              <div className="text-xl md:text-2xl font-black text-emerald-500 dark:text-emerald-400 font-mono tracking-tighter drop-shadow-sm whitespace-nowrap min-w-full text-right px-1 leading-none">
                 {result}
               </div>
             </div>
