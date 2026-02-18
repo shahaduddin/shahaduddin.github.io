@@ -31,11 +31,11 @@ const AboutSection: React.FC = () => {
         "sameAs": [
             "https://linkedin.com/in/shahaduddin",
             "https://github.com/shahaduddin",
-            "https://x.com/shahaduddin01",
-            "https://facebook.com/shahaduddin01",
-            "https://instagram.com/shahaduddin01",
-            "https://www.threads.com/shahaduddin01",
-            "https://www.youtube.com/@shahaduddin01"
+            "https://x.com/theshahaduddin",
+            "https://facebook.com/theshahaduddin",
+            "https://instagram.com/theshahaduddin",
+            "https://www.threads.com/theshahaduddin",
+            "https://www.youtube.com/@theshahaduddin"
         ]
     };
 
