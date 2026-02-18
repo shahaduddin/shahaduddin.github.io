@@ -6,8 +6,8 @@ import { Mail, Linkedin, Github } from 'lucide-react';
 const socialData: SocialLink[] = [
     {
         name: "Email",
-        email: "shahaduddin@protonmail.com",
-        username: "shahaduddin@protonmail.com",
+        email: "hello@shahaduddin.com",
+        username: "hello@shahaduddin.com",
         icon: <Mail size={32} />,
         label: "Email",
         colorClass: "text-emerald-400",
