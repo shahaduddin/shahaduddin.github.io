@@ -46,7 +46,7 @@ const galleryData: Photo[] = [
     category: "Social",
     title: "Grill & Chill 2024",
     description: "Departmental BBQ night under the fairy lights. Good food, warm atmosphere, and great company.",
-    date: "Winter 2024",
+    date: "Winter 2025",
     location: "Campus Grounds",
     color: "bg-orange-500"
   },
@@ -56,7 +56,7 @@ const galleryData: Photo[] = [
     category: "Travel",
     title: "Shimul Bagan Expedition",
     description: "Witnessing the vibrant red silk cotton trees in bloom. A colorful day out with the batch.",
-    date: "Spring",
+    date: "Spring 2025",
     location: "Tahirpur, Sunamgonj",
     color: "bg-rose-500"
   },
@@ -66,13 +66,13 @@ const galleryData: Photo[] = [
     category: "Travel",
     title: "Shimul Bagan Expedition",
     description: "Witnessing the vibrant red silk cotton trees in bloom. A colorful day out with the batch.",
-    date: "Spring",
+    date: "Spring 2025",
     location: "Tahirpur, Sunamgonj",
     color: "bg-rose-500"
   },
   {
     id: "award-plaque",
-    src: "./images/gallery/award-plaque.jpeg",
+    src: "./images/gallery/15th-numo-sylhet-regional-2nd-position.jpg",
     category: "Awards",
     title: "Excellent Performance",
     description: "Awarded for excellence in the 15th National Undergraduate Mathematics Olympiad (Sylhet Region).",
@@ -82,7 +82,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "award-plaque2",
-    src: "./images/gallery/award-plaque2.jpg",
+    src: "./images/gallery/16th-numo-sylhet-regional-6th-position.jpg",
     category: "Awards",
     title: "Excellent Performance",
     description: "Awarded for excellence in the 16th National Undergraduate Mathematics Olympiad (Sylhet Region).",
@@ -96,7 +96,7 @@ const galleryData: Photo[] = [
     category: "Social",
     title: "Community Feast",
     description: "Breaking bread together on the open field. A moment of simplicity and brotherhood.",
-    date: "Ramadan",
+    date: "Ramadan 2025",
     location: "SUST Field",
     color: "bg-emerald-500"
   },
@@ -115,8 +115,8 @@ const galleryData: Photo[] = [
     src: "./images/gallery/tour-boat.png",
     category: "Travel",
     title: "River Expedition",
-    description: "Navigating the serene waters of Ratargul/Bichnakandi. Peace amidst nature.",
-    date: "2023",
+    description: "Navigating the serene waters of Sada Pathor/Bholagonj. Peace amidst nature.",
+    date: "2026",
     location: "Sylhet",
     color: "bg-cyan-500"
   },
@@ -126,7 +126,7 @@ const galleryData: Photo[] = [
     category: "Events",
     title: "Team Achievement",
     description: "Celebrating our team's success outside the Dr. Jamilur Reza Choudhury Building.",
-    date: "Jan 2025",
+    date: "Jan 2026",
     location: "Civil Eng. Building",
     color: "bg-violet-500"
   },
@@ -135,9 +135,9 @@ const galleryData: Photo[] = [
     src: "./images/gallery/tour-stream.jpg",
     category: "Travel",
     title: "Nature's Flow",
-    description: "Cooling off in the crystal clear streams of Jaflong.",
-    date: "2023",
-    location: "Shadapator",
+    description: "Cooling off in the crystal clear streams of Dhalai River.",
+    date: "2026",
+    location: "Sada Pathor",
     color: "bg-teal-500"
   }
 ];
