@@ -8,9 +8,26 @@ const projects = [
         title: "PyNum Studio",
         description: "A comprehensive web-based platform for numerical analysis education, featuring an AI-powered chatbot (Gemini), an interactive code editor, and a dynamic graphing tool. Designed to provide a seamless learning experience for students and enthusiasts of numerical methods.",
         tags: ["React", "TypeScript", "Tailwind CSS", "Gemini AI", "Vite"],
-        liveLink: "https://pynum-studio.vercel.app/",
-        repoLink: "https://github.com/shahad-plus/pynum-studio",
-        imageUrl: "./images/projects/pynum-studio-cover.png",
+        liveLink: "https://shahaduddin.com/PyNum",
+        repoLink: "https://github.com/shahaduddin/",
+        svgComponent: (
+            <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
+                <svg width="80%" height="80%" viewBox="-50 -50 100 100">
+                    <g fill="none" strokeWidth="3">
+                        <ellipse stroke="rgb(59 130 246 / 0.7)" rx="45" ry="20">
+                             <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="15s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse stroke="rgb(59 130 246 / 0.7)" rx="45" ry="20" transform="rotate(60)">
+                             <animateTransform attributeName="transform" type="rotate" from="60" to="420" dur="15s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse stroke="rgb(59 130 246 / 0.7)" rx="45" ry="20" transform="rotate(120)">
+                             <animateTransform attributeName="transform" type="rotate" from="120" to="480" dur="15s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <circle stroke="rgb(59 130 246 / 1)" r="8" fill="rgb(59 130 246 / 0.3)"/>
+                    </g>
+                </svg>
+            </div>
+        ),
         category: "AI & Education",
         tech: {
             frontend: ["React", "TypeScript", "Vite"],
@@ -22,9 +39,24 @@ const projects = [
         title: "Medi AI",
         description: "An intelligent medical diagnosis assistant that leverages AI to analyze symptoms and provide potential conditions. It features a user-friendly interface for symptom input and displays results with probabilities and detailed information about each condition.",
         tags: ["React", "TypeScript", "Tailwind CSS", "Gemini AI"],
-        liveLink: "https://medi-ai-indol.vercel.app/",
-        repoLink: "https://github.com/shahad-plus/medi-ai",
-        imageUrl: "./images/projects/medi-ai-cover.png",
+        liveLink: "https://shahaduddin.com/",
+        repoLink: "https://github.com/shahaduddin/",
+        svgComponent: (
+             <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
+                <svg width="100%" height="100%" viewBox="0 0 200 100">
+                    <path fill="none" stroke="rgb(34 197 94 / 0.8)" strokeWidth="2" d="M 0 50 L 40 50 L 50 30 L 70 70 L 90 20 L 110 80 L 130 40 L 140 50 L 200 50">
+                        <animate attributeName="d"
+                            values="M 0 50 L 40 50 L 50 30 L 70 70 L 90 20 L 110 80 L 130 40 L 140 50 L 200 50; M 0 50 L 40 50 L 50 70 L 70 30 L 90 80 L 110 20 L 130 60 L 140 50 L 200 50; M 0 50 L 40 50 L 50 30 L 70 70 L 90 20 L 110 80 L 130 40 L 140 50 L 200 50"
+                            dur="3s"
+                            repeatCount="indefinite" />
+                    </path>
+                    <circle cx="170" cy="50" r="10" fill="rgb(34 197 94 / 0.3)">
+                         <animate attributeName="fill-opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite" />
+                    </circle>
+                    <path d="M 165 50 H 175 M 170 45 V 55" stroke="rgb(34 197 94 / 0.9)" strokeWidth="2" />
+                </svg>
+            </div>
+        ),
         category: "AI & Health",
         tech: {
             frontend: ["React", "TypeScript"],
@@ -37,8 +69,24 @@ const projects = [
         description: "A sleek, professional portfolio website built with React and TypeScript, showcasing my projects, skills, and experience. It features a modern design with smooth animations and a responsive layout, optimized for all devices.",
         tags: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
         liveLink: "https://shahaduddin.com",
-        repoLink: "https://github.com/shahad-plus/portfolio-v3",
-        imageUrl: "./images/projects/portfolio-v3-cover.png",
+        repoLink: "https://github.com/shahaduddin/shahaduddin.github.io",
+        svgComponent: (
+            <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
+                <svg width="60%" height="60%" viewBox="0 0 100 100">
+                    <g fill="none" stroke="rgb(168 85 247 / 0.8)" strokeWidth="4">
+                        <path d="M 20 30 L 5 50 L 20 70">
+                             <animate attributeName="stroke" values="rgb(168 85 247 / 0.8);rgb(99 102 241 / 0.8);rgb(168 85 247 / 0.8)" dur="4s" repeatCount="indefinite" />
+                        </path>
+                        <path d="M 80 30 L 95 50 L 80 70">
+                            <animate attributeName="stroke" values="rgb(168 85 247 / 0.8);rgb(99 102 241 / 0.8);rgb(168 85 247 / 0.8)" dur="4s" repeatCount="indefinite" />
+                        </path>
+                        <path d="M 60 20 L 40 80">
+                             <animate attributeName="d" values="M 60 20 L 40 80; M 70 20 L 30 80; M 60 20 L 40 80" dur="4s" repeatCount="indefinite" />
+                        </path>
+                    </g>
+                </svg>
+            </div>
+        ),
         category: "Web Development",
         tech: {
             frontend: ["React", "TypeScript"],
@@ -105,7 +153,7 @@ const ProjectGridPage: React.FC = () => {
                                 </div>
                            </div>
                            <div className="relative w-full h-80 md:h-full order-1 md:order-2 overflow-hidden bg-slate-800">
-                                <img src={project.imageUrl} alt={project.title} className="absolute inset-0 w-full h-full object-cover " />
+                                {project.svgComponent}
                            </div>
                         </div>
                     ))}
