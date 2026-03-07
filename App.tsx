@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './components/Header.tsx';
 import Hero from './components/Hero.tsx';
 import AboutSection from './components/AboutSection.tsx';
 import AcademicSection from './components/AcademicSection.tsx';
@@ -15,37 +16,57 @@ import ScrollToTop from './components/ScrollToTop.tsx';
 const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative">
-      <ScrollReveal>
-        <Hero />
-      </ScrollReveal>
-      <ScrollReveal>
-        <AboutSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <AcademicSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <SkillsSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <SlideshowSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <GallerySection />
-      </ScrollReveal>
-       <ScrollReveal>
-        <BlogSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <ResumeSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <ContactSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <Footer />
-      </ScrollReveal>
-      
+      <Header />
+      <main className="container mx-auto px-6 py-4 grid grid-cols-1 gap-12">
+        <ScrollReveal>
+          <div id="home">
+            <Hero />
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <div id="about">
+            <AboutSection />
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <div id="academics">
+            <AcademicSection />
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <div id="skills">
+            <SkillsSection />
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <div id="projects">
+            <SlideshowSection />
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <div id="gallery">
+            <GallerySection />
+          </div>
+        </ScrollReveal>
+         <ScrollReveal>
+          <div id="blog">
+            <BlogSection />
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <div id="resume">
+            <ResumeSection />
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <div id="contact">
+            <ContactSection />
+          </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <Footer />
+        </ScrollReveal>
+      </main>
       <ScrollToTop />
     </div>
   );

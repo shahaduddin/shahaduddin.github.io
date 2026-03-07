@@ -1,21 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://shahaduddin.com/</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://shahaduddin.com/shahad-uddin-math-programmer.jpg</image:loc>
-      <image:title>Shahad Uddin</image:title>
-      <image:caption>Programmer &amp; Mathematics Undergrad Portfolio Profile</image:caption>
-    </image:image>
+    <lastmod>2026-03-07</lastmod>
+    <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://shahaduddin.com/Shahad_Uddin_Resume.pdf</loc>
-    <lastmod>2026-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://shahaduddin.com/#about</loc>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://shahaduddin.com/#academics</loc>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://shahaduddin.com/#skills</loc>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://shahaduddin.com/#projects</loc>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://shahaduddin.com/#gallery</loc>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://shahaduddin.com/#blog</loc>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://shahaduddin.com/#resume</loc>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://shahaduddin.com/#contact</loc>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.80</priority>
   </url>
 </urlset>
