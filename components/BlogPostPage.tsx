@@ -7,12 +7,25 @@ const blogPosts = {
     "mastering-numerical-methods": {
         title: "Mastering Numerical Methods: A Developer's Guide",
         author: "Shahad Uddin",
-        date: "2024-07-01",
+        date: "2025-07-01",
         readingTime: 12,
         tags: ["Numerical Analysis", "Python", "Software Development"],
-        imageUrl: "../images/gallery/math-fiesta.jpg",
         category: "Math & Code",
         color: "bg-blue-500",
+        svgComponent: (
+            <div className="w-full h-auto object-cover rounded-2xl shadow-2xl bg-slate-800/25 p-4 overflow-hidden">
+                <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid meet">
+                    <path
+                        fill="none"
+                        stroke="rgb(59 130 246 / 0.5)"
+                        strokeWidth="2"
+                        d="M 0 50 C 50 10, 50 90, 100 50 C 150 10, 150 90, 200 50"
+                    >
+                        <animate attributeName="d" values="M 0 50 C 50 10, 50 90, 100 50 C 150 10, 150 90, 200 50; M 0 50 C 50 90, 50 10, 100 50 C 150 90, 150 10, 200 50; M 0 50 C 50 10, 50 90, 100 50 C 150 10, 150 90, 200 50" dur="5s" repeatCount="indefinite" />
+                    </path>
+                </svg>
+            </div>
+        ),
         content: `
 <div class="prose prose-invert prose-lg max-w-full">
 
@@ -70,7 +83,6 @@ const blogPosts = {
 <p>Here, <code>f(x) = x^2 - 4</code> and its derivative <code>f'(x) = 2x</code>. Let's implement this in Python:</p>
 
 <pre><code class="language-python bg-slate-800 rounded-md p-4 block text-sm">
-
 def newton_raphson(f, df, initial_guess, tolerance=1e-6, max_iterations=100):
     x = initial_guess
     for _ in range(max_iterations):
@@ -105,12 +117,33 @@ print(f"The root is: {root}")
     "the-art-of-problem-solving": {
         title: "The Art of Problem Solving with Competitive Programming",
         author: "Shahad Uddin",
-        date: "2024-06-15",
+        date: "2025-06-15",
         readingTime: 15,
         tags: ["Algorithms", "Data Structures", "Competitive Programming"],
-        imageUrl: "../images/gallery/olympiad-team.jpg",
         category: "Algorithms",
         color: "bg-green-500",
+        svgComponent: (
+            <div className="w-full h-auto object-cover rounded-2xl shadow-2xl bg-slate-800/25 p-4 overflow-hidden">
+                 <svg width="100%" height="100%" viewBox="0 0 100 100">
+                    <defs>
+                        <path id="path-1" d="M 20 20 H 80 V 80 H 20 Z" />
+                    </defs>
+                    <g fill="none" stroke="rgb(34 197 94 / 0.5)" strokeWidth="1.5">
+                        <use xlinkHref="#path-1" />
+                        <path d="M 20 20 L 80 80 M 80 20 L 20 80 M 50 20 V 80 M 20 50 H 80">
+                            <animateTransform
+                                attributeName="transform"
+                                type="rotate"
+                                from="0 50 50"
+                                to="90 50 50"
+                                dur="8s"
+                                repeatCount="indefinite"
+                            />
+                        </path>
+                    </g>
+                </svg>
+            </div>
+        ),
         content: `
 <div class="prose prose-invert prose-lg max-w-full">
 
@@ -170,12 +203,29 @@ print(f"The root is: {root}")
     "building-pynum-studio": {
         title: "Building PyNum Studio: A Journey into AI-Powered Education",
         author: "Shahad Uddin",
-        date: "2024-05-20",
+        date: "2025-05-20",
         readingTime: 20,
         tags: ["AI", "React", "TypeScript", "Project Management"],
-        imageUrl: "../images/gallery/olympiad-stage2.jpg",
         category: "Projects",
         color: "bg-purple-500",
+        svgComponent: (
+             <div className="w-full h-auto object-cover rounded-2xl shadow-2xl bg-slate-800/25 p-4 overflow-hidden">
+                <svg width="100%" height="100%" viewBox="-50 -50 100 100">
+                    <g fill="none" strokeWidth="3">
+                        <ellipse stroke="rgb(168 85 247 / 0.6)" rx="40" ry="15">
+                             <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="10s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse stroke="rgb(168 85 247 / 0.6)" rx="40" ry="15" transform="rotate(60)">
+                             <animateTransform attributeName="transform" type="rotate" from="60" to="420" dur="10s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse stroke="rgb(168 85 247 / 0.6)" rx="40" ry="15" transform="rotate(120)">
+                             <animateTransform attributeName="transform" type="rotate" from="120" to="480" dur="10s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <circle stroke="rgb(168 85 247 / 1)" r="5" />
+                    </g>
+                </svg>
+            </div>
+        ),
         content: `
 <div class="prose prose-invert prose-lg max-w-full">
 
@@ -241,12 +291,30 @@ print(f"The root is: {root}")
     "lessons-from-math-olympiads": {
         title: "Lessons Learned from Competing in Math Olympiads",
         author: "Shahad Uddin",
-        date: "2024-04-10",
+        date: "2025-04-10",
         readingTime: 8,
         tags: ["Mathematics", "Problem Solving", "Personal Growth"],
-        imageUrl: "../images/gallery/award-plaque2.jpg",
         category: "Experiences",
         color: "bg-yellow-500",
+        svgComponent: (
+            <div className="w-full h-auto object-cover rounded-2xl shadow-2xl bg-slate-800/25 p-4 overflow-hidden flex items-center justify-center">
+                 <svg width="60%" height="60%" viewBox="0 0 100 100">
+                    <g fill="rgb(234 179 8 / 0.8)">
+                        <path d="M 20 10 H 80 V 20 H 20 Z" />
+                        <path d="M 30 20 H 70 V 70 Q 50 95, 30 70 Z" />
+                        <path d="M 40 70 H 60 V 90 H 40 Z" />
+                         <animateTransform 
+                            attributeName="transform"
+                            type="translate"
+                            values="0 0; 0 -5; 0 0"
+                            dur="1.5s"
+                            repeatCount="indefinite"
+                        />
+                    </g>
+                    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white" fontWeight="bold">1</text>
+                </svg>
+            </div>
+        ),
         content: `
 <div class="prose prose-invert prose-lg max-w-full">
 
@@ -347,7 +415,7 @@ const BlogPostPage: React.FC = () => {
                     </header>
 
                     <div className="relative mb-12">
-                        <img src={post.imageUrl} alt={post.title} className="w-full h-auto object-cover rounded-2xl shadow-2xl" />
+                        {post.svgComponent}
                     </div>
 
                     <div dangerouslySetInnerHTML={{ __html: post.content }} />
