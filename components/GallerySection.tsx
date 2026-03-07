@@ -145,11 +145,8 @@ const galleryData: Photo[] = [
 const GallerySection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
-    // Add keyboard navigation for the lightbox
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedPhoto) return;
       if (e.key === 'Escape') closeLightbox();
@@ -180,7 +177,7 @@ const GallerySection: React.FC = () => {
 
   const closeLightbox = () => {
     setSelectedPhoto(null);
-    document.body.style.overflow = 'unset';
+    document.body.style.overflow = 'auto';
   };
 
   const navigatePhoto = (direction: 'prev' | 'next', e: React.MouseEvent | KeyboardEvent) => {
@@ -278,84 +275,79 @@ const GallerySection: React.FC = () => {
             </div>
         </div>
 
-        {/* --- Fullscreen Lightbox Modal --- */}
+        {/* --- Redesigned Fullscreen Lightbox --- */}
         {selectedPhoto && (
             <div 
-                className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex flex-col animate-in fade-in duration-300"
+                className="fixed inset-0 z-50 flex flex-col bg-black/95 animate-in fade-in duration-300"
                 onClick={closeLightbox}
             >
-                {/* Top bar with close button */}
-                <div className="flex-shrink-0 flex justify-end p-4 z-20">
-                    <button 
-                        onClick={closeLightbox}
-                        className="p-2 rounded-full bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-colors"
-                    >
-                        <X size={24} />
-                    </button>
-                </div>
-
-                {/* Main Content (Image + Details) */}
-                <div 
-                    className="flex-1 w-full h-full flex flex-col md:flex-row items-center justify-center pb-4 md:pb-0 md:p-4 min-h-0"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    {/* Image Display Area */}
-                    <div className="relative flex-1 w-full h-full flex items-center justify-center min-h-0 px-4">
+                {/* Main content area */}
+                <div className="relative flex-1 flex flex-col lg:flex-row items-center overflow-hidden" onClick={(e) => e.stopPropagation()}>
+                    
+                    {/* Image display area */}
+                    <div className="relative flex-1 flex items-center justify-center w-full h-full p-4 lg:p-12">
                         <img 
                             src={selectedPhoto.src} 
                             alt={selectedPhoto.title}
-                            className="block max-w-full max-h-full object-contain select-none"
+                            className="block max-w-full max-h-full object-contain select-none shadow-2xl shadow-black"
                             onError={(e) => {
-                                e.currentTarget.src = `https://placehold.co/1200x800/1e293b/475569?text=${encodeURIComponent(selectedPhoto.title)}`;
+                                e.currentTarget.src = `https://placehold.co/1200x800/0f172a/94a3b8?text=Image+Not+Found`;
                             }}
                         />
-                        
-                        {/* Navigation Buttons */}
-                        <button 
-                            onClick={(e) => navigatePhoto('prev', e)}
-                            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-indigo-600 transition-colors border border-white/10"
-                        >
-                            <ChevronLeft size={28} />
-                        </button>
-                        <button 
-                            onClick={(e) => navigatePhoto('next', e)}
-                            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-indigo-600 transition-colors border border-white/10"
-                        >
-                            <ChevronRight size={28} />
-                        </button>
                     </div>
 
-                    {/* Details Sidebar (Desktop) / Bottom Sheet (Mobile) */}
-                    <div className="w-full h-[45vh] md:w-[360px] md:h-full flex-shrink-0 bg-slate-950/60 backdrop-blur-md md:rounded-2xl md:border border-slate-800 flex flex-col overflow-y-auto">
-                        <div className="p-6 md:p-8 flex-grow">
+                    {/* Details Panel */}
+                    <div className="w-full lg:w-[380px] lg:h-full flex-shrink-0 flex flex-col bg-slate-900/80 backdrop-blur-lg border-t lg:border-t-0 lg:border-l border-slate-700/80">
+                        <div className="flex-1 p-6 lg:p-8 overflow-y-auto">
                             <div className="flex items-center gap-3 mb-4">
                                 <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-white ${selectedPhoto.color?.replace('bg-', 'bg-').replace('500', '600') || 'bg-gray-600'}`}>
                                     {selectedPhoto.category}
                                 </span>
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">{selectedPhoto.title}</h2>
-                            <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3 leading-tight">{selectedPhoto.title}</h2>
+                            <p className="text-slate-300 text-sm lg:text-base leading-relaxed">
                                 {selectedPhoto.description}
                             </p>
                         </div>
 
-                        <div className="px-6 md:px-8 mt-auto pt-6 pb-6 border-t border-slate-700 space-y-5">
+                        <div className="flex-shrink-0 px-6 lg:px-8 py-6 border-t border-slate-700/80 space-y-5 bg-black/20">
                             <div className="flex items-start gap-4 text-slate-300">
-                                <Calendar size={18} className="text-indigo-400 flex-shrink-0 mt-1" />
+                                <Calendar size={18} className="text-indigo-400 flex-shrink-0 mt-0.5" />
                                 <span className="text-sm font-mono">{selectedPhoto.date}</span>
                             </div>
                             {selectedPhoto.location && (
                                 <div className="flex items-start gap-4 text-slate-300">
-                                    <MapPin size={18} className="text-cyan-400 flex-shrink-0 mt-1" />
+                                    <MapPin size={18} className="text-cyan-400 flex-shrink-0 mt-0.5" />
                                     <span className="text-sm font-mono">{selectedPhoto.location}</span>
                                 </div>
                             )}
-                            <div className="flex items-start gap-4 text-slate-300">
-                                <ImageIcon size={18} className="text-emerald-400 flex-shrink-0 mt-1" />
-                                <span className="text-sm font-mono">Original Resolution</span>
-                            </div>
                         </div>
                     </div>
+                </div>
+
+                {/* Controls */}
+                <div className="absolute inset-0 pointer-events-none">
+                    {/* Close Button */}
+                    <button 
+                        onClick={closeLightbox}
+                        className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white hover:bg-white/20 transition-all pointer-events-auto"
+                    >
+                        <X size={24} />
+                    </button>
+
+                    {/* Prev/Next Buttons */}
+                    <button 
+                        onClick={(e) => navigatePhoto('prev', e)}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-white/20 transition-all pointer-events-auto hidden md:block"
+                    >
+                        <ChevronLeft size={32} />
+                    </button>
+                    <button 
+                        onClick={(e) => navigatePhoto('next', e)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-white/20 transition-all pointer-events-auto hidden md:block"
+                    >
+                        <ChevronRight size={32} />
+                    </button>
                 </div>
             </div>
         )}
