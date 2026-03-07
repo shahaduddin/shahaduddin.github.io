@@ -20,6 +20,9 @@ import BlogGridPage from './components/BlogGridPage';
 import BlogPostPage from './components/BlogPostPage';
 import ProjectGridPage from './components/ProjectGridPage';
 import ContactPage from './components/ContactPage';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
+import NotFoundPage from './components/NotFoundPage';
 
 const MainPage: React.FC = () => (
   <>
@@ -90,6 +93,9 @@ const App: React.FC = () => {
           <Route path="/blog/:id" element={<BlogPostPage />} />
           <Route path="/projects" element={<ProjectGridPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </Router>

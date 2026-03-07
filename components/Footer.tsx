@@ -74,7 +74,11 @@ const Footer: React.FC = () => {
             <ul className="space-y-3 text-sm">
               {resourceLinks.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="hover:text-indigo-400 transition-colors duration-200">{link.name}</a>
+                  {link.href.startsWith('/') && !link.href.startsWith('/#') ? (
+                    <Link to={link.href} className="hover:text-indigo-400 transition-colors duration-200">{link.name}</Link>
+                  ) : (
+                    <a href={link.href} className="hover:text-indigo-400 transition-colors duration-200">{link.name}</a>
+                  )}
                 </li>
               ))}
             </ul>
