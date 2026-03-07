@@ -149,7 +149,17 @@ const GallerySection: React.FC = () => {
 
   useEffect(() => {
     setIsLoaded(true);
-  }, []);
+    // Add keyboard navigation for the lightbox
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedPhoto) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigatePhoto('prev', e);
+      if (e.key === 'ArrowRight') navigatePhoto('next', e);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedPhoto]);
 
   const filteredPhotos = selectedCategory === 'All' 
     ? galleryData 
@@ -173,7 +183,7 @@ const GallerySection: React.FC = () => {
     document.body.style.overflow = 'unset';
   };
 
-  const navigatePhoto = (direction: 'prev' | 'next', e: React.MouseEvent) => {
+  const navigatePhoto = (direction: 'prev' | 'next', e: React.MouseEvent | KeyboardEvent) => {
     e.stopPropagation();
     if (!selectedPhoto) return;
     
@@ -182,7 +192,6 @@ const GallerySection: React.FC = () => {
 
     let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
     
-    // Loop around
     if (newIndex >= filteredPhotos.length) newIndex = 0;
     if (newIndex < 0) newIndex = filteredPhotos.length - 1;
 
@@ -191,13 +200,11 @@ const GallerySection: React.FC = () => {
 
   return (
     <section id="gallery" className="py-24 px-4 bg-slate-950 relative overflow-hidden">
-        {/* Background Patterns */}
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-soft-light"></div>
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[128px] pointer-events-none"></div>
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-[128px] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-            {/* Header */}
             <div className="flex flex-col items-center text-center mb-16 space-y-6">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono uppercase tracking-widest">
                     <Camera size={14} className="text-indigo-500" />
@@ -213,7 +220,6 @@ const GallerySection: React.FC = () => {
                 </p>
             </div>
 
-            {/* Filter Tabs */}
             <div className="flex flex-wrap justify-center gap-2 mb-12">
                 {categories.map((cat) => (
                     <button
@@ -231,7 +237,6 @@ const GallerySection: React.FC = () => {
                 ))}
             </div>
 
-            {/* Gallery Grid */}
             <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                 {filteredPhotos.map((photo) => (
                     <div 
@@ -239,7 +244,6 @@ const GallerySection: React.FC = () => {
                         className="break-inside-avoid relative group cursor-pointer rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-xl"
                         onClick={() => openLightbox(photo)}
                     >
-                        {/* Image */}
                         <div className="relative overflow-hidden aspect-[4/3] group-hover:opacity-90 transition-opacity bg-slate-800">
                              <img 
                                 src={photo.src} 
@@ -247,13 +251,11 @@ const GallerySection: React.FC = () => {
                                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                                 loading="lazy"
                                 onError={(e) => {
-                                  // Fallback placeholder if image is missing
                                   e.currentTarget.src = `https://placehold.co/600x400/1e293b/475569?text=${encodeURIComponent(photo.title)}`;
                                 }}
                              />
                         </div>
 
-                        {/* Hover Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                             <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                                 <div className="flex items-center gap-2 mb-2">
@@ -268,7 +270,6 @@ const GallerySection: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Top Right Icon */}
                         <div className="absolute top-4 right-4 p-2 bg-slate-950/50 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 border border-white/10">
                             <ZoomIn size={16} />
                         </div>
@@ -277,78 +278,81 @@ const GallerySection: React.FC = () => {
             </div>
         </div>
 
-        {/* Lightbox Modal */}
+        {/* --- Fullscreen Lightbox Modal --- */}
         {selectedPhoto && (
             <div 
-                className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 animate-in fade-in duration-200"
+                className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex flex-col animate-in fade-in duration-300"
                 onClick={closeLightbox}
             >
-                {/* Close Button */}
-                <button 
-                    onClick={closeLightbox}
-                    className="absolute top-6 right-6 p-3 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors z-[110]"
-                >
-                    <X size={24} />
-                </button>
+                {/* Top bar with close button */}
+                <div className="flex-shrink-0 flex justify-end p-4 z-20">
+                    <button 
+                        onClick={closeLightbox}
+                        className="p-2 rounded-full bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-colors"
+                    >
+                        <X size={24} />
+                    </button>
+                </div>
 
+                {/* Main Content (Image + Details) */}
                 <div 
-                    className="relative max-w-5xl w-full max-h-[90vh] flex flex-col md:flex-row gap-0 md:gap-8 bg-slate-900/50 rounded-3xl overflow-hidden border border-slate-800 shadow-2xl"
+                    className="flex-1 w-full h-full flex flex-col md:flex-row items-center justify-center pb-4 md:pb-0 md:p-4 min-h-0"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    {/* Main Image */}
-                    <div className="flex-1 relative bg-black flex items-center justify-center min-h-[40vh] md:min-h-[60vh]">
+                    {/* Image Display Area */}
+                    <div className="relative flex-1 w-full h-full flex items-center justify-center min-h-0 px-4">
                         <img 
                             src={selectedPhoto.src} 
                             alt={selectedPhoto.title}
-                            className="max-w-full max-h-[85vh] object-contain"
+                            className="block max-w-full max-h-full object-contain select-none"
                             onError={(e) => {
-                                e.currentTarget.src = `https://placehold.co/800x600/1e293b/475569?text=${encodeURIComponent(selectedPhoto.title)}`;
+                                e.currentTarget.src = `https://placehold.co/1200x800/1e293b/475569?text=${encodeURIComponent(selectedPhoto.title)}`;
                             }}
                         />
                         
-                        {/* Nav Buttons */}
+                        {/* Navigation Buttons */}
                         <button 
                             onClick={(e) => navigatePhoto('prev', e)}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-indigo-600 transition-colors border border-white/10"
+                            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-indigo-600 transition-colors border border-white/10"
                         >
-                            <ChevronLeft size={24} />
+                            <ChevronLeft size={28} />
                         </button>
                         <button 
                             onClick={(e) => navigatePhoto('next', e)}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-indigo-600 transition-colors border border-white/10"
+                            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-indigo-600 transition-colors border border-white/10"
                         >
-                            <ChevronRight size={24} />
+                            <ChevronRight size={28} />
                         </button>
                     </div>
 
-                    {/* Sidebar Details (on Desktop) or Bottom Sheet (on Mobile) */}
-                    <div className="w-full md:w-80 flex flex-col p-6 md:p-8 bg-slate-950/80 backdrop-blur-md md:border-l border-t md:border-t-0 border-slate-800 overflow-y-auto max-h-[30vh] md:max-h-auto">
-                        <div className="mb-6">
-                            <div className="flex items-center gap-2 mb-3">
-                                <span className={`px-2 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider text-white ${selectedPhoto.color.replace('bg-', 'bg-').replace('500', '600')}`}>
+                    {/* Details Sidebar (Desktop) / Bottom Sheet (Mobile) */}
+                    <div className="w-full h-[45vh] md:w-[360px] md:h-full flex-shrink-0 bg-slate-950/60 backdrop-blur-md md:rounded-2xl md:border border-slate-800 flex flex-col overflow-y-auto">
+                        <div className="p-6 md:p-8 flex-grow">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-white ${selectedPhoto.color?.replace('bg-', 'bg-').replace('500', '600') || 'bg-gray-600'}`}>
                                     {selectedPhoto.category}
                                 </span>
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-4 leading-tight">{selectedPhoto.title}</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">{selectedPhoto.title}</h2>
+                            <p className="text-slate-300 text-sm md:text-base leading-relaxed">
                                 {selectedPhoto.description}
                             </p>
                         </div>
 
-                        <div className="mt-auto space-y-4 pt-6 border-t border-slate-800">
-                            <div className="flex items-center gap-3 text-sm text-slate-400 font-mono">
-                                <Calendar size={16} className="text-indigo-500" />
-                                <span>{selectedPhoto.date}</span>
+                        <div className="px-6 md:px-8 mt-auto pt-6 pb-6 border-t border-slate-700 space-y-5">
+                            <div className="flex items-start gap-4 text-slate-300">
+                                <Calendar size={18} className="text-indigo-400 flex-shrink-0 mt-1" />
+                                <span className="text-sm font-mono">{selectedPhoto.date}</span>
                             </div>
                             {selectedPhoto.location && (
-                                <div className="flex items-center gap-3 text-sm text-slate-400 font-mono">
-                                    <MapPin size={16} className="text-cyan-500" />
-                                    <span>{selectedPhoto.location}</span>
+                                <div className="flex items-start gap-4 text-slate-300">
+                                    <MapPin size={18} className="text-cyan-400 flex-shrink-0 mt-1" />
+                                    <span className="text-sm font-mono">{selectedPhoto.location}</span>
                                 </div>
                             )}
-                            <div className="flex items-center gap-3 text-sm text-slate-400 font-mono">
-                                <ImageIcon size={16} className="text-emerald-500" />
-                                <span>High Res Available</span>
+                            <div className="flex items-start gap-4 text-slate-300">
+                                <ImageIcon size={18} className="text-emerald-400 flex-shrink-0 mt-1" />
+                                <span className="text-sm font-mono">Original Resolution</span>
                             </div>
                         </div>
                     </div>
