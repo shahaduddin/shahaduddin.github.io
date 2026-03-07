@@ -16,6 +16,8 @@ import ScrollReveal from './components/ScrollReveal';
 import ScrollToTop from './components/ScrollToTop';
 import GalleryGridPage from './components/GalleryGridPage';
 import GalleryPage from './components/GalleryPage';
+import BlogGridPage from './components/BlogGridPage';
+import BlogPostPage from './components/BlogPostPage';
 
 const MainPage: React.FC = () => (
   <>
@@ -82,6 +84,8 @@ const App: React.FC = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/gallery" element={<GalleryGridPage />} />
           <Route path="/gallery/:id" element={<GalleryPage />} />
+          <Route path="/blog" element={<BlogGridPage />} />
+          <Route path="/blog/:id" element={<BlogPostPage />} />
         </Routes>
       </div>
     </Router>
