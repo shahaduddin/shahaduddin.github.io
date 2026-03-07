@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Camera, Trophy, Tent, Utensils, 
-  Calendar, MapPin, Filter
+  Calendar, MapPin, Filter, ArrowLeft
 } from 'lucide-react';
 
 type Category = 'All' | 'Events' | 'Travel' | 'Awards' | 'Social';
@@ -164,6 +164,13 @@ const GalleryGridPage: React.FC = () => {
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-[128px] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
+            <div className="mb-8">
+                <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+                    <ArrowLeft size={18} />
+                    Back to Home
+                </Link>
+            </div>
+
             <div className="flex flex-col items-center text-center mb-16 space-y-6">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono uppercase tracking-widest">
                     <Camera size={14} className="text-indigo-500" />
