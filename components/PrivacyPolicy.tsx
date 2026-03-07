@@ -1,5 +1,7 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const PrivacyPolicy: React.FC = () => {
     return (
@@ -7,7 +9,14 @@ const PrivacyPolicy: React.FC = () => {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
                 <div className="text-center mb-12">
                     <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Privacy Policy</h1>
-                    <p className="mt-4 text-lg text-slate-400">Last updated: October 26, 2023</p>
+                    <p className="mt-4 text-lg text-slate-400">Last updated: March 08, 2026</p>
+                </div>
+
+                <div className="text-center mb-12">
+                  <Link to="/" className="inline-flex items-center gap-2 rounded-md bg-slate-800/80 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-600 transition-colors duration-300">
+                    <ArrowLeft size={16} />
+                    Back to Home
+                  </Link>
                 </div>
 
                 <div className="space-y-8 text-lg font-light leading-relaxed">
