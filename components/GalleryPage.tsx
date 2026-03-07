@@ -2,7 +2,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
-  Calendar, MapPin, ArrowLeft
+  Calendar, MapPin, ArrowLeft, Tag
 } from 'lucide-react';
 
 type Category = 'All' | 'Events' | 'Travel' | 'Awards' | 'Social';
@@ -170,27 +170,32 @@ const GalleryPage: React.FC = () => {
               Back to Gallery
             </Link>
           </div>
-          <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl">
-            <div className="md:flex">
-              <div className="md:flex-shrink-0">
-                <img className="h-96 w-full object-cover md:w-96" src={photo.src} alt={photo.title} />
-              </div>
-              <div className="p-8">
-                <div className={`text-sm text-indigo-400 font-semibold tracking-wide uppercase ${photo.color}`}>{photo.category}</div>
-                <h1 className="mt-2 text-3xl leading-10 font-extrabold tracking-tight text-white sm:text-4xl">{photo.title}</h1>
-                <p className="mt-4 text-slate-400">{photo.description}</p>
-                <div className="mt-6">
-                  <div className="flex items-center text-slate-400">
-                    <Calendar className="h-5 w-5 mr-2" />
-                    <span>{photo.date}</span>
-                  </div>
-                  {photo.location && (
-                    <div className="flex items-center text-slate-400 mt-2">
-                      <MapPin className="h-5 w-5 mr-2" />
-                      <span>{photo.location}</span>
-                    </div>
-                  )}
+          <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl md:flex">
+            <div className="md:flex-shrink-0">
+              <img className="h-auto w-full object-cover md:w-96" src={photo.src} alt={photo.title} />
+            </div>
+            <div className="p-8 flex flex-col justify-between">
+              <div>
+                <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold mb-4 ${photo.color?.replace('bg-', 'bg-').replace('500', '600') || 'bg-gray-600'} text-white`}>
+                  <Tag size={14} />
+                  <span>{photo.category}</span>
                 </div>
+                <h1 className="text-3xl lg:text-4xl font-bold text-white leading-tight mb-3">{photo.title}</h1>
+                <p className="text-slate-300 text-lg leading-relaxed">
+                  {photo.description}
+                </p>
+              </div>
+              <div className="mt-6 space-y-4">
+                <div className="flex items-center text-slate-400">
+                  <Calendar className="h-5 w-5 mr-3 text-indigo-400" />
+                  <span className="font-mono">{photo.date}</span>
+                </div>
+                {photo.location && (
+                  <div className="flex items-center text-slate-400">
+                    <MapPin className="h-5 w-5 mr-3 text-cyan-400" />
+                    <span className="font-mono">{photo.location}</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
