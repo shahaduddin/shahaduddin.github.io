@@ -19,6 +19,7 @@ import GalleryPage from './components/GalleryPage';
 import BlogGridPage from './components/BlogGridPage';
 import BlogPostPage from './components/BlogPostPage';
 import ProjectGridPage from './components/ProjectGridPage';
+import ContactPage from './components/ContactPage';
 
 const MainPage: React.FC = () => (
   <>
@@ -88,6 +89,7 @@ const App: React.FC = () => {
           <Route path="/blog" element={<BlogGridPage />} />
           <Route path="/blog/:id" element={<BlogPostPage />} />
           <Route path="/projects" element={<ProjectGridPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </div>
     </Router>
