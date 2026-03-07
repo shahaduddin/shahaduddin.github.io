@@ -44,7 +44,7 @@ const galleryData: Photo[] = [
     id: "bbq-night",
     src: "./images/gallery/bbq-night.jpg",
     category: "Social",
-    title: "Grill & Chill 2024",
+    title: "Grill & Chill 2025",
     description: "Departmental BBQ night under the fairy lights. Good food, warm atmosphere, and great company.",
     date: "Winter 2025",
     location: "Campus Grounds",

@@ -7,8 +7,8 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/shahad-plus', icon: <Github size={20} /> },
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/shahad-uddin/', icon: <Linkedin size={20} /> },
+    { name: 'GitHub', url: 'https://github.com/shahaduddin', icon: <Github size={20} /> },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/shahaduddin/', icon: <Linkedin size={20} /> },
     { name: 'Twitter', url: 'https://x.com/theshahaduddin', icon: <Twitter size={20} /> },
     { name: 'Email', url: 'mailto:hello@shahaduddin.com', icon: <Mail size={20} /> },
   ];
