@@ -12,8 +12,8 @@ const projects = [
     {
         title: "PyNum Studio",
         description: "An AI-powered web platform for numerical analysis education.",
-        imageUrl: "./images/projects/pynum-studio-cover.png",
-        liveLink: "https://pynum-studio.vercel.app/"
+        imageUrl: "./PyNum/pynum_social_banner.png",
+        liveLink: "https://shahaduddin.com/PyNum"
     },
     {
         title: "Medi AI",
