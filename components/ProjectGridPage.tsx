@@ -9,7 +9,7 @@ const projects = [
         description: "A comprehensive web-based platform for numerical analysis education, featuring an AI-powered chatbot (Gemini), an interactive code editor, and a dynamic graphing tool. Designed to provide a seamless learning experience for students and enthusiasts of numerical methods.",
         tags: ["React", "TypeScript", "Tailwind CSS", "Gemini AI", "Vite"],
         liveLink: "https://shahaduddin.com/pynum",
-        repoLink: "https://github.com/shahaduddin/",
+        repoLink: "https://github.com/shahaduddin/pynum",
         svgComponent: (
             <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
                 <svg width="80%" height="80%" viewBox="-50 -50 100 100">
@@ -28,19 +28,18 @@ const projects = [
                 </svg>
             </div>
         ),
-        category: "AI & Education",
+        category: "Education",
         tech: {
             frontend: ["React", "TypeScript", "Vite"],
-            backend: ["Gemini API (via Google AI Studio)"],
             styling: ["Tailwind CSS", "Framer Motion"]
         }
     },
     {
         title: "OrthoBudget",
-        description: "A budget management app for orthodontic residents, featuring a dashboard for tracking expenses, setting savings goals, and visualizing financial progress. Built with Next.js and deployed on Vercel.",
+        description: "A budget management app, featuring a dashboard for tracking expenses, setting savings goals, and visualizing financial progress. Built with Next.js and deployed on Vercel.",
         tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
         liveLink: "https://orthobudget.vercel.app",
-        repoLink: "https://github.com/shahaduddin/",
+        repoLink: "https://github.com/shahaduddin/orthobudget",
         svgComponent: (
              <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
                 <svg width="80%" height="80%" viewBox="0 0 100 100">
@@ -63,7 +62,7 @@ const projects = [
         description: "An advanced calculator for students, featuring a sleek interface and precise calculations. Deployed on Vercel.",
         tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
         liveLink: "https://zinccalcpro.vercel.app",
-        repoLink: "https://github.com/shahaduddin/",
+        repoLink: "https://github.com/shahaduddin/zinccalculator",
         svgComponent: (
              <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
                 <svg width="80%" height="80%" viewBox="0 0 100 100">
@@ -72,7 +71,7 @@ const projects = [
                 </svg>
             </div>
         ),
-        category: "Medical Tool",
+        category: "Web Application",
         tech: {
             frontend: ["Next.js", "TypeScript"],
             backend: [],
