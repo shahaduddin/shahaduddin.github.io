@@ -237,11 +237,16 @@
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'spin-slow': 'spin 12s linear infinite',
+                        'wave': 'wave 1.5s ease-in-out infinite'
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
+                        },
+                        wave: {
+                            '0%, 100%': { transform: 'scaleY(0.4)', opacity: 0.8 },
+                            '50%': { transform: 'scaleY(1)', opacity: 1 },
                         }
                     }
                 }
@@ -310,6 +315,13 @@
                               linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
             background-size: 50px 50px;
         }
+
+        .bar-loader .bar {
+            animation-name: wave;
+            animation-duration: 1.5s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
     </style>
 <script type="importmap">
 {
@@ -329,13 +341,13 @@
     <div id="root">
         <!-- Fallback while JS loads -->
         <div class="min-h-screen flex items-center justify-center bg-slate-950">
-            <!-- Spinning Ring Loader -->
-            <div class="relative">
-                <div class="w-16 h-16 border-4 border-slate-800 border-t-indigo-500 rounded-full animate-spin"></div>
-                <!-- Optional: Inner glowing dot for extra "tech" feel -->
-                <div class="absolute top-0 left-0 w-16 h-16 flex items-center justify-center">
-                     <div class="w-2 h-2 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.8)]"></div>
-                </div>
+            <!-- New Bar Loader -->
+            <div class="flex items-center justify-center space-x-2 bar-loader">
+                <div class="w-2 h-12 bg-indigo-500 rounded-full animate-wave" style="animation-delay: -0.6s;"></div>
+                <div class="w-2 h-16 bg-indigo-400 rounded-full animate-wave" style="animation-delay: -0.4s;"></div>
+                <div class="w-2 h-20 bg-indigo-300 rounded-full animate-wave" style="animation-delay: -0.2s;"></div>
+                <div class="w-2 h-16 bg-indigo-400 rounded-full animate-wave" style="animation-delay: -0.4s;"></div>
+                <div class="w-2 h-12 bg-indigo-500 rounded-full animate-wave" style="animation-delay: -0.6s;"></div>
             </div>
         </div>
     </div>
