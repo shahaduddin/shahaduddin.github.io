@@ -11,8 +11,8 @@ import { Briefcase, ArrowRight } from 'lucide-react';
 const projects = [
     {
         title: "PyNum Studio",
-        description: "An AI-powered web platform for numerical analysis education.",
-        liveLink: "https://pynum-studio.vercel.app/",
+        description: "A web platform for numerical calculations.",
+        liveLink: "https://shahaduddin.com/pynum/",
         svgComponent: (
             <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
                 <svg width="80%" height="80%" viewBox="-50 -50 100 100">
@@ -34,7 +34,7 @@ const projects = [
     },
     {
         title: "OrthoBudget",
-        description: "A budget management app for orthodontic residents.",
+        description: "A budget management app for personal budget management.",
         liveLink: "https://orthobudget.vercel.app",
         svgComponent: (
              <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">

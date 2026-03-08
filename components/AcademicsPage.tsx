@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Calendar, TrendingUp, GraduationCap, Library, School } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
@@ -9,18 +10,45 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const certificateImages = [
-    './numo/certificates/15th_numo_sylhet_region_achievement_certificate.jpg',
-    './numo/certificates/15th_numo_final_round_perticipation_certificate.jpg',
-    './numo/certificates/16th_numo_sylhet_region_achievement_certificate.jpg',
-    './numo/certificates/16th_numo_final_round_perticipation_certificate.jpg'
+    '/numo/certificates/15th_numo_sylhet_region_achievement_certificate.jpg',
+    '/numo/certificates/16th_numo_sylhet_region_achievement_certificate.jpg',
+    '/numo/certificates/15th_numo_final_round_perticipation_certificate.jpg',
 ];
 
 const academicData = [
-    { semester: 'Year 1, Semester 1', credits: 20.5, sgpa: 3.81, cgpa: 3.81 },
-    { semester: 'Year 1, Semester 2', credits: 20.5, sgpa: 3.79, cgpa: 3.80 },
-    { semester: 'Year 2, Semester 1', credits: 18.0, sgpa: 3.90, cgpa: 3.82 },
-    { semester: 'Year 2, Semester 2', credits: 19.0, sgpa: 3.80, cgpa: 3.82 },
-    { semester: 'Year 3, Semester 1', credits: 17.5, sgpa: 3.91, cgpa: 3.84 }
+    { semester: 'Year 1, Semester 1', credits: 17.5, sgpa: 3.88, cgpa: 3.88 },
+    { semester: 'Year 1, Semester 2', credits: 18.0, sgpa: 3.92, cgpa: 3.90 },
+    { semester: 'Year 2, Semester 1', credits: 19.5, sgpa: 3.95, cgpa: 3.92 },
+    { semester: 'Year 2, Semester 2', credits: 20.0, sgpa: 3.98, cgpa: 3.94 },
+    { semester: 'Year 3, Semester 1', credits: 18.5, sgpa: 3.96, cgpa: 3.95 },
+    { semester: 'Year 3, Semester 2', credits: 19.0, sgpa: 4.00, cgpa: 3.96 },
+];
+
+const educationHistory = [
+    {
+        institution: 'Shahjalal University of Science and Technology (SUST)',
+        location: 'Sylhet, Bangladesh | B.Sc. in Mathematics (2021–Present)',
+        description: 'At SUST, my academic focus has sharpened on the intersection of mathematics and computation. Specializing in numerical analysis, I\'ve discovered a passion for applying abstract mathematical principles to create tangible, efficient software. This is where my journey with "Math + Code" truly comes alive, driving my projects in scientific computing and algorithm optimization.',
+        icon: GraduationCap,
+    },
+    {
+        institution: 'Murari Chand College',
+        location: 'Sylhet, Bangladesh | Higher Secondary (2018–2020)',
+        description: 'My time at MC College was a gateway to the fascinating world of higher mathematics. It was here that complex theories began to feel like solvable puzzles, sparking an ambition to not just understand them but to apply them in practical, computational ways.',
+        icon: Library,
+    },
+    {
+        institution: 'Jobed Ali Secondary School',
+        location: 'Jakigonj, Sylhet | Secondary (2013–2018)',
+        description: 'This is where I built my foundational problem-solving skills. The disciplined approach to mathematics taught me how to think logically and systematically—a framework I rely on every day when I\'m debugging code or structuring an algorithm.',
+        icon: School,
+    },
+    {
+        institution: 'Kusum Koli Kinder Garten School',
+        location: 'Jakigonj, Sylhet | Primary Education',
+        description: 'My educational journey started here, with an early fascination for numbers and patterns. It was in these formative years that the seeds of a lifelong passion for logic and order were planted.',
+        icon: School,
+    }
 ];
 
 const AcademicsPage: React.FC = () => {
@@ -104,6 +132,35 @@ const AcademicsPage: React.FC = () => {
                         ))}
                     </div>
                 </div>
+
+                <div className="mt-24">
+                    <h2 className="text-3xl font-bold text-white text-center mb-16">My Educational Journey</h2>
+                    <div className="max-w-3xl mx-auto">
+                        {educationHistory.map((item, index) => {
+                            const Icon = item.icon;
+                            return (
+                                <div key={index} className="flex gap-6 sm:gap-8">
+                                    <div className="flex flex-col items-center">
+                                        <div className="w-12 h-12 bg-slate-800/50 border border-slate-700 rounded-full flex items-center justify-center">
+                                            <Icon size={24} className="text-indigo-400" />
+                                        </div>
+                                        {index < educationHistory.length - 1 && (
+                                            <div className="w-px flex-1 bg-slate-700/50 my-2"></div>
+                                        )}
+                                    </div>
+                                    <div className={`flex-1 ${index < educationHistory.length - 1 ? 'pb-12' : ''}`}>
+                                        <h3 className="text-xl sm:text-2xl font-bold text-slate-100 mb-2">{item.institution}</h3>
+                                        <p className="text-sm sm:text-base text-slate-400 mb-3 font-mono">{item.location}</p>
+                                        <p className="text-slate-300/90 leading-relaxed text-base sm:text-lg font-light">
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
             </div>
         </div>
     );

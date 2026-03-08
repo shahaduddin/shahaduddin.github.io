@@ -8,7 +8,7 @@ const projects = [
         title: "PyNum Studio",
         description: "A comprehensive web-based platform for numerical analysis education, featuring an AI-powered chatbot (Gemini), an interactive code editor, and a dynamic graphing tool. Designed to provide a seamless learning experience for students and enthusiasts of numerical methods.",
         tags: ["React", "TypeScript", "Tailwind CSS", "Gemini AI", "Vite"],
-        liveLink: "https://shahaduddin.com/PyNum",
+        liveLink: "https://shahaduddin.com/pynum",
         repoLink: "https://github.com/shahaduddin/",
         svgComponent: (
             <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
