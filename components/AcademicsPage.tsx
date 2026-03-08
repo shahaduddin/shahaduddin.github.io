@@ -16,12 +16,11 @@ const certificateImages = [
 ];
 
 const academicData = [
-    { semester: 'Year 1, Semester 1', credits: 17.5, sgpa: 3.88, cgpa: 3.88 },
-    { semester: 'Year 1, Semester 2', credits: 18.0, sgpa: 3.92, cgpa: 3.90 },
-    { semester: 'Year 2, Semester 1', credits: 19.5, sgpa: 3.95, cgpa: 3.92 },
-    { semester: 'Year 2, Semester 2', credits: 20.0, sgpa: 3.98, cgpa: 3.94 },
-    { semester: 'Year 3, Semester 1', credits: 18.5, sgpa: 3.96, cgpa: 3.95 },
-    { semester: 'Year 3, Semester 2', credits: 19.0, sgpa: 4.00, cgpa: 3.96 },
+    { semester: 'Year 1, Semester 1', credits: 20.5, sgpa: 3.81, cgpa: 3.81 },
+    { semester: 'Year 1, Semester 2', credits: 20.5, sgpa: 3.79, cgpa: 3.80 },
+    { semester: 'Year 2, Semester 1', credits: 18.0, sgpa: 3.90, cgpa: 3.83 },
+    { semester: 'Year 2, Semester 2', credits: 19.0, sgpa: 3.80, cgpa: 3.82 },
+    { semester: 'Year 3, Semester 1', credits: 17.0, sgpa: 3.91, cgpa: 3.84 }
 ];
 
 const educationHistory = [
@@ -33,13 +32,13 @@ const educationHistory = [
     },
     {
         institution: 'Murari Chand College',
-        location: 'Sylhet, Bangladesh | Higher Secondary (2018–2020)',
+        location: 'Sylhet, Bangladesh | Higher Secondary (2019–2021)',
         description: 'My time at MC College was a gateway to the fascinating world of higher mathematics. It was here that complex theories began to feel like solvable puzzles, sparking an ambition to not just understand them but to apply them in practical, computational ways.',
         icon: Library,
     },
     {
         institution: 'Jobed Ali Secondary School',
-        location: 'Jakigonj, Sylhet | Secondary (2013–2018)',
+        location: 'Jakigonj, Sylhet | Secondary (2014–2019)',
         description: 'This is where I built my foundational problem-solving skills. The disciplined approach to mathematics taught me how to think logically and systematically—a framework I rely on every day when I\'m debugging code or structuring an algorithm.',
         icon: School,
     },
