@@ -48,6 +48,19 @@ const projects = [
         ),
     },
     {
+        title: "ZincCalcPro",
+        description: "An advanced calculator for zinc dosage in pediatric patients.",
+        liveLink: "https://zinccalcpro.vercel.app",
+        svgComponent: (
+             <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
+                <svg width="80%" height="80%" viewBox="0 0 100 100">
+                    <rect x="20" y="20" width="60" height="70" rx="10" fill="none" stroke="rgb(236 72 153 / 0.8)" strokeWidth="4"/>
+                    <path d="M30 40H70 M30 55H70 M30 70H70" stroke="rgb(236 72 153 / 0.8)" strokeWidth="3"/>
+                </svg>
+            </div>
+        ),
+    },
+    {
         title: "Modern Portfolio",
         description: "A sleek, professional portfolio website built with React and TypeScript.",
         liveLink: "https://shahaduddin.com",

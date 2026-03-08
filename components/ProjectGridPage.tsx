@@ -59,6 +59,27 @@ const projects = [
         }
     },
     {
+        title: "ZincCalcPro",
+        description: "An advanced calculator for zinc dosage in pediatric patients, featuring a sleek interface and precise calculations. Deployed on Vercel.",
+        tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+        liveLink: "https://zinccalcpro.vercel.app",
+        repoLink: "https://github.com/shahaduddin/",
+        svgComponent: (
+             <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
+                <svg width="80%" height="80%" viewBox="0 0 100 100">
+                    <rect x="20" y="20" width="60" height="70" rx="10" fill="none" stroke="rgb(236 72 153 / 0.8)" strokeWidth="4"/>
+                    <path d="M30 40H70 M30 55H70 M30 70H70" stroke="rgb(236 72 153 / 0.8)" strokeWidth="3"/>
+                </svg>
+            </div>
+        ),
+        category: "Medical Tool",
+        tech: {
+            frontend: ["Next.js", "TypeScript"],
+            backend: [],
+            styling: ["Tailwind CSS"]
+        }
+    },
+    {
         title: "Modern Portfolio",
         description: "A sleek, professional portfolio website built with React and TypeScript, showcasing my projects, skills, and experience. It features a modern design with smooth animations and a responsive layout, optimized for all devices.",
         tags: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
