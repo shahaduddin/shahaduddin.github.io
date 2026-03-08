@@ -1,0 +1,192 @@
+\documentclass[a4paper, 10pt]{article}
+
+% PACKAGES
+\usepackage[left=0.8in, right=0.8in, top=0.5in, bottom=0.5in]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+\usepackage{tabularx}
+\usepackage{ragged2e} % For better text alignment
+
+% COLORS
+\definecolor{primary}{HTML}{0A66C2} % LinkedIn blue - more professional
+\definecolor{secondary}{HTML}{6c757d} % Gray
+\definecolor{text}{HTML}{2d3748}     % Softer dark gray for better readability
+\definecolor{lightgray}{HTML}{f7fafc} % Lighter background
+
+% FONTS
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage{microtype} % Better typography
+
+% HYPERLINKS
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary,
+    pdfborder={0 0 0},
+}
+
+% HEADER
+\pagestyle{empty}
+
+% SECTIONS FORMATTING
+\titleformat{\section}
+  {\color{primary}\scshape\large\raggedright}
+  {}{0em}
+  {}[\titlerule]
+\titlespacing*{\section}{0pt}{1.2\baselineskip}{0.8\baselineskip}
+
+% CUSTOM COMMANDS
+\newcommand{\resumeheading}[3]{
+    \item
+    \begin{tabularx}{\linewidth}{@{}l X r@{}}
+        \textbf{\large #1} & \textit{#2} & \textit{\small #3} \\
+    \end{tabularx}
+    \vspace{-8pt}
+}
+
+\newcommand{\resumeproject}[2]{
+    \item
+    \begin{tabularx}{\linewidth}{@{}l X r@{}}
+        \textbf{#1} & & \textit{\small #2} \\
+    \end{tabularx}
+    \vspace{-8pt}
+}
+
+% Compact skill items
+\newcommand{\skillcategory}[2]{
+    \item \textbf{#1:} #2
+}
+
+% Better spacing for lists
+\setlist[itemize]{
+    leftmargin=0.15in,
+    label=\textbullet,
+    itemsep=2pt,
+    parsep=0pt,
+    topsep=4pt
+}
+
+\begin{document}
+
+% NAME AND CONTACT - Improved layout
+\begin{center}
+    {\Huge\scshape\bfseries Shahad Uddin} \\[3pt]
+    {\large\color{secondary} Mathematics Student \& Software Developer} \\[8pt]
+    \small
+    \begin{tabular}{c c c c c}
+        \faMapMarker*{} Sylhet, Bangladesh & 
+        \faPhone{} \href{tel:+8801718000000}{+880 1330-750706} &
+        \faEnvelope{} \href{mailto:contact@shahaduddin.com}{hello@shahaduddin.com} \\[-4pt]
+        \faGlobe{} \href{https://shahaduddin.com}{shahaduddin.com} &
+        \faLinkedin{} \href{https://linkedin.com/in/shahaduddin}{linkedin.com/in/shahaduddin} &
+        \faGithub{} \href{https://github.com/shahaduddin}{github.com/shahaduddin}
+    \end{tabular}
+\end{center}
+\vspace{6pt}
+
+% SUMMARY - More impactful and concise
+\section{Summary}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \item Mathematics student at SUST with a passion for bridging abstract mathematical concepts with practical software development. Experienced in full-stack development, numerical analysis, and algorithm optimization. Seeking to apply analytical problem-solving skills and technical expertise to challenging projects in software engineering or scientific computing.
+\end{itemize}
+
+% EDUCATION - Added complete educational journey
+\section{Education}
+\begin{itemize}[leftmargin=0.15in]
+    \resumeheading{Shahjalal University of Science and Technology (SUST)}{B.Sc. in Mathematics}{Expected 2025}
+    \begin{itemize}
+        \item 3rd year, 2nd semester student with focus on numerical analysis, abstract algebra, and differential equations
+        \item Maintaining strong academic performance while pursuing independent software development projects
+    \end{itemize}
+    
+    \vspace{4pt}
+    \resumeheading{Murari Chand College}{Higher Secondary Certificate}{2021}
+    \begin{itemize}
+        \item Completed HSC with focus on Science, building foundation for advanced mathematical studies
+    \end{itemize}
+    
+    \vspace{4pt}
+    \resumeheading{Jobed Ali Secondary School}{Secondary School Certificate}{2019}
+    \begin{itemize}
+        \item Completed SSC in Science group, developing early interest in mathematics and logical problem-solving
+    \end{itemize}
+\end{itemize}
+
+% SKILLS - Reorganized and grouped more logically
+\section{Technical Skills}
+\begin{itemize}
+    \skillcategory{Frontend}{React, Next.js, TypeScript, JavaScript (ES6+), Tailwind CSS, HTML5/CSS3}
+    \skillcategory{Backend}{Node.js, Express, Python (Flask), Go (learning), RESTful APIs}
+    \skillcategory{Mobile}{React Native, Expo, Cross-platform development}
+    \skillcategory{Scientific Computing}{C++, Fortran, MATLAB, LaTeX, Numerical Analysis}
+    \skillcategory{AI/ML}{Gemini API, OpenAI API, Prompt Engineering}
+    \skillcategory{Databases}{MongoDB, PostgreSQL, Firebase}
+    \skillcategory{DevOps \& Tools}{Git, GitHub, Docker, Vercel, Netlify}
+\end{itemize}
+
+% PROJECTS - Enhanced with more specific details
+\section{Featured Projects}
+\begin{itemize}[leftmargin=0.15in]
+    \resumeproject{PyNum Studio - Interactive Numerical Analysis Platform}{2024}
+    \begin{itemize}
+        \item Developed a Python library implementing root-finding, interpolation, and numerical integration methods
+        \item Built an interactive web interface with React and Flask for real-time visualization of mathematical concepts
+        \item Packaged and documented for PyPI release; used by students for learning numerical methods
+    \end{itemize}
+    
+    \vspace{4pt}
+    \resumeproject{OrthoBudget - Specialized Finance App}{2024}
+    \begin{itemize}
+        \item Created a React Native mobile app for orthodontic residents to track expenses and loan payments
+        \item Implemented secure data storage with Firebase and custom calculators for medical finance scenarios
+        \item Designed intuitive UI specifically tailored for healthcare professionals
+    \end{itemize}
+    
+    \vspace{4pt}
+    \resumeproject{ZincCalcPro - Advanced Scientific Calculator}{2023}
+    \begin{itemize}
+        \item Built a feature-rich calculator web app with expression history and unit conversions
+        \item Implemented complex state management for handling multi-step calculations
+        \item Optimized for performance with vanilla JavaScript and modular architecture
+    \end{itemize}
+    
+    \vspace{4pt}
+    \resumeproject{Personal Portfolio - shahaduddin.com}{2023}
+    \begin{itemize}
+        \item Designed and developed responsive portfolio using Next.js and Tailwind CSS
+        \item Implemented smooth animations with Framer Motion for enhanced user experience
+        \item Achieved 95+ Lighthouse scores for performance and accessibility
+    \end{itemize}
+\end{itemize}
+
+% EXPERIENCE & INVOLVEMENT
+\section{Experience \& Involvement}
+\begin{itemize}[leftmargin=0.15in]
+    \resumeheading{Open Source Contributor}{GitHub}{2023-Present}
+    \begin{itemize}
+        \item Contributed bug fixes and feature enhancements to scientific computing libraries
+        \item Collaborated with global developers through code reviews and pull requests
+        \item Improved documentation for several mathematics-focused open-source projects
+    \end{itemize}
+    
+    \vspace{4pt}
+    \resumeheading{National Undergraduate Mathematics Olympiad}{Participant}{2023}
+    \begin{itemize}
+        \item Competed in national-level mathematics competition, solving advanced problems in number theory and combinatorics
+        \item Demonstrated strong analytical thinking and problem-solving under time constraints
+    \end{itemize}
+\end{itemize}
+
+% ADDITIONAL - Optional section for languages, interests, etc.
+\section{Additional Information}
+\begin{itemize}
+    \item \textbf{Languages:} Bengali (Native), English (Professional working proficiency)
+    \item \textbf{Interests:} Algorithmic puzzles, contributing to math education, reading about computational theory
+    \item \textbf{Volunteer:} Teaching assistant for introductory programming at local coding bootcamp
+\end{itemize}
+
+\end{document}
