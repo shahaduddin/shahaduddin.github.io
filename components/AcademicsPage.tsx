@@ -82,19 +82,36 @@ const AcademicsPage: React.FC = () => {
 
                     <div className="mb-24">
                         <h2 className="text-3xl font-bold text-white text-center mb-12">Achievement Certificates</h2>
-                        <div className="glass-card p-4 sm:p-6 rounded-2xl">
+                        <div className="glass-card p-2 sm:p-6 rounded-2xl">
                             <Swiper
-                                spaceBetween={30}
+                                loop={true}
                                 centeredSlides={true}
                                 autoplay={{ delay: 3500, disableOnInteraction: false }}
                                 pagination={{ clickable: true, dynamicBullets: true, renderBullet: (index, className) => `<span class="${className} bg-slate-400/50"></span>` }}
                                 navigation={true}
                                 modules={[Autoplay, Pagination, Navigation]}
-                                className="w-full h-[400px] md:h-[500px] rounded-2xl"
+                                className="w-full rounded-2xl"
+                                breakpoints={{
+                                    // when window width is >= 320px
+                                    320: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10
+                                    },
+                                    // when window width is >= 768px
+                                    768: {
+                                        slidesPerView: 1.5,
+                                        spaceBetween: 20
+                                    },
+                                    // when window width is >= 1024px
+                                    1024: {
+                                        slidesPerView: 2.5,
+                                        spaceBetween: 30
+                                    },
+                                }}
                             >
                                 {certificateImages.map((src, index) => (
                                     <SwiperSlide key={index} className="flex items-center justify-center p-4">
-                                        <img src={src} alt={`Certificate ${index + 1}`} className="max-h-full max-w-full object-contain rounded-lg shadow-2xl" />
+                                        <img src={src} alt={`Certificate ${index + 1}`} className="max-h-[300px] md:max-h-[400px] lg:max-h-[500px] w-auto object-contain rounded-lg shadow-2xl transition-transform duration-300 hover:scale-105" />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
