@@ -36,31 +36,25 @@ const projects = [
         }
     },
     {
-        title: "Medi AI",
-        description: "An intelligent medical diagnosis assistant that leverages AI to analyze symptoms and provide potential conditions. It features a user-friendly interface for symptom input and displays results with probabilities and detailed information about each condition.",
-        tags: ["React", "TypeScript", "Tailwind CSS", "Gemini AI"],
-        liveLink: "https://shahaduddin.com/",
+        title: "OrthoBudget",
+        description: "A budget management app for orthodontic residents, featuring a dashboard for tracking expenses, setting savings goals, and visualizing financial progress. Built with Next.js and deployed on Vercel.",
+        tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+        liveLink: "https://orthobudget.vercel.app",
         repoLink: "https://github.com/shahaduddin/",
         svgComponent: (
              <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
-                <svg width="100%" height="100%" viewBox="0 0 200 100">
-                    <path fill="none" stroke="rgb(34 197 94 / 0.8)" strokeWidth="2" d="M 0 50 L 40 50 L 50 30 L 70 70 L 90 20 L 110 80 L 130 40 L 140 50 L 200 50">
-                        <animate attributeName="d"
-                            values="M 0 50 L 40 50 L 50 30 L 70 70 L 90 20 L 110 80 L 130 40 L 140 50 L 200 50; M 0 50 L 40 50 L 50 70 L 70 30 L 90 80 L 110 20 L 130 60 L 140 50 L 200 50; M 0 50 L 40 50 L 50 30 L 70 70 L 90 20 L 110 80 L 130 40 L 140 50 L 200 50"
-                            dur="3s"
-                            repeatCount="indefinite" />
+                <svg width="80%" height="80%" viewBox="0 0 100 100">
+                    <path d="M 20 80 L 80 80 L 50 20 Z" fill="none" stroke="rgb(34 197 94 / 0.8)" strokeWidth="4">
+                         <animateTransform attributeName="transform" type="rotate" from="0 50 60" to="360 50 60" dur="10s" repeatCount="indefinite"/>
                     </path>
-                    <circle cx="170" cy="50" r="10" fill="rgb(34 197 94 / 0.3)">
-                         <animate attributeName="fill-opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite" />
-                    </circle>
-                    <path d="M 165 50 H 175 M 170 45 V 55" stroke="rgb(34 197 94 / 0.9)" strokeWidth="2" />
+                    <text x="50" y="70" text-anchor="middle" font-size="20" fill="rgb(34 197 94 / 0.9)">$</text>
                 </svg>
             </div>
         ),
-        category: "AI & Health",
+        category: "Web Application",
         tech: {
-            frontend: ["React", "TypeScript"],
-            backend: ["Gemini API"],
+            frontend: ["Next.js", "TypeScript"],
+            backend: [],
             styling: ["Tailwind CSS"]
         }
     },
