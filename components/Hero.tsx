@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
     const getAnimationDelay = (index: number) => ({ animationDelay: `${index * 150}ms` });
 
     return (
-        <section id="home" className="relative min-h-screen flex flex-col items-center justify-center p-6 overflow-hidden bg-slate-950">
+        <section id="home" className="relative min-h-screen flex flex-col items-center justify-center p-6 sm:p-8 md:py-32 overflow-hidden bg-slate-950">
             {/* Animated Gradient Blobs */}
             <div className="absolute top-0 -left-1/4 w-96 h-96 bg-purple-600/30 rounded-full blur-[100px] animate-pulse-slow pointer-events-none"></div>
             <div className="absolute bottom-0 -right-1/4 w-96 h-96 bg-blue-600/30 rounded-full blur-[100px] animate-pulse-slow animation-delay-2000 pointer-events-none"></div>
