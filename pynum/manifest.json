@@ -2,24 +2,24 @@
   "name": "PyNum Analysis Studio",
   "short_name": "PyNum",
   "description": "Interactive Numerical Analysis educational platform with AI simulations.",
-  "start_url": "/PyNum/index.html",
+  "start_url": "/pynum/index.html",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#059669",
   "icons": [
     {
-      "src": "/PyNum/pwa-icon.svg",
+      "src": "/pynum/pwa-icon.svg",
       "type": "image/svg+xml",
       "sizes": "any"
     },
     {
-      "src": "/PyNum/logo192.png",
+      "src": "/pynum/logo192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "/PyNum/logo512.png",
+      "src": "/pynum/logo512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"

@@ -19,12 +19,12 @@ root.render(
 // Register Service Worker for Offline PWA support
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    // Use relative path './sw.js' to support subdirectory deployments (e.g. /PyNum/)
+    // Use relative path './sw.js' to support subdirectory deployments (e.g. /pynum/)
     navigator.serviceWorker.register('./sw.js')
       .then((registration) => {
-        console.log('PyNum ServiceWorker registration successful with scope: ', registration.scope);
+        console.log('pynum ServiceWorker registration successful with scope: ', registration.scope);
       }, (err) => {
-        console.log('PyNum ServiceWorker registration failed: ', err);
+        console.log('pynum ServiceWorker registration failed: ', err);
       });
   });
 }

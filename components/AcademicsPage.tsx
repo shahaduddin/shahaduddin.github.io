@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, TrendingUp, GraduationCap, Library, School } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import MathSymbolsBackground from './MathSymbolsBackground';
+import './MathSymbolsBackground.css';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -31,25 +33,25 @@ const educationHistory = [
     {
         institution: 'Shahjalal University of Science and Technology (SUST)',
         location: 'Sylhet, Bangladesh | B.Sc. in Mathematics (2021–Present)',
-        description: 'At SUST, my academic focus has sharpened on the intersection of mathematics and computation. Specializing in numerical analysis, I\'ve discovered a passion for applying abstract mathematical principles to create tangible, efficient software. This is where my journey with "Math + Code" truly comes alive, driving my projects in scientific computing and algorithm optimization.',
+        description: '''At SUST, my academic focus has sharpened on the intersection of mathematics and computation. Specializing in numerical analysis, I\'ve discovered a passion for applying abstract mathematical principles to create tangible, efficient software. This is where my journey with "Math + Code" truly comes alive, driving my projects in scientific computing and algorithm optimization.''',
         icon: GraduationCap,
     },
     {
         institution: 'Murari Chand College',
         location: 'Sylhet, Bangladesh | Higher Secondary (2019–2021)',
-        description: 'My time at MC College was a gateway to the fascinating world of higher mathematics. It was here that complex theories began to feel like solvable puzzles, sparking an ambition to not just understand them but to apply them in practical, computational ways.',
+        description: '''My time at MC College was a gateway to the fascinating world of higher mathematics. It was here that complex theories began to feel like solvable puzzles, sparking an ambition to not just understand them but to apply them in practical, computational ways.''',
         icon: Library,
     },
     {
         institution: 'Jobed Ali Secondary School',
         location: 'Jakigonj, Sylhet | Secondary (2014–2019)',
-        description: 'This is where I built my foundational problem-solving skills. The disciplined approach to mathematics taught me how to think logically and systematically—a framework I rely on every day when I\'m debugging code or structuring an algorithm.',
+        description: '''This is where I built my foundational problem-solving skills. The disciplined approach to mathematics taught me how to think logically and systematically—a framework I rely on every day when I\'m debugging code or structuring an algorithm.''',
         icon: School,
     },
     {
         institution: 'Kusum Koli Kindergarten School',
         location: 'Jakigonj, Sylhet | Primary Education',
-        description: 'My educational journey started here, with an early fascination for numbers and patterns. It was in these formative years that the seeds of a lifelong passion for logic and order were planted.',
+        description: '''My educational journey started here, with an early fascination for numbers and patterns. It was in these formative years that the seeds of a lifelong passion for logic and order were planted.''',
         icon: School,
     }
 ];
@@ -57,8 +59,7 @@ const educationHistory = [
 const AcademicsPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-slate-950 text-white relative overflow-hidden">
-            {/* Dynamic Backgrounds */}
-            <div className="absolute inset-0 bg-math opacity-30 pointer-events-none"></div>
+            <MathSymbolsBackground />
             <div className="absolute top-0 -left-1/4 w-full h-full bg-gradient-to-r from-indigo-900/30 to-transparent blur-[150px] pointer-events-none"></div>
             <div className="absolute bottom-0 -right-1/4 w-full h-full bg-gradient-to-l from-teal-900/20 to-transparent blur-[150px] pointer-events-none"></div>
             
@@ -72,8 +73,8 @@ const AcademicsPage: React.FC = () => {
                     </div>
 
                     <div className="text-center mb-20 relative">
-                        <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight drop-shadow-[0_0_15px_rgba(79,70,229,0.4)]">
-                            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-teal-400">Academic Journey</span>
+                        <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight drop-shadow-[0_0_25px_rgba(79,70,229,0.5)]">
+                            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-teal-400 to-indigo-400">Academic Journey</span>
                         </h1>
                         <p className="text-slate-400 max-w-3xl mx-auto text-lg font-light mt-6">
                             A detailed chronicle of my educational path, academic performance, and key achievements from my earliest curiosity to my current focus in mathematics and computation.
@@ -81,7 +82,8 @@ const AcademicsPage: React.FC = () => {
                     </div>
 
                     <div className="mb-24">
-                        <h2 className="text-3xl font-bold text-white text-center mb-12">Achievement Certificates</h2>
+                        <h2 className="text-4xl font-bold text-white text-center mb-4">Achievement Certificates</h2>
+                        <p className="text-center text-slate-400 mb-12">A collection of certificates from various mathematics olympiads.</p>
                         <div className="glass-card p-2 sm:p-6 rounded-2xl">
                             <Swiper
                                 loop={true}
@@ -92,21 +94,9 @@ const AcademicsPage: React.FC = () => {
                                 modules={[Autoplay, Pagination, Navigation]}
                                 className="w-full rounded-2xl"
                                 breakpoints={{
-                                    // when window width is >= 320px
-                                    320: {
-                                        slidesPerView: 1,
-                                        spaceBetween: 10
-                                    },
-                                    // when window width is >= 768px
-                                    768: {
-                                        slidesPerView: 1.5,
-                                        spaceBetween: 20
-                                    },
-                                    // when window width is >= 1024px
-                                    1024: {
-                                        slidesPerView: 2.5,
-                                        spaceBetween: 30
-                                    },
+                                    320: { slidesPerView: 1, spaceBetween: 10 },
+                                    768: { slidesPerView: 1.5, spaceBetween: 20 },
+                                    1024: { slidesPerView: 2.5, spaceBetween: 30 },
                                 }}
                             >
                                 {certificateImages.map((src, index) => (
@@ -119,7 +109,7 @@ const AcademicsPage: React.FC = () => {
                     </div>
 
                     <div className="mb-24">
-                        <h2 className="text-3xl font-bold text-white text-center mb-16">Semester Performance</h2>
+                        <h2 className="text-4xl font-bold text-white text-center mb-16">Semester Performance</h2>
                         <div className="relative">
                             <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-0.5 bg-slate-700/50"></div>
                             {academicData.map((data, index) => (
@@ -164,7 +154,7 @@ const AcademicsPage: React.FC = () => {
                     </div>
 
                     <div className="mt-24">
-                        <h2 className="text-3xl font-bold text-white text-center mb-16">My Educational Path</h2>
+                        <h2 className="text-4xl font-bold text-white text-center mb-16">My Educational Path</h2>
                         <div className="max-w-3xl mx-auto">
                             {educationHistory.map((item, index) => {
                                 const Icon = item.icon;

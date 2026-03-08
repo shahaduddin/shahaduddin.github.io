@@ -446,7 +446,7 @@ const WebLanding: React.FC = () => {
                   <Play className="w-4 h-4 fill-current" />
                   Start Solving
                </Link>
-               <a href="/APK/PyNum-app-release.apk" download className="flex items-center gap-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
+               <a href="/APK/pynum-app-release.apk" download className="flex items-center gap-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
                   <Download className="w-4 h-4" />
                   Get APK
                </a>
@@ -555,7 +555,7 @@ const WebLanding: React.FC = () => {
                 The PyNum Studio mobile application provides a distraction-free environment for engineering math, fully functional without an internet connection.
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
-                 <a href="/APK/PyNum-app-release.apk" className="flex items-center gap-3 bg-emerald-500 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-emerald-400 transition-all">
+                 <a href="/APK/pynum-app-release.apk" className="flex items-center gap-3 bg-emerald-500 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-emerald-400 transition-all">
                     <Download className="w-5 h-5" />
                     Download APK
                  </a>

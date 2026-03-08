@@ -22,7 +22,7 @@ export const TheoryView: React.FC<TheoryViewProps> = ({ algorithm }) => {
     );
   }
 
-  // Path logic based on PyNum/PDF/ directory
+  // Path logic based on pynum/PDF/ directory
   const getPdfPath = () => {
     const fileName = data.title.replace(/\s+/g, '_') + '.pdf';
     return `/PDF/${fileName}`;
