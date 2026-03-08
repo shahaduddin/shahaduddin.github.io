@@ -27,19 +27,19 @@ const academicData = [
 const educationHistory = [
     {
         institution: 'Shahjalal University of Science and Technology (SUST)',
-        location: 'Sylhet, Bangladesh | B.Sc. in Mathematics (2021–Present)',
+        location: 'Sylhet, Bangladesh | B.Sc. in Mathematics (2022–Present)',
         description: 'At SUST, my academic focus has sharpened on the intersection of mathematics and computation. Specializing in numerical analysis, I\'ve discovered a passion for applying abstract mathematical principles to create tangible, efficient software. This is where my journey with "Math + Code" truly comes alive, driving my projects in scientific computing and algorithm optimization.',
         icon: GraduationCap,
     },
     {
         institution: 'Murari Chand College',
-        location: 'Sylhet, Bangladesh | Higher Secondary (2018–2020)',
+        location: 'Sylhet, Bangladesh | Higher Secondary (2019–2021)',
         description: 'My time at MC College was a gateway to the fascinating world of higher mathematics. It was here that complex theories began to feel like solvable puzzles, sparking an ambition to not just understand them but to apply them in practical, computational ways.',
         icon: Library,
     },
     {
         institution: 'Jobed Ali Secondary School',
-        location: 'Jakigonj, Sylhet | Secondary (2013–2018)',
+        location: 'Jakigonj, Sylhet | Secondary (2014–2019)',
         description: 'This is where I built my foundational problem-solving skills. The disciplined approach to mathematics taught me how to think logically and systematically—a framework I rely on every day when I\'m debugging code or structuring an algorithm.',
         icon: School,
     },
