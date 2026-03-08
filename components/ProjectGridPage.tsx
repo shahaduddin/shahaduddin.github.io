@@ -31,6 +31,7 @@ const projects = [
         category: "Education",
         tech: {
             frontend: ["React", "TypeScript", "Vite"],
+            backend: [],
             styling: ["Tailwind CSS", "Framer Motion"]
         }
     },
