@@ -18,16 +18,6 @@ interface Photo {
 
 const galleryData: Photo[] = [
   {
-    id: "olympiad-stage-15th-numo",
-    src: "./images/gallery/olympiad-stage-15th-numo.jpg",
-    category: "Events",
-    title: "15th National Math Olympiad",
-    description: "Hosting the Sylhet Regional round. A gathering of the brightest young mathematical minds in the region.",
-    date: "2024",
-    location: "SUST",
-    color: "bg-indigo-500"
-  },
-  {
     id: "olympiad-stage-16th-numo",
     src: "./images/gallery/olympiad-stage-16th-numo.jpg",
     category: "Events",
