@@ -23,6 +23,7 @@ import ContactPage from './components/ContactPage';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import NotFoundPage from './components/NotFoundPage';
+import AcademicsPage from './components/AcademicsPage';
 
 const MainPage: React.FC = () => (
   <>
@@ -95,6 +96,7 @@ const App: React.FC = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/academics" element={<AcademicsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

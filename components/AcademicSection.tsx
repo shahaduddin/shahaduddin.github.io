@@ -1,5 +1,6 @@
 import React from 'react';
-import { GraduationCap, BookOpen, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { GraduationCap, BookOpen, MapPin, ArrowRight } from 'lucide-react';
 
 const AcademicSection: React.FC = () => {
     return (
@@ -68,6 +69,12 @@ const AcademicSection: React.FC = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="text-center mt-12">
+                    <Link to="/academics" className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-indigo-600 text-white hover:bg-indigo-500 transition-all duration-300 font-semibold text-lg shadow-lg shadow-indigo-500/30 transform hover:scale-105">
+                        View Detailed Performance
+                        <ArrowRight size={20} />
+                    </Link>
                 </div>
             </div>
         </section>
