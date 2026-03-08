@@ -49,7 +49,7 @@ const educationHistory = [
         icon: School,
     },
     {
-        institution: 'Kusum Koli Kindergarten School',
+        institution: 'Kusum Koli Kindergarten',
         location: 'Jakigonj, Sylhet | Primary Education',
         description: `My educational journey started here, with an early fascination for numbers and patterns. It was in these formative years that the seeds of a lifelong passion for logic and order were planted.`,
         icon: School,
