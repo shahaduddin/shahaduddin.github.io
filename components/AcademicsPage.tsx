@@ -12,7 +12,11 @@ import 'swiper/css/navigation';
 const certificateImages = [
     '/numo/certificates/15th_numo_sylhet_region_achievement_certificate.jpg',
     '/numo/certificates/16th_numo_sylhet_region_achievement_certificate.jpg',
-    '/numo/certificates/15th_numo_final_round_perticipation_certificate.jpg',
+    '/numo/certificates/15th_numo_final_round_participation_certificate.jpg',
+    '/numo/certificates/16th_numo_final_round_participation_certificate.jpg',
+    '/numo/certificates/14th_numo_sylhet_region_participation_certificate.jpg',
+    '/numo/certificates/15th_numo_sylhet_region_participation_certificate.jpg',
+    '/numo/certificates/16th_numo_sylhet_region_participation_certificate.jpg',
 ];
 
 const academicData = [
@@ -43,7 +47,7 @@ const educationHistory = [
         icon: School,
     },
     {
-        institution: 'Kusum Koli Kinder Garten School',
+        institution: 'Kusum Koli Kindergarten School',
         location: 'Jakigonj, Sylhet | Primary Education',
         description: 'My educational journey started here, with an early fascination for numbers and patterns. It was in these formative years that the seeds of a lifelong passion for logic and order were planted.',
         icon: School,

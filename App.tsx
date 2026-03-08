@@ -25,55 +25,29 @@ import TermsOfService from './components/TermsOfService';
 import NotFoundPage from './components/NotFoundPage';
 import AcademicsPage from './components/AcademicsPage';
 
+const mainSections = [
+  { id: 'home', Component: Hero },
+  { id: 'about', Component: AboutSection },
+  { id: 'academics', Component: AcademicSection },
+  { id: 'skills', Component: SkillsSection },
+  { id: 'projects', Component: SlideshowSection },
+  { id: 'gallery', Component: GallerySection },
+  { id: 'blog', Component: BlogSection },
+  { id: 'resume', Component: ResumeSection },
+  { id: 'contact', Component: ContactSection },
+];
+
 const MainPage: React.FC = () => (
   <>
     <Header />
     <main className="container mx-auto px-6 py-4 grid grid-cols-1 gap-12">
-      <ScrollReveal>
-        <div id="home">
-          <Hero />
-        </div>
-      </ScrollReveal>
-      <ScrollReveal>
-        <div id="about">
-          <AboutSection />
-        </div>
-      </ScrollReveal>
-      <ScrollReveal>
-        <div id="academics">
-          <AcademicSection />
-        </div>
-      </ScrollReveal>
-      <ScrollReveal>
-        <div id="skills">
-          <SkillsSection />
-        </div>
-      </ScrollReveal>
-      <ScrollReveal>
-        <div id="projects">
-          <SlideshowSection />
-        </div>
-      </ScrollReveal>
-      <ScrollReveal>
-        <div id="gallery">
-          <GallerySection />
-        </div>
-      </ScrollReveal>
-       <ScrollReveal>
-        <div id="blog">
-          <BlogSection />
-        </div>
-      </ScrollReveal>
-      <ScrollReveal>
-        <div id="resume">
-          <ResumeSection />
-        </div>
-      </ScrollReveal>
-      <ScrollReveal>
-        <div id="contact">
-          <ContactSection />
-        </div>
-      </ScrollReveal>
+      {mainSections.map(({ id, Component }) => (
+        <ScrollReveal key={id}>
+          <div id={id}>
+            <Component />
+          </div>
+        </ScrollReveal>
+      ))}
       <ScrollReveal>
         <Footer />
       </ScrollReveal>
@@ -82,22 +56,28 @@ const MainPage: React.FC = () => (
   </>
 );
 
+const appRoutes = [
+    { path: '/', element: <MainPage /> },
+    { path: '/gallery', element: <GalleryGridPage /> },
+    { path: '/gallery/:id', element: <GalleryPage /> },
+    { path: '/blog', element: <BlogGridPage /> },
+    { path: '/blog/:id', element: <BlogPostPage /> },
+    { path: '/projects', element: <ProjectGridPage /> },
+    { path: '/contact', element: <ContactPage /> },
+    { path: '/privacy', element: <PrivacyPolicy /> },
+    { path: '/terms', element: <TermsOfService /> },
+    { path: '/academics', element: <AcademicsPage /> },
+    { path: '*', element: <NotFoundPage /> },
+];
+
 const App: React.FC = () => {
   return (
     <Router>
       <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative">
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/gallery" element={<GalleryGridPage />} />
-          <Route path="/gallery/:id" element={<GalleryPage />} />
-          <Route path="/blog" element={<BlogGridPage />} />
-          <Route path="/blog/:id" element={<BlogPostPage />} />
-          <Route path="/projects" element={<ProjectGridPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/academics" element={<AcademicsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          {appRoutes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
         </Routes>
       </div>
     </Router>
