@@ -2,47 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://shahaduddin.com/</loc>
-    <lastmod>2026-03-07</lastmod>
-    <priority>1.00</priority>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://shahaduddin.com/#about</loc>
-    <lastmod>2026-03-07</lastmod>
-    <priority>0.80</priority>
+    <loc>https://shahaduddin.com/academics</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://shahaduddin.com/#academics</loc>
-    <lastmod>2026-03-07</lastmod>
-    <priority>0.80</priority>
+    <loc>https://shahaduddin.com/contact</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+    <url>
+    <loc>https://shahaduddin.com/PDF/Bisection_Method.pdf</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shahaduddin.com/#skills</loc>
-    <lastmod>2026-03-07</lastmod>
-    <priority>0.80</priority>
+    <loc>https://shahaduddin.com/PDF/False_Position_Method.pdf</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shahaduddin.com/#projects</loc>
-    <lastmod>2026-03-07</lastmod>
-    <priority>0.80</priority>
+    <loc>https://shahaduddin.com/PDF/Fixed_Point_Iteration.pdf</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shahaduddin.com/#gallery</loc>
-    <lastmod>2026-03-07</lastmod>
-    <priority>0.80</priority>
+    <loc>https://shahaduddin.com/PDF/Incremental_Search.pdf</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shahaduddin.com/#blog</loc>
-    <lastmod>2026-03-07</lastmod>
-    <priority>0.80</priority>
+    <loc>https://shahaduddin.com/PDF/Muller's_Method.pdf</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shahaduddin.com/#resume</loc>
-    <lastmod>2026-03-07</lastmod>
-    <priority>0.80</priority>
+    <loc>https://shahaduddin.com/PDF/Newton-Raphson_Method.pdf</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shahaduddin.com/#contact</loc>
-    <lastmod>2026-03-07</lastmod>
-    <priority>0.80</priority>
+    <loc>https://shahaduddin.com/PDF/Secant_Method.pdf</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html'),
-          pynum: path.resolve(__dirname, 'PyNum/index.html')
+          pynum: path.resolve(__dirname, 'pynum/index.html')
         },
       },
     },
