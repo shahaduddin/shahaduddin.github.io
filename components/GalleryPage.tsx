@@ -40,7 +40,7 @@ const galleryData: Photo[] = [
     color: "bg-indigo-500"
   },
    {
-    id: "olympiad-stage2",
+    id: "olympiad-stage-16th-numo-2",
     src: "../images/gallery/olympiad-stage-16th-numo-2.jpg",
     category: "Events",
     title: "16th National Math Olympiad",
