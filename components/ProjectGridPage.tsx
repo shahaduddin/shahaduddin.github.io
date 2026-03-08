@@ -60,7 +60,7 @@ const projects = [
     },
     {
         title: "ZincCalcPro",
-        description: "An advanced calculator for zinc dosage in pediatric patients, featuring a sleek interface and precise calculations. Deployed on Vercel.",
+        description: "An advanced calculator for students, featuring a sleek interface and precise calculations. Deployed on Vercel.",
         tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
         liveLink: "https://zinccalcpro.vercel.app",
         repoLink: "https://github.com/shahaduddin/",

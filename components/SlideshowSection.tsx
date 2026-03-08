@@ -49,7 +49,7 @@ const projects = [
     },
     {
         title: "ZincCalcPro",
-        description: "An advanced calculator for zinc dosage in pediatric patients.",
+        description: "An advanced calculator for students with rich features enabling easy calculation.",
         liveLink: "https://zinccalcpro.vercel.app",
         svgComponent: (
              <div className="w-full h-full bg-slate-900/25 p-8 flex items-center justify-center">
