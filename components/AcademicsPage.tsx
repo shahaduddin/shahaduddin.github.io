@@ -9,9 +9,10 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const certificateImages = [
-    '/numo/certificates/15th-numo-sylhet-regional-champions.jpg',
-    '/numo/certificates/16th-numo-sylhet-regional-runners-up.jpg',
-    '/numo/certificates/math-olympiad-2022-winner.jpg',
+    './numo/certificates/15th_numo_sylhet_region_achievement_certificate.jpg',
+    './numo/certificates/15th_numo_final_round_perticipation_certificate.jpg',
+    './numo/certificates/16th_numo_sylhet_region_achievement_certificate.jpg',
+    './numo/certificates/16th_numo_final_round_perticipation_certificate.jpg'
 ];
 
 const academicData = [
