@@ -1,4 +1,3 @@
-'''
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, BookOpen, Star, TrendingUp } from 'lucide-react';
@@ -101,4 +100,3 @@ const AcademicsPage: React.FC = () => {
 };
 
 export default AcademicsPage;
-'''
