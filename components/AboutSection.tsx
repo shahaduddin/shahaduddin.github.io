@@ -1,63 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { User, Code, Calculator, MapPin, Terminal, Globe, Cpu } from 'lucide-react';
 
 const AboutSection: React.FC = () => {
-    // Schema.org structured data for Google Knowledge Panel
-    const schemaData = {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Shahad Uddin",
-        "url": "https://shahaduddin.com/",
-        "givenName": "Shahad",
-        "familyName": "Uddin",
-        "image": "https://shahaduddin.com/shahad-uddin-math-programmer-sust.png",
-        "description": "Mathematics student and programmer passionate about algorithms, numerical analysis, and software development.",
-        "disambiguatingDescription": "Mathematics undergraduate at SUST and programmer, distinct from the esports personality.",
-        "jobTitle": "Mathematics Student & Programmer",
-        "knowsAbout": [
-            "Mathematics",
-            "Computer Science",
-            "Programming",
-            "Scientific Computing", 
-            "Algorithms", 
-            "Numerical Analysis", 
-            "Web Development"
-        ],
-        "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "Shahjalal University of Science and Technology",
-        "sameAs": "https://en.wikipedia.org/wiki/Shahjalal_University_of_Science_and_Technology"
-        },
-        "sameAs": [
-            "https://linkedin.com/in/shahaduddin",
-            "https://github.com/shahaduddin",
-            "https://x.com/theshahaduddin",
-            "https://facebook.com/theshahaduddin",
-            "https://instagram.com/theshahaduddin",
-            "https://www.threads.com/theshahaduddin",
-            "https://www.youtube.com/@theshahaduddin"
-        ]
-    };
-
-    const images = [
-        '/shahad-uddin-math-programmer-sust.png'
-    ];
-
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, [images.length]);
 
     return (
         <section id="about" className="py-24 px-4 bg-slate-950 relative overflow-hidden">
-             {/* JSON-LD for Google Search */}
-             <script type="application/ld+json">
-                {JSON.stringify(schemaData)}
-            </script>
 
             {/* Enhanced Background Elements */}
             <div className="absolute inset-0 bg-slate-950 pointer-events-none">
@@ -91,31 +38,31 @@ const AboutSection: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
                     {/* Profile Photo Area */}
                     <div className="lg:col-span-5 flex justify-center lg:justify-end relative">
-                        <div className="relative w-80 h-96 group">
-                            <div className="absolute inset-0 rounded-2xl border border-dashed border-slate-700 animate-spin-slow"></div>
-                            <div className="absolute inset-4 rounded-2xl border border-slate-800"></div>
+                        {/* Photo container with decorative elements */}
+                        <div className="relative w-72 h-72 md:w-80 md:h-80 group">
+                            {/* Rotating borders */}
+                            <div className="absolute inset-0 rounded-full border border-dashed border-slate-700 animate-spin-slow"></div>
+                            <div className="absolute inset-4 rounded-full border border-slate-800"></div>
                             
-                            <div className="absolute inset-0 bg-indigo-500/10 rounded-2xl blur-3xl group-hover:bg-indigo-500/20 transition-colors duration-500"></div>
+                            {/* Glow */}
+                            <div className="absolute inset-0 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-colors duration-500"></div>
 
-                            <div className="absolute inset-6 rounded-2xl overflow-hidden border-2 border-indigo-500/30 bg-slate-900 shadow-2xl relative z-10">
-                                {images.map((src, index) => (
-                                    <img
-                                        key={src}
-                                        src={src}
-                                        alt={`Shahad Uddin ${index + 1}`}
-                                        className={`absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
-                                        onError={(e) => {
-                                            e.currentTarget.src = "https://ui-avatars.com/api/?name=Shahad+Uddin&background=1e1b4b&color=6366f1&size=400&font-size=0.33";
-                                        }}
-                                    />
-                                ))}
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
+                            {/* Image */}
+                            <div className="absolute inset-6 rounded-full overflow-hidden border-2 border-indigo-500/30 bg-slate-900 shadow-2xl relative z-10">
+                                <img 
+                                    src="/shahad-uddin-math-programmer-sust.png" 
+                                    alt="Shahad Uddin" 
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                {/* Overlay gradient */}
+                                <div className="absolute inset-0 bg-indigo-500/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500"></div>
                             </div>
 
-                            <div className="absolute top-4 right-4 bg-slate-900/50 border border-slate-700 p-3 rounded-2xl text-indigo-400 shadow-lg z-20 backdrop-blur-sm">
+                            {/* Floating Badges */}
+                            <div className="absolute top-0 right-0 bg-slate-900 border border-slate-700 p-3 rounded-2xl text-indigo-400 shadow-lg animate-float delay-0 z-20">
                                 <Terminal size={24} />
                             </div>
-                            <div className="absolute bottom-4 left-4 bg-slate-900/50 border border-slate-700 p-3 rounded-2xl text-blue-400 shadow-lg z-20 backdrop-blur-sm">
+                            <div className="absolute bottom-4 left-4 bg-slate-900 border border-slate-700 p-3 rounded-2xl text-blue-400 shadow-lg animate-float delay-1000 z-20">
                                 <Calculator size={24} />
                             </div>
                         </div>
@@ -138,7 +85,9 @@ const AboutSection: React.FC = () => {
                             </h3>
                         </div>
                         
+                        {/* Glass Card for Bio */}
                         <div className="glass-card p-8 rounded-3xl border-t border-slate-700/50 relative group hover:border-indigo-500/30 transition-all duration-500 text-left">
+                            {/* Decorative quote */}
                             <div className="absolute -top-3 -left-3 text-6xl text-indigo-500/10 font-serif leading-none select-none">“</div>
 
                             <div className="space-y-5 text-slate-400 text-lg leading-relaxed relative z-10">
@@ -158,6 +107,7 @@ const AboutSection: React.FC = () => {
                             </div>
                         </div>
 
+                        {/* Details / Stats Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
                             <div className="p-4 rounded-2xl bg-slate-900/50 border border-slate-800 flex items-center gap-3 group hover:border-indigo-500/30 transition-colors text-left">
                                 <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:scale-110 transition-transform">
