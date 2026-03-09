@@ -1,19 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { User, Code, Calculator, MapPin, Terminal, Globe, Cpu } from 'lucide-react';
 
 const AboutSection: React.FC = () => {
-    const images = [
-        'shahad-uddin-math-programmer-sust.png'
-    ];
-
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, [images.length]);
 
     return (
         <section id="about" className="py-24 px-4 bg-slate-950 relative overflow-hidden">
@@ -57,14 +45,11 @@ const AboutSection: React.FC = () => {
                             <div className="absolute inset-0 bg-indigo-500/10 rounded-2xl blur-3xl group-hover:bg-indigo-500/20 transition-colors duration-500"></div>
 
                             <div className="absolute inset-6 rounded-2xl overflow-hidden border-2 border-indigo-500/30 bg-slate-900 shadow-2xl relative z-10">
-                                {images.map((src, index) => (
-                                    <img
-                                        key={src}
-                                        src={src}
-                                        alt={`Shahad Uddin ${index + 1}`}
-                                        className={`absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
-                                    />
-                                ))}
+                                <img
+                                    src="/shahad-uddin-math-programmer-sust.png"
+                                    alt="Shahad Uddin"
+                                    className="w-full h-full object-cover object-center"
+                                />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
                             </div>
 
