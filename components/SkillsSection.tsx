@@ -23,8 +23,7 @@ const skillCategories: SkillCategory[] = [
             { name: "TypeScript" },
             { name: "JavaScript (ES6+)" },
             { name: "Tailwind CSS" },
-            { name: "HTML5 & CSS3" },
-            { name: "Framer Motion" },
+            { name: "HTML5 & CSS3" }
         ]
     },
     {
@@ -33,8 +32,6 @@ const skillCategories: SkillCategory[] = [
         skills: [
             { name: "Node.js & Express" },
             { name: "RESTful APIs" },
-            { name: "Python (Flask)" },
-            { name: "Go (learning)" },
             { name: "Serverless Functions" },
         ]
     },
@@ -43,7 +40,6 @@ const skillCategories: SkillCategory[] = [
         icon: <Smartphone className="w-6 h-6 text-purple-400" />,
         skills: [
             { name: "React Native" },
-            { name: "Expo" },
             { name: "Cross-Platform UI/UX" },
         ]
     },
@@ -52,26 +48,26 @@ const skillCategories: SkillCategory[] = [
         icon: <Database className="w-6 h-6 text-yellow-400" />,
         skills: [
             { name: "MongoDB" },
-            { name: "PostgreSQL" },
-            { name: "Firebase" },
+            { name: "PostgreSQL" }
         ]
     },
     {
-        title: "Scientific & AI",
+        title: "Scientific Computation",
         icon: <BrainCircuit className="w-6 h-6 text-rose-400" />,
         skills: [
-            { name: "Gemini & OpenAI APIs" },
-            { name: "C++ & Fortran" },
-            { name: "MATLAB & LaTeX" },
+            { name: "C++" },
+            { name: "Fortran" },
+            { name: "MATLAB" },
+            { name: "LaTeX" },
         ]
     },
     {
         title: "Tools & DevOps",
         icon: <Wrench className="w-6 h-6 text-orange-400" />,
         skills: [
-            { name: "Git & GitHub" },
-            { name: "Docker" },
-            { name: "Vercel & Netlify" },
+            { name: "Git" },
+            { name: "GitHub" },
+            { name: "Vercel" }
         ]
     },
 ];
