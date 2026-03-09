@@ -94,4 +94,4 @@ If you find this project interesting or have any feedback, feel free to reach ou
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details. (Consider adding a license if you haven't already).
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
