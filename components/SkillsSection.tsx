@@ -55,19 +55,16 @@ const skillCategories: SkillCategory[] = [
         title: "Scientific Computation",
         icon: <BrainCircuit className="w-6 h-6 text-rose-400" />,
         skills: [
-            { name: "C++" },
-            { name: "Fortran" },
-            { name: "MATLAB" },
-            { name: "LaTeX" },
+            { name: "C++ & Fortran" },
+            { name: "MATLAB & LaTeX" }
         ]
     },
     {
         title: "Tools & DevOps",
         icon: <Wrench className="w-6 h-6 text-orange-400" />,
         skills: [
-            { name: "Git" },
-            { name: "GitHub" },
-            { name: "Vercel" }
+            { name: "Git & GitHub" },
+            { name: "Vercel & Netlify" }
         ]
     },
 ];
