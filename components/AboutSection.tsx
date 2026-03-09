@@ -40,9 +40,7 @@ const AboutSection: React.FC = () => {
     };
 
     const images = [
-        '/images/gallery/award-plaque.jpeg',
-        '/images/gallery/award-plaque2.jpg',
-        '/images/gallery/math-fiesta.jpg',
+        '/shahad-uddin-math-programmer-sust.png'
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
