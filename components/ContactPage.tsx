@@ -93,13 +93,6 @@ const ContactPage: React.FC = () => {
                         </form>
                     </div>
                 </div>
-
-                 <div className="mt-20 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-800 bg-slate-900/50">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">Available for collaborations</span>
-                    </div>
-                </div>
             </div>
         </div>
     );
