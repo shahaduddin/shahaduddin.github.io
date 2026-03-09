@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, Code, Calculator, MapPin, Terminal, Globe, Cpu } from 'lucide-react';
 
 const AboutSection: React.FC = () => {
+    const images = [
+        'shahad-uddin-math-programmer-sust.png'
+    ];
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, [images.length]);
 
     return (
         <section id="about" className="py-24 px-4 bg-slate-950 relative overflow-hidden">
@@ -38,31 +50,28 @@ const AboutSection: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
                     {/* Profile Photo Area */}
                     <div className="lg:col-span-5 flex justify-center lg:justify-end relative">
-                        {/* Photo container with decorative elements */}
-                        <div className="relative w-72 h-72 md:w-80 md:h-80 group">
-                            {/* Rotating borders */}
-                            <div className="absolute inset-0 rounded-full border border-dashed border-slate-700 animate-spin-slow"></div>
-                            <div className="absolute inset-4 rounded-full border border-slate-800"></div>
+                        <div className="relative w-80 h-96 group">
+                            <div className="absolute inset-0 rounded-2xl border border-dashed border-slate-700 animate-spin-slow"></div>
+                            <div className="absolute inset-4 rounded-2xl border border-slate-800"></div>
                             
-                            {/* Glow */}
-                            <div className="absolute inset-0 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-colors duration-500"></div>
+                            <div className="absolute inset-0 bg-indigo-500/10 rounded-2xl blur-3xl group-hover:bg-indigo-500/20 transition-colors duration-500"></div>
 
-                            {/* Image */}
-                            <div className="absolute inset-6 rounded-full overflow-hidden border-2 border-indigo-500/30 bg-slate-900 shadow-2xl relative z-10">
-                                <img 
-                                    src="/shahad-uddin-math-programmer-sust.png" 
-                                    alt="Shahad Uddin" 
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                {/* Overlay gradient */}
-                                <div className="absolute inset-0 bg-indigo-500/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500"></div>
+                            <div className="absolute inset-6 rounded-2xl overflow-hidden border-2 border-indigo-500/30 bg-slate-900 shadow-2xl relative z-10">
+                                {images.map((src, index) => (
+                                    <img
+                                        key={src}
+                                        src={src}
+                                        alt={`Shahad Uddin ${index + 1}`}
+                                        className={`absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
+                                    />
+                                ))}
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
                             </div>
 
-                            {/* Floating Badges */}
-                            <div className="absolute top-0 right-0 bg-slate-900 border border-slate-700 p-3 rounded-2xl text-indigo-400 shadow-lg animate-float delay-0 z-20">
+                            <div className="absolute top-4 right-4 bg-slate-900/50 border border-slate-700 p-3 rounded-2xl text-indigo-400 shadow-lg z-20 backdrop-blur-sm">
                                 <Terminal size={24} />
                             </div>
-                            <div className="absolute bottom-4 left-4 bg-slate-900 border border-slate-700 p-3 rounded-2xl text-blue-400 shadow-lg animate-float delay-1000 z-20">
+                            <div className="absolute bottom-4 left-4 bg-slate-900/50 border border-slate-700 p-3 rounded-2xl text-blue-400 shadow-lg z-20 backdrop-blur-sm">
                                 <Calculator size={24} />
                             </div>
                         </div>
