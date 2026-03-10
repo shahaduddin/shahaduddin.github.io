@@ -80,6 +80,16 @@ const galleryData: Photo[] = [
     color: "bg-emerald-500"
   },
   {
+    id: "shahad-portfolio",
+    src: "/shahad-math-programmer-sust.jpg",
+    category: "Personal",
+    title: "Shahad Uddin",
+    description: "Mathematics programmer and tech enthusiast. Passionate about coding, problem-solving, and capturing moments.",
+    date: "2026",
+    location: "Sylhet, Bangladesh",
+    color: "bg-indigo-500"
+  },
+  {
     id: "award-plaque",
     src: "../images/gallery/15th-numo-sylhet-regional-2nd-position.jpg",
     category: "Awards",
