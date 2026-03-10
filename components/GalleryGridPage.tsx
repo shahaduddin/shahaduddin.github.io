@@ -82,7 +82,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "shahad-portfolio",
-    src: "/shahad-math-programmer-sust.jpg",
+    src: "/shahad-math-programmer-sust.png",
     category: "Personal",
     title: "Shahad Uddin",
     description: "Mathematics programmer and tech enthusiast. Passionate about coding, problem-solving, and capturing moments.",
