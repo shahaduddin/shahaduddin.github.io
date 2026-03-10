@@ -50,7 +50,7 @@ const AboutSection: React.FC = () => {
                                     alt="Shahad Uddin"
                                     className="w-full h-full object-cover object-center"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-slate-950/20 to-transparent"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent"></div>
                             </div>
 
                             <div className="absolute top-4 right-4 bg-slate-900/50 border border-slate-700 p-3 rounded-2xl text-indigo-400 shadow-lg z-20 backdrop-blur-sm">
