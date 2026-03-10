@@ -71,7 +71,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "tour-shimul2",
-    src: "./images/gallery/tour-shimul2.jpg",
+    src: "../images/gallery/tour-shimul2.jpg",
     category: "Travel",
     title: "Jadukata Riverside Memories",
     description: "Group photo with professor and batchmates on the Jadukata river bank near Shimul Bagan, Sunamgonj.",
