@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://shahaduddin.com/sitemap.xml
+Sitemap: https://shahaduddin.com/image-sitemap.xml
