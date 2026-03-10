@@ -64,7 +64,7 @@ const galleryData: Photo[] = [
     title: "Math Fiesta Cultural Night",
     description: "Performing on stage during the 'Chill Fiesta'. Celebrating the artistic side of mathematicians.",
     date: "2024",
-    location: "Academic Bldg C",
+    location: "Academic Bldg C, SUST",
     color: "bg-amber-500"
   },
   {
@@ -74,7 +74,7 @@ const galleryData: Photo[] = [
     title: "Team Achievement",
     description: "Celebrating our team's success outside the Dr. Jamilur Reza Choudhury Building.",
     date: "Jan 2026",
-    location: "Civil Eng. Building",
+    location: "Civil Eng. Building, BUET",
     color: "bg-violet-500"
   },
 ];

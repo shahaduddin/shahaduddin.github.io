@@ -69,15 +69,15 @@ const galleryData: Photo[] = [
     location: "Tahirpur, Sunamgonj",
     color: "bg-rose-500"
   },
-    {
+  {
     id: "tour-shimul2",
-    src: "../images/gallery/tour-shimul2.jpg",
+    src: "./images/gallery/tour-shimul2.jpg",
     category: "Travel",
-    title: "Shimul Bagan Expedition",
-    description: "Witnessing the vibrant red silk cotton trees in bloom. A colorful day out with the batch.",
+    title: "Jadukata Riverside Memories",
+    description: "Group photo with professor and batchmates on the Jadukata river bank near Shimul Bagan, Sunamgonj.",
     date: "Spring 2025",
-    location: "Tahirpur, Sunamgonj",
-    color: "bg-rose-500"
+    location: "Jadukata River, Sunamgonj",
+    color: "bg-emerald-500"
   },
   {
     id: "award-plaque",
@@ -116,7 +116,7 @@ const galleryData: Photo[] = [
     title: "Math Fiesta Cultural Night",
     description: "Performing on stage during the 'Chill Fiesta'. Celebrating the artistic side of mathematicians.",
     date: "2024",
-    location: "Academic Bldg C",
+    location: "Academic Bldg C, SUST",
     color: "bg-amber-500"
   },
   {
@@ -136,7 +136,7 @@ const galleryData: Photo[] = [
     title: "Team Achievement",
     description: "Celebrating our team's success outside the Dr. Jamilur Reza Choudhury Building.",
     date: "Jan 2026",
-    location: "Civil Eng. Building",
+    location: "Civil Eng. Building, BUET",
     color: "bg-violet-500"
   },
   {
