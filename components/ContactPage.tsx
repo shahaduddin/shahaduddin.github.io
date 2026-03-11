@@ -43,9 +43,9 @@ const ContactPage: React.FC = () => {
                             className="w-40 h-40 rounded-full object-cover border-4 border-blue-500/50 shadow-lg mb-5"
                         />
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-cyan-300 bg-clip-text text-transparent">Shahad Uddin</h1>
-                        <p className="text-blue-300/80 text-lg mt-1">@instantlysh</p>
+                        <p className="text-blue-300/80 text-lg mt-1">@TheShahadUddin</p>
                         <p className="text-slate-300 mt-4 text-md max-w-xs">
-                            Mathematician | Programmer | Designer
+                            Mathematician | Programmer
                         </p>
                         <p className="text-slate-400 text-sm mt-2">Sylhet, Bangladesh</p>
                         
@@ -92,7 +92,7 @@ const ContactPage: React.FC = () => {
                             </div>
                             <div>
                                 <button type="submit" disabled={state.submitting} className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:opacity-90 disabled:opacity-50 transition-all duration-300 font-semibold text-lg shadow-lg shadow-indigo-500/30 transform hover:scale-105">
-                                    {state.submitting ? <><Loader className="animate-spin" size={20} /> Sending...</> : <><Send size={20} /> Send Message</>}\
+                                    {state.submitting ? <><Loader className="animate-spin" size={20} /> Sending...</> : <><Send size={20} /> Send Message</>}
                                 </button>
                             </div>
                         </form>
