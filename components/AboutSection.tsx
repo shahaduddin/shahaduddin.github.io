@@ -12,7 +12,8 @@ const AboutSection: React.FC = () => {
         'image': 'https://shahaduddin.com/shahad-uddin-math-programmer-sust.png',
         'sameAs': [
             'https://www.linkedin.com/in/shahaduddin/',
-            'https://github.com/shahaduddin'
+            'https://github.com/shahaduddin',
+            'https://www.researchgate.net/profile/Shahad-Uddin'
         ],
         'jobTitle': 'Student',
         'worksFor': {

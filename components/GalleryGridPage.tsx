@@ -6,7 +6,7 @@ import {
   Calendar, MapPin, Filter, ArrowLeft
 } from 'lucide-react';
 
-type Category = 'All' | 'Events' | 'Travel' | 'Awards' | 'Social';
+type Category = 'All' | 'Events' | 'Travel' | 'Awards' | 'Personal' | 'Social';
 
 interface Photo {
   id: string;
