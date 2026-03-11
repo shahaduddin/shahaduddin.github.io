@@ -1,10 +1,37 @@
+
 import React from 'react';
 import { User, Code, Calculator, MapPin, Terminal, Globe, Cpu } from 'lucide-react';
 
 const AboutSection: React.FC = () => {
 
+    const personSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        'name': 'Shahad Uddin',
+        'url': 'https://shahaduddin.com',
+        'image': 'https://shahaduddin.com/shahad-uddin-math-programmer-sust.png',
+        'sameAs': [
+            'https://www.linkedin.com/in/shahaduddin/',
+            'https://github.com/shahaduddin'
+        ],
+        'jobTitle': 'Student',
+        'worksFor': {
+            '@type': 'Organization',
+            'name': 'Shahjalal University of Science and Technology'
+        },
+        'homeLocation': {
+            '@type': 'Place',
+            'name': 'Sylhet, Bangladesh'
+        },
+        'description': 'Student of Logic and Computation, currently pursuing a B.Sc. in Mathematics. Passionate about solving complex problems through code and exploring the intersection of abstract mathematics and computational logic.'
+    };
+
     return (
-        <section id="about" className="py-24 px-4 bg-slate-950 relative overflow-hidden">
+        <section id="about" className="py-12 bg-slate-950 relative overflow-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+            />
 
             {/* Enhanced Background Elements */}
             <div className="absolute inset-0 bg-slate-950 pointer-events-none">

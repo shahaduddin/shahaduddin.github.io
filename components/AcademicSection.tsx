@@ -4,7 +4,7 @@ import { GraduationCap, BookOpen, MapPin, ArrowRight } from 'lucide-react';
 
 const AcademicSection: React.FC = () => {
     return (
-        <section id="academic" className="py-24 px-4 relative bg-slate-950 overflow-hidden">
+        <section id="academic" className="py-12 bg-slate-950 relative overflow-hidden">
             {/* Background Layers */}
             <div className="absolute inset-0 bg-math opacity-40 pointer-events-none"></div>
             

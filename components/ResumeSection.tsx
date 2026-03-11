@@ -3,7 +3,7 @@ import { FileText, Download } from 'lucide-react';
 
 const ResumeSection: React.FC = () => {
     return (
-        <section id="resume" className="py-24 px-4 bg-slate-950 relative overflow-hidden">
+        <section id="resume" className="py-12 bg-slate-950 relative overflow-hidden">
              {/* Background elements */}
              <div className="absolute top-1/2 left-0 w-1/3 h-1/3 bg-indigo-900/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2"></div>
 
