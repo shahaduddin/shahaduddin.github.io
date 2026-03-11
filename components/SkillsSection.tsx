@@ -71,7 +71,7 @@ const skillCategories: SkillCategory[] = [
 
 const SkillsSection: React.FC = () => {
     return (
-        <section id="skills" className="py-12 bg-slate-950 relative overflow-hidden">
+        <section id="skills" className="px-2 py-12 bg-slate-950 relative overflow-hidden">
             <div className="absolute inset-0 bg-grid-slate-800/[0.05] bg-[bottom_1px_center] [mask-image:linear-gradient(to_bottom,transparent,rgb(255,255,255))]"></div>
             <div className="absolute inset-0 pointer-events-none [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
             <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[128px] pointer-events-none"></div>
