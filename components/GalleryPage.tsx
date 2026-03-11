@@ -70,8 +70,8 @@ const galleryData: Photo[] = [
     color: "bg-rose-500"
   },
   {
-    id: "tour-shimul2",
-    src: "../images/gallery/tour-shimul2.jpg",
+    id: "jadu-khata-river",
+    src: "../images/gallery/jadu-khata-river.jpg",
     category: "Travel",
     title: "Jadukata Riverside Memories",
     description: "Group photo with professor and batchmates on the Jadukata river bank near Shimul Bagan, Sunamgonj.",
@@ -90,7 +90,7 @@ const galleryData: Photo[] = [
     color: "bg-indigo-500"
   },
   {
-    id: "award-plaque",
+    id: "award-plaque-15th-numo",
     src: "../images/gallery/15th-numo-sylhet-regional-2nd-position.jpg",
     category: "Awards",
     title: "Excellent Performance",
@@ -100,7 +100,7 @@ const galleryData: Photo[] = [
     color: "bg-blue-500"
   },
   {
-    id: "award-plaque2",
+    id: "award-plaque-16th-numo",
     src: "../images/gallery/16th-numo-sylhet-regional-6th-position.jpg",
     category: "Awards",
     title: "Excellent Performance",

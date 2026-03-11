@@ -48,7 +48,7 @@ const galleryData: Photo[] = [
     color: "bg-rose-500"
   },
   {
-    id: "award-plaque",
+    id: "award-plaque-15th-numo",
     src: "./images/gallery/15th-numo-sylhet-regional-2nd-position.jpg",
     category: "Awards",
     title: "Excellent Performance",
