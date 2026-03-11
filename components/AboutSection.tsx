@@ -57,10 +57,11 @@ const AboutSection: React.FC = () => {
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-soft-light"></div>
 
             <div className="max-w-6xl mx-auto relative z-10">
-                <div className="flex items-center gap-4 mb-20">
-                    <span className="h-px flex-1 bg-slate-800"></span>
-                    <h2 className="text-slate-500 font-mono uppercase tracking-widest text-sm">About Me</h2>
-                    <span className="h-px flex-1 bg-slate-800"></span>
+                <div className="flex justify-center mb-20">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono uppercase tracking-widest">
+                        <User size={14} className="text-indigo-500" />
+                        <span>About Me</span>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">

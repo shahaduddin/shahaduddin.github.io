@@ -8,10 +8,11 @@ const ResumeSection: React.FC = () => {
              <div className="absolute top-1/2 left-0 w-1/3 h-1/3 bg-indigo-900/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2"></div>
 
              <div className="max-w-4xl mx-auto relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <span className="h-px flex-1 bg-slate-800"></span>
-                    <h2 className="text-slate-500 font-mono uppercase tracking-widest text-sm">Curriculum Vitae</h2>
-                    <span className="h-px flex-1 bg-slate-800"></span>
+                <div className="flex justify-center mb-16">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono uppercase tracking-widest">
+                        <FileText size={14} className="text-indigo-500" />
+                        <span>Curriculum Vitae</span>
+                    </div>
                 </div>
 
                 <div className="glass-card rounded-2xl p-8 md:p-12 relative overflow-hidden border border-slate-800 hover:border-indigo-500/30 transition-all duration-500 group">

@@ -13,10 +13,11 @@ const AcademicSection: React.FC = () => {
             <div className="absolute bottom-1/4 -right-24 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none"></div>
 
             <div className="max-w-4xl mx-auto relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <span className="h-px flex-1 bg-slate-800"></span>
-                    <h2 className="text-slate-500 font-mono uppercase tracking-widest text-sm">Academic Background</h2>
-                    <span className="h-px flex-1 bg-slate-800"></span>
+                <div className="flex justify-center mb-16">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono uppercase tracking-widest">
+                        <GraduationCap size={14} className="text-indigo-500" />
+                        <span>Academic Background</span>
+                    </div>
                 </div>
 
                 <div className="glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden group hover:border-indigo-500/30 transition-all duration-500 shadow-2xl">
