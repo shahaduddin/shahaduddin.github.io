@@ -105,7 +105,7 @@ const blogPosts = [
 
 const BlogSection: React.FC = () => {
   return (
-    <section id="blog" className="py-24 px-4 bg-slate-950 relative overflow-hidden">
+    <section id="blog" className="py-12 px-4 bg-slate-950 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-soft-light"></div>
         <div className="absolute top-1/4 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[128px] pointer-events-none"></div>
         <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-yellow-600/10 rounded-full blur-[128px] pointer-events-none"></div>

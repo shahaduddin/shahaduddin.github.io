@@ -5,7 +5,7 @@ import { AtSign, ArrowRight, Mail, Linkedin, Github } from 'lucide-react';
 
 const ContactSection: React.FC = () => {
     return (
-        <section id="contact" className="py-24 sm:py-32 px-4 bg-slate-950/70 relative overflow-hidden rounded-3xl border border-slate-800">
+        <section id="contact" className="py-12 sm:py-32 px-4 bg-slate-950/70 relative overflow-hidden rounded-3xl border border-slate-800">
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-slate-950 to-slate-950"></div>
             <div className="absolute -top-24 -right-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none"></div>
             <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-[160px] pointer-events-none"></div>
