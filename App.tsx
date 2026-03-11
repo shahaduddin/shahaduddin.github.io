@@ -41,7 +41,7 @@ const MainPage: React.FC = () => (
   <>
     <Header />
     {/* <main className="container mx-auto px-6 py-4 grid grid-cols-1 gap-12"> */}
-      <main className="container mx-auto px-4 py-2 grid grid-cols-1 gap-6">
+      <main className="container mx-auto px-1 pt-0 pb-2 grid grid-cols-1 gap-6">
       {mainSections.map(({ id, Component }) => (
         <ScrollReveal key={id}>
           <div id={id}>
