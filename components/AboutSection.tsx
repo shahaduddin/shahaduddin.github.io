@@ -28,7 +28,7 @@ const AboutSection: React.FC = () => {
     };
 
     return (
-        <section id="about" className="px-2 py-12 bg-slate-950 relative overflow-hidden">
+        <section id="about" className="px-4 py-12 bg-slate-950 relative overflow-hidden">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}

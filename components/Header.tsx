@@ -17,7 +17,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="bg-slate-900/50 backdrop-blur-sm sticky top-0 z-50">
-      <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
+      <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="text-2xl font-bold text-white">
           <a href="#home">Shahad Uddin</a>
         </div>
