@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Mail, Linkedin, Github, Send, Loader, CheckCircle, Globe } from 'lucide-react';
+import { Mail, Linkedin, Github, Send, Loader, CheckCircle, Globe } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
 import Header from './Header';
 
@@ -17,10 +16,6 @@ const ContactPage: React.FC = () => {
                     <CheckCircle className="mx-auto w-16 h-16 text-emerald-500 mb-6" />
                     <h1 className="text-3xl font-bold text-white mb-4">Message Sent!</h1>
                     <p className="text-slate-400 text-lg mb-8">Thanks for reaching out! I'll get back to you as soon as possible.</p>
-                    <Link to="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-500 transition-colors font-semibold shadow-lg shadow-indigo-500/20">
-                        <ArrowLeft size={18} />
-                        Back to Home
-                    </Link>
                 </div>
                 </div>
             </div>
@@ -31,13 +26,6 @@ const ContactPage: React.FC = () => {
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900/50 text-white">
             <Header />
             <div className="p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center font-sans">
-            <div className="w-full max-w-6xl mx-auto mb-8">
-                <Link to="/" className="inline-flex items-center gap-2 text-slate-300 hover:text-indigo-300 transition-colors duration-300 font-medium">
-                    <ArrowLeft size={20} />
-                    <span>Back to Home</span>
-                </Link>
-            </div>
-
             <div className="w-full max-w-6xl bg-black bg-opacity-30 backdrop-blur-lg border border-blue-800/50 rounded-3xl shadow-2xl shadow-blue-500/10 overflow-hidden">
                 <div className="grid grid-cols-1 md:grid-cols-5">
                     

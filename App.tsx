@@ -24,6 +24,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import NotFoundPage from './components/NotFoundPage';
 import AcademicsPage from './components/AcademicsPage';
+import LifeEventCounter from './components/LifeEventCounter';
 
 const mainSections = [
   { id: 'home', Component: Hero },
@@ -40,6 +41,7 @@ const mainSections = [
 const MainPage: React.FC = () => (
   <>
     <Header />
+    <LifeEventCounter />
     {/* <main className="container mx-auto px-6 py-4 grid grid-cols-1 gap-12"> */}
       <main className="container mx-auto px-1 pt-0 pb-2 grid grid-cols-1 gap-6">
       {mainSections.map(({ id, Component }) => (

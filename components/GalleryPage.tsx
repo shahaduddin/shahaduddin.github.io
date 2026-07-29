@@ -2,7 +2,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
-  Calendar, MapPin, Tag
+  Calendar, MapPin, Tag, ArrowLeft
 } from 'lucide-react';
 import Header from './Header';
 
@@ -22,7 +22,7 @@ interface Photo {
 const galleryData: Photo[] = [
   {
     id: "olympiad-stage-15th-numo",
-    src: "../images/gallery/olympiad-stage-15th-numo.jpg",
+    src: "/images/gallery/olympiad-stage-15th-numo.jpg",
     category: "Events",
     title: "15th National Math Olympiad",
     description: "Hosting the Sylhet Regional round. A gathering of the brightest young mathematical minds in the region.",
@@ -32,7 +32,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "olympiad-stage-16th-numo",
-    src: "../images/gallery/olympiad-stage-16th-numo.jpg",
+    src: "/images/gallery/olympiad-stage-16th-numo.jpg",
     category: "Events",
     title: "16th National Math Olympiad",
     description: "Hosting the Sylhet Regional round. A gathering of the brightest young mathematical minds in the region.",
@@ -42,7 +42,7 @@ const galleryData: Photo[] = [
   },
    {
     id: "olympiad-stage-16th-numo-2",
-    src: "../images/gallery/olympiad-stage-16th-numo-2.jpg",
+    src: "/images/gallery/olympiad-stage-16th-numo-2.jpg",
     category: "Events",
     title: "16th National Math Olympiad",
     description: "Hosting the Sylhet Regional round. A gathering of the brightest young mathematical minds in the region.",
@@ -52,7 +52,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "bbq-night",
-    src: "../images/gallery/bbq-night.jpg",
+    src: "/images/gallery/bbq-night.jpg",
     category: "Social",
     title: "Grill & Chill 2025",
     description: "Departmental BBQ night under the fairy lights. Good food, warm atmosphere, and great company.",
@@ -62,7 +62,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "tour-shimul",
-    src: "../images/gallery/tour-shimul.jpg",
+    src: "/images/gallery/tour-shimul.jpg",
     category: "Travel",
     title: "Shimul Bagan Expedition",
     description: "Witnessing the vibrant red silk cotton trees in bloom. A colorful day out with the batch.",
@@ -72,7 +72,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "jadu-khata-river",
-    src: "../images/gallery/jadu-khata-river.jpg",
+    src: "/images/gallery/jadu-khata-river.jpg",
     category: "Travel",
     title: "Jadukata Riverside Memories",
     description: "Group photo with professor and batchmates on the Jadukata river bank near Shimul Bagan, Sunamgonj.",
@@ -92,7 +92,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "award-plaque-15th-numo",
-    src: "../images/gallery/15th-numo-sylhet-regional-2nd-position.jpg",
+    src: "/images/gallery/15th-numo-sylhet-regional-2nd-position.jpg",
     category: "Awards",
     title: "Excellent Performance",
     description: "Awarded for excellence in the 15th National Undergraduate Mathematics Olympiad (Sylhet Region).",
@@ -102,7 +102,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "award-plaque-16th-numo",
-    src: "../images/gallery/16th-numo-sylhet-regional-6th-position.jpg",
+    src: "/images/gallery/16th-numo-sylhet-regional-6th-position.jpg",
     category: "Awards",
     title: "Excellent Performance",
     description: "Awarded for excellence in the 16th National Undergraduate Mathematics Olympiad (Sylhet Region).",
@@ -112,7 +112,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "iftar-circle",
-    src: "../images/gallery/iftar-circle.jpg",
+    src: "/images/gallery/iftar-circle.jpg",
     category: "Social",
     title: "Community Feast",
     description: "Breaking bread together on the open field. A moment of simplicity and brotherhood.",
@@ -122,7 +122,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "math-fiesta",
-    src: "../images/gallery/math-fiesta.jpg",
+    src: "/images/gallery/math-fiesta.jpg",
     category: "Events",
     title: "Math Fiesta Cultural Night",
     description: "Performing on stage during the 'Chill Fiesta'. Celebrating the artistic side of mathematicians.",
@@ -132,7 +132,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "tour-boat",
-    src: "../images/gallery/tour-boat.png",
+    src: "/images/gallery/tour-boat.png",
     category: "Travel",
     title: "River Expedition",
     description: "Navigating the serene waters of Sada Pathor/Bholagonj. Peace amidst nature.",
@@ -142,7 +142,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "olympiad-team",
-    src: "../images/gallery/olympiad-team.jpg",
+    src: "/images/gallery/olympiad-team.jpg",
     category: "Events",
     title: "Team Achievement",
     description: "Celebrating our team's success outside the Dr. Jamilur Reza Choudhury Building.",
@@ -152,7 +152,7 @@ const galleryData: Photo[] = [
   },
   {
     id: "tour-stream",
-    src: "../images/gallery/tour-stream.jpg",
+    src: "/images/gallery/tour-stream.jpg",
     category: "Travel",
     title: "Nature's Flow",
     description: "Cooling off in the crystal clear streams of Dhalai River.",
@@ -197,7 +197,9 @@ const GalleryPage: React.FC = () => {
           </div>
           <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl md:flex">
             <div className="md:flex-shrink-0">
-              <img className="h-auto w-full object-cover md:w-96" src={photo.src} alt={photo.title} />
+              <img className="h-auto w-full object-cover md:w-96" src={photo.src} alt={photo.title} onError={(e) => {
+                e.currentTarget.src = 'https://placehold.co/800x600/1e293b/475569?text=Gallery+Image';
+              }} />
             </div>
             <div className="p-8 flex flex-col justify-between">
               <div>
