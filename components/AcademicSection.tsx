@@ -60,11 +60,11 @@ const AcademicSection: React.FC = () => {
                                 <div className="grid grid-cols-2 gap-8">
                                     <div className="space-y-1">
                                         <span className="block text-slate-500 text-[10px] uppercase tracking-tighter">Current Level</span>
-                                        <span className="text-white font-bold text-lg">3rd Year</span>
+                                        <span className="text-white font-bold text-lg">4th Year</span>
                                     </div>
                                     <div className="space-y-1">
                                         <span className="block text-slate-500 text-[10px] uppercase tracking-tighter">Current Semester</span>
-                                        <span className="text-white font-bold text-lg">2nd Semester</span>
+                                        <span className="text-white font-bold text-lg">1st Semester</span>
                                     </div>
                                 </div>
                             </div>
