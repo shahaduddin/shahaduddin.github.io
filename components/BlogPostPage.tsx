@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Calendar, User, Clock, Tag, ChevronsRight } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
+import { ArrowLeft, Calendar, User, Clock, Tag } from 'lucide-react';
 import Header from './Header';
 
 const blogPosts = {
