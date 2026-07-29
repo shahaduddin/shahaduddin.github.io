@@ -3,13 +3,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Mail, Linkedin, Github, Send, Loader, CheckCircle, Globe } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
+import Header from './Header';
 
 const ContactPage: React.FC = () => {
     const [state, handleSubmit] = useForm("xreybbdb");
 
     if (state.succeeded) {
         return (
-            <div className="min-h-screen bg-slate-950 text-white p-4 sm:p-6 lg:p-8 flex items-center justify-center text-center">
+            <div className="min-h-screen bg-slate-950 text-white">
+                <Header />
+                <div className="p-4 sm:p-6 lg:p-8 flex items-center justify-center text-center">
                 <div className="max-w-md">
                     <CheckCircle className="mx-auto w-16 h-16 text-emerald-500 mb-6" />
                     <h1 className="text-3xl font-bold text-white mb-4">Message Sent!</h1>
@@ -19,12 +22,15 @@ const ContactPage: React.FC = () => {
                         Back to Home
                     </Link>
                 </div>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900/50 text-white p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center font-sans">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900/50 text-white">
+            <Header />
+            <div className="p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center font-sans">
             <div className="w-full max-w-6xl mx-auto mb-8">
                 <Link to="/" className="inline-flex items-center gap-2 text-slate-300 hover:text-indigo-300 transition-colors duration-300 font-medium">
                     <ArrowLeft size={20} />
@@ -98,6 +104,7 @@ const ContactPage: React.FC = () => {
                         </form>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     );

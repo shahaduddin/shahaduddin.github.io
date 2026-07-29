@@ -2,7 +2,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
-  Calendar, MapPin, ArrowLeft, Tag
+  Calendar, MapPin, Tag
 } from 'lucide-react';
 import Header from './Header';
 

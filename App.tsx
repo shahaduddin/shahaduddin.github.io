@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import AboutSection from './components/AboutSection';
@@ -71,16 +71,38 @@ const appRoutes = [
     { path: '*', element: <NotFoundPage /> },
 ];
 
+const AppContent: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.substring(1);
+      const element = document.getElementById(id);
+      if (element) {
+        const offset = 88;
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location.pathname, location.hash]);
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative">
+      <Routes>
+        {appRoutes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+      </Routes>
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative">
-        <Routes>
-          {appRoutes.map((route) => (
-            <Route key={route.path} path={route.path} element={route.element} />
-          ))}
-        </Routes>
-      </div>
+      <AppContent />
     </Router>
   );
 };

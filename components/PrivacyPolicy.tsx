@@ -2,10 +2,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import Header from './Header';
 
 const PrivacyPolicy: React.FC = () => {
     return (
         <div className="bg-slate-950 text-slate-300 min-h-screen">
+            <Header />
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
                 <div className="text-center mb-12">
                     <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Privacy Policy</h1>
