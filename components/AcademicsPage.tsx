@@ -26,7 +26,8 @@ const academicData = [
     { semester: 'Year 1, Semester 2', credits: 20.5, sgpa: 3.79, cgpa: 3.80 },
     { semester: 'Year 2, Semester 1', credits: 18.0, sgpa: 3.90, cgpa: 3.83 },
     { semester: 'Year 2, Semester 2', credits: 19.0, sgpa: 3.80, cgpa: 3.82 },
-    { semester: 'Year 3, Semester 1', credits: 17.0, sgpa: 3.91, cgpa: 3.84 }
+    { semester: 'Year 3, Semester 1', credits: 17.0, sgpa: 3.91, cgpa: 3.84 },
+    { semester: 'Year 3, Semester 2', credits: 17.5, sgpa: 3.95, cgpa: 3.86 }
 ];
 
 const educationHistory = [
