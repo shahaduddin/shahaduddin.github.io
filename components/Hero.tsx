@@ -3,67 +3,77 @@ import React from 'react';
 import { ArrowDown, FileText, Send } from 'lucide-react';
 
 const Hero: React.FC = () => {
-    // Helper function to apply animation delays
     const getAnimationDelay = (index: number) => ({ animationDelay: `${index * 150}ms` });
 
     return (
-        <section id="home" className="relative min-h-screen flex flex-col items-center justify-center p-6 sm:p-8 md:py-16 overflow-hidden bg-slate-950">
-            {/* Animated Gradient Blobs */}
-            <div className="absolute top-0 -left-1/4 w-96 h-96 bg-purple-600/30 rounded-full blur-[100px] animate-pulse-slow pointer-events-none"></div>
-            <div className="absolute bottom-0 -right-1/4 w-96 h-96 bg-blue-600/30 rounded-full blur-[100px] animate-pulse-slow animation-delay-2000 pointer-events-none"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse-slow animation-delay-4000 pointer-events-none"></div>
+        <section id="home" className="relative overflow-hidden px-4 py-8 sm:px-6 md:px-8 md:py-12">
+            <div className="relative mx-auto flex min-h-[70vh] max-w-6xl items-center justify-center overflow-hidden rounded-[2rem] border border-slate-800/80 bg-slate-900/70 px-6 py-16 shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_30px_80px_rgba(2,6,23,0.55)] backdrop-blur-xl sm:px-8 sm:py-20 md:px-12 md:py-24">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.16),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(129,140,248,0.16),transparent_35%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.06)_1px,transparent_1px)] bg-[size:28px_28px] [mask-image:linear-gradient(to_bottom,transparent,rgba(2,6,23,0.95),transparent)]" />
 
-            {/* Grid Background */}
-            <div className="absolute inset-0 bg-grid-slate-800/[0.1] bg-[bottom_1px_center] [mask-image:linear-gradient(to_bottom,transparent,rgb(2,6,23),transparent)] pointer-events-none"></div>
+                <div className="absolute left-6 top-6 text-5xl font-semibold text-slate-700/40 sm:text-6xl">∑</div>
+                <div className="absolute bottom-8 right-8 text-5xl font-semibold text-slate-700/40 sm:text-6xl">∫</div>
+                <div className="absolute right-10 top-1/3 text-3xl font-semibold text-slate-700/35 sm:text-4xl">∂</div>
 
-            <div className="relative z-10 text-center max-w-4xl mx-auto space-y-6">
-                <div style={getAnimationDelay(0)} className="animate-fadeInUp opacity-0">
-                    <div className="inline-block px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm mb-4">
-                        <span className="text-blue-300 font-mono text-sm tracking-wider">Software Developer & Researcher</span>
+                <div className="relative z-10 w-full text-center">
+                    <div style={getAnimationDelay(0)} className="animate-fadeInUp opacity-0">
+                        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-700/80 bg-slate-950/60 px-4 py-2 text-sm font-medium text-slate-300 backdrop-blur-sm">
+                            <span className="h-2.5 w-2.5 rounded-full bg-cyan-400" />
+                            Software Developer • Researcher • Problem Solver
+                        </div>
+                    </div>
+
+                    <h1
+                        style={getAnimationDelay(1)}
+                        className="animate-fadeInUp text-5xl font-black tracking-tight text-white opacity-0 sm:text-6xl md:text-7xl"
+                    >
+                        <span className="bg-gradient-to-r from-slate-100 via-blue-200 to-indigo-400 bg-clip-text text-transparent">
+                            Shahad Uddin
+                        </span>
+                    </h1>
+
+                    <p
+                        style={getAnimationDelay(2)}
+                        className="mx-auto mt-6 max-w-2xl animate-fadeInUp text-lg leading-8 text-slate-400 opacity-0 sm:text-xl"
+                    >
+                        I build thoughtful web experiences and explore the space where
+                        <span className="mx-1 font-medium text-slate-200"> numerical analysis</span>
+                        meets modern software.
+                    </p>
+
+                    <div
+                        style={getAnimationDelay(3)}
+                        className="mt-10 flex flex-col flex-wrap items-center justify-center gap-4 animate-fadeInUp opacity-0 sm:flex-row"
+                    >
+                        <a
+                            href="#projects"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-indigo-500/40 sm:w-auto"
+                        >
+                            <FileText size={18} />
+                            View My Work
+                        </a>
+
+                        <a
+                            href="#contact"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-700 bg-slate-950/60 px-7 py-3.5 font-medium text-slate-300 backdrop-blur-sm transition-all duration-300 hover:border-blue-400 hover:text-white sm:w-auto"
+                        >
+                            <Send size={18} />
+                            Get In Touch
+                        </a>
+                    </div>
+
+                    <div style={getAnimationDelay(4)} className="mt-8 flex flex-wrap items-center justify-center gap-3 animate-fadeInUp opacity-0">
+                        <span className="rounded-full border border-slate-800 bg-slate-950/50 px-3 py-1.5 text-sm text-slate-400">Numerical Methods</span>
+                        <span className="rounded-full border border-slate-800 bg-slate-950/50 px-3 py-1.5 text-sm text-slate-400">Web Applications</span>
+                        <span className="rounded-full border border-slate-800 bg-slate-950/50 px-3 py-1.5 text-sm text-slate-400">Research</span>
                     </div>
                 </div>
 
-                <h1 
-                    style={getAnimationDelay(1)} 
-                    className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white animate-fadeInUp opacity-0"
-                >
-                    Shahad Uddin
-                </h1>
-                
-                <p 
-                    style={getAnimationDelay(2)} 
-                    className="text-lg md:text-xl text-slate-400 font-light max-w-2xl mx-auto leading-relaxed animate-fadeInUp opacity-0"
-                >
-                    I build dynamic, user-friendly web applications and explore the intersection of 
-                    <span className="text-slate-200 font-medium"> numerical analysis and modern software</span>.
-                </p>
-
-                <div 
-                    style={getAnimationDelay(3)} 
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 w-full animate-fadeInUp opacity-0"
-                >
-                    <a 
-                        href="#projects" 
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/40"
-                    >
-                        <FileText size={20} />
-                        View My Work
-                    </a>
-
-                    <a 
-                        href="#contact" 
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-slate-700 bg-slate-900/50 backdrop-blur-sm text-slate-300 font-medium transition-all duration-300 hover:border-blue-400 hover:text-white"
-                    >
-                        <Send size={18} />
-                        Get In Touch
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce-slow text-slate-500">
+                    <a href="#about" aria-label="Scroll to about section">
+                        <ArrowDown size={22} />
                     </a>
                 </div>
-            </div>
-
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-slow text-slate-500">
-                <a href="#about" aria-label="Scroll to about section">
-                    <ArrowDown size={24} />
-                </a>
             </div>
         </section>
     );
