@@ -65,7 +65,7 @@ const AcademicsPage: React.FC = () => {
             <div className="absolute top-0 -left-1/4 w-full h-full bg-gradient-to-r from-indigo-900/30 to-transparent blur-[150px] pointer-events-none"></div>
             <div className="absolute bottom-0 -right-1/4 w-full h-full bg-gradient-to-l from-teal-900/20 to-transparent blur-[150px] pointer-events-none"></div>
             
-            <div className="relative z-10 px-4 pt-4 pb-8 sm:px-6 sm:pt-6 lg:px-8">
+            <div className="relative z-10 px-4 pb-8 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-7xl">
                     <div className="text-center mb-20 relative">
                         <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight drop-shadow-[0_0_25px_rgba(79,70,229,0.5)]">
