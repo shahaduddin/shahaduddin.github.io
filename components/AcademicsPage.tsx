@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, TrendingUp, GraduationCap, Library, School } from 'lucide-react';
+import { Calendar, TrendingUp, GraduationCap, Library, School } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Header from './Header';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import MathSymbolsBackground from './MathSymbolsBackground';
 import './MathSymbolsBackground.css';
@@ -65,14 +65,8 @@ const AcademicsPage: React.FC = () => {
             <div className="absolute bottom-0 -right-1/4 w-full h-full bg-gradient-to-l from-teal-900/20 to-transparent blur-[150px] pointer-events-none"></div>
             
             <div className="relative z-10 p-4 sm:p-6 lg:p-8">
-                <div className="max-w-7xl mx-auto">
-                    <div className="mb-12">
-                        <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-indigo-400 transition-colors duration-300 font-medium">
-                            <ArrowLeft size={20} />
-                            Back to Home
-                        </Link>
-                    </div>
-
+                <Header />
+                <div className="mx-auto max-w-7xl">
                     <div className="text-center mb-20 relative">
                         <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight drop-shadow-[0_0_25px_rgba(79,70,229,0.5)]">
                             My <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-teal-400 to-indigo-400">Academic Journey</span>

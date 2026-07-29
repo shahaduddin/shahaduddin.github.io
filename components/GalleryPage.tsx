@@ -1,9 +1,10 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { 
+import {
   Calendar, MapPin, ArrowLeft, Tag
 } from 'lucide-react';
+import Header from './Header';
 
 type Category = 'All' | 'Events' | 'Travel' | 'Awards' | 'Personal' | 'Social';
 
@@ -167,14 +168,17 @@ const GalleryPage: React.FC = () => {
 
   if (!photo) {
     return (
-      <div className="h-screen flex items-center justify-center bg-slate-950 text-white">
-        <div className="text-center">
-          <h2 className="text-4xl font-bold mb-4">Photo not found</h2>
-          <p className="text-slate-400 mb-8">The photo you are looking for does not exist.</p>
-          <Link to="/gallery" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors">
-            <ArrowLeft size={18} />
-            Back to Gallery
-          </Link>
+      <div className="min-h-screen bg-slate-950 text-white">
+        <Header />
+        <div className="flex h-[calc(100vh-73px)] items-center justify-center">
+          <div className="text-center">
+            <h2 className="mb-4 text-4xl font-bold">Photo not found</h2>
+            <p className="mb-8 text-slate-400">The photo you are looking for does not exist.</p>
+            <Link to="/gallery" className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-white transition-colors hover:bg-indigo-700">
+              <ArrowLeft size={18} />
+              Back to Gallery
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -182,6 +186,7 @@ const GalleryPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <Header />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">

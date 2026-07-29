@@ -1,34 +1,37 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '#home', label: 'Home' },
-    { href: '#about', label: 'About' },
-    { href: '#academics', label: 'Academics' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#gallery', label: 'Gallery' },
-    { href: '#blog', label: 'Blog' },
-    { href: '#resume', label: 'Resume' },
-    { href: '#contact', label: 'Contact' },
+    { to: '/', label: 'Home' },
+    { to: '/#about', label: 'About' },
+    { to: '/#academics', label: 'Academics' },
+    { to: '/#skills', label: 'Skills' },
+    { to: '/#projects', label: 'Projects' },
+    { to: '/gallery', label: 'Gallery' },
+    { to: '/blog', label: 'Blog' },
+    { to: '/#resume', label: 'Resume' },
+    { to: '/contact', label: 'Contact' },
   ];
 
   return (
-    <header className="bg-slate-900/50 backdrop-blur-sm sticky top-0 z-50">
-      <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
+    <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-slate-900/70 backdrop-blur-xl">
+      <nav className="container mx-auto flex items-center justify-between px-4 py-4">
         <div className="text-2xl font-bold text-white">
-          <a href="#home">Shahad Uddin</a>
+          <Link to="/">Shahad Uddin</Link>
         </div>
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden items-center space-x-6 md:flex">
           {navLinks.map(link => (
-            <a key={link.href} href={link.href} className="text-gray-300 hover:text-white">{link.label}</a>
+            <Link key={link.to} to={link.to} className="text-gray-300 transition-colors hover:text-white">
+              {link.label}
+            </Link>
           ))}
         </div>
         <div className="md:hidden">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <button type="button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path>
             </svg>
           </button>
@@ -36,9 +39,16 @@ const Header: React.FC = () => {
       </nav>
       {isMenuOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             {navLinks.map(link => (
-              <a key={link.href} href={link.href} className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">{link.label}</a>
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setIsMenuOpen(false)}
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
+              >
+                {link.label}
+              </Link>
             ))}
           </div>
         </div>

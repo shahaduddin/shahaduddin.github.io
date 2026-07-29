@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, User, Clock, Tag, ChevronsRight } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+import { Calendar, User, Clock, Tag, ChevronsRight } from 'lucide-react';
+import Header from './Header';
 
 const blogPosts = {
     "mastering-numerical-methods": {

@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, User, Clock, Tag } from 'lucide-react';
+import { Calendar, User, Clock, Tag } from 'lucide-react';
+import Header from './Header';
 
 const blogPosts = [
     {
@@ -121,15 +122,9 @@ const blogPosts = [
 
 const BlogGridPage: React.FC = () => {
     return (
-        <div className="min-h-screen bg-slate-950 text-white p-4 sm:p-6 lg:p-8">
-            <div className="max-w-7xl mx-auto">
-                <div className="mb-8">
-                    <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-                        <ArrowLeft size={18} />
-                        Back to Home
-                    </Link>
-                </div>
-                
+        <div className="min-h-screen bg-slate-950 text-white">
+            <Header />
+            <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
                         From the <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Desk of Shahad</span>

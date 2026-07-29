@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Camera, Trophy, Tent, Utensils, 
-  Calendar, MapPin, Filter, ArrowLeft
+import {
+  Camera, Trophy, Tent, Utensils,
+  Calendar, MapPin, Filter
 } from 'lucide-react';
+import Header from './Header';
 
 type Category = 'All' | 'Events' | 'Travel' | 'Awards' | 'Personal' | 'Social';
 
