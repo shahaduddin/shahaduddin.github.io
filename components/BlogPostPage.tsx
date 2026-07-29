@@ -377,7 +377,8 @@ const BlogPostPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-slate-950 text-white">
-            <div className="max-w-4xl mx-auto px-4 py-8">
+            <Header />
+            <div className="mx-auto max-w-4xl px-4 pt-4 pb-8 sm:px-6 sm:pt-6 lg:px-8">
                 <div className="mb-8">
                     <Link to="/blog" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
                         <ArrowLeft size={18} />
