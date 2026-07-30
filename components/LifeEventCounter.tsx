@@ -1,35 +1,108 @@
-import React, { useEffect, useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ArrowLeft, Clock3, Pi, Sigma, Sparkles, X } from 'lucide-react';
+
+const quotes = [
+  'Pure mathematics is, in its way, the poetry of logical ideas. - Albert Einstein',
+  'The essence of mathematics is not to make simple things complicated, but to make complicated things simple. - S. Gudder',
+  'Mathematics reveals its secrets only to those who approach it with pure love. - Archimedes',
+  'In mathematics, the art of proposing a question must be held of higher value than solving it. - Georg Cantor',
+  'Go down deep enough into anything and you will find mathematics. - Dean Schlicter',
+];
+
+const targetDate = new Date('2042-05-11T00:00:00');
+
+const getCountdown = (now: Date) => {
+  const diffMs = Math.max(targetDate.getTime() - now.getTime(), 0);
+  const totalSeconds = Math.floor(diffMs / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return { days, hours, minutes, seconds };
+};
 
 const LifeEventCounter: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setIsVisible(false), 5000);
-    return () => window.clearTimeout(timer);
+    const timer = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(timer);
   }, []);
+
+  const quote = useMemo(() => quotes[Math.floor(Math.random() * quotes.length)], []);
+  const countdown = useMemo(() => getCountdown(now), [now]);
 
   if (!isVisible) {
     return null;
   }
 
   return (
-    <div
-      role="status"
-      aria-live="polite"
-      className="fixed left-1/2 top-4 z-[80] -translate-x-1/2 rounded-full border border-indigo-400/30 bg-slate-900/90 px-4 py-3 shadow-2xl shadow-indigo-500/20 backdrop-blur-xl"
-    >
-      <div className="flex items-center gap-3">
-        <div className="rounded-full bg-indigo-500/15 p-2 text-cyan-300">
-          <Sparkles size={16} />
-        </div>
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
-            Static milestone
-          </p>
-          <p className="text-sm font-semibold text-white">
-            12 years • 3 months • 18 days
-          </p>
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/70 px-4 py-6 backdrop-blur-xl">
+      <div className="relative aspect-square w-full max-w-md overflow-hidden rounded-[2rem] border border-slate-700/70 bg-slate-950/95 shadow-[0_30px_90px_rgba(2,6,23,0.7)]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.18),transparent_34%),radial-gradient(circle_at_top_right,rgba(59,130,246,0.18),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.18),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(244,114,182,0.15),transparent_30%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:24px_24px] opacity-60" />
+        <div className="absolute inset-0 animate-pulse bg-[conic-gradient(from_180deg_at_50%_50%,rgba(34,197,94,0.12),rgba(59,130,246,0.12),rgba(168,85,247,0.12),rgba(236,72,153,0.12),rgba(34,197,94,0.12))] blur-2xl" />
+
+        <button
+          type="button"
+          onClick={() => setIsVisible(false)}
+          className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-slate-900/80 p-2 text-slate-200 transition-colors hover:border-white/25 hover:text-white"
+          aria-label="Close countdown"
+        >
+          <X size={18} />
+        </button>
+
+        <div className="relative z-10 flex h-full flex-col justify-between p-6 sm:p-7">
+          <div className="flex items-start gap-4">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 text-cyan-300 shadow-lg shadow-cyan-500/10">
+              <Sparkles size={20} />
+            </div>
+            <div className="space-y-2">
+              <p className="text-[10px] font-black uppercase tracking-[0.35em] text-slate-400">Mathematical countdown</p>
+              <h3 className="text-2xl font-black tracking-tight text-white">A square of numbers, colors, and time</h3>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-4 shadow-lg shadow-emerald-500/10">
+              <div className="flex items-center justify-between text-emerald-300">
+                <Sigma size={18} />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Days</span>
+              </div>
+              <p className="mt-6 text-5xl font-black tracking-tight text-white">{countdown.days}</p>
+            </div>
+
+            <div className="rounded-3xl border border-blue-400/20 bg-blue-500/10 p-4 shadow-lg shadow-blue-500/10">
+              <div className="flex items-center justify-between text-blue-300">
+                <Clock3 size={18} />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Hours</span>
+              </div>
+              <p className="mt-6 text-5xl font-black tracking-tight text-white">{countdown.hours}</p>
+            </div>
+
+            <div className="rounded-3xl border border-violet-400/20 bg-violet-500/10 p-4 shadow-lg shadow-violet-500/10">
+              <div className="flex items-center justify-between text-violet-300">
+                <Pi size={18} />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Minutes</span>
+              </div>
+              <p className="mt-6 text-5xl font-black tracking-tight text-white">{countdown.minutes}</p>
+            </div>
+
+            <div className="rounded-3xl border border-rose-400/20 bg-rose-500/10 p-4 shadow-lg shadow-rose-500/10">
+              <div className="flex items-center justify-between text-rose-300">
+                <ArrowLeft size={18} className="rotate-45" />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Seconds</span>
+              </div>
+              <p className="mt-6 text-5xl font-black tracking-tight text-white">{countdown.seconds}</p>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-4 backdrop-blur-sm">
+            <p className="text-[10px] font-black uppercase tracking-[0.35em] text-slate-400">Random quote</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">{quote}</p>
+          </div>
         </div>
       </div>
     </div>

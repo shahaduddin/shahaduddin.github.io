@@ -170,14 +170,21 @@ const GalleryPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-slate-950 text-white">
         <Header />
+        <Link
+          to="/gallery"
+          className="group fixed left-4 top-20 z-40 inline-flex items-center gap-3 rounded-full border border-slate-700/70 bg-slate-950/85 px-4 py-3 text-sm font-semibold text-slate-200 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-slate-900/95 sm:left-6 sm:top-24"
+        >
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-500/15 text-cyan-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-12deg]">
+            <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
+          </span>
+          <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 group-hover:max-w-32 group-hover:opacity-100">
+            Back to Gallery
+          </span>
+        </Link>
         <div className="flex h-[calc(100vh-73px)] items-center justify-center">
           <div className="text-center">
             <h2 className="mb-4 text-4xl font-bold">Photo not found</h2>
             <p className="mb-8 text-slate-400">The photo you are looking for does not exist.</p>
-            <Link to="/gallery" className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-white transition-colors hover:bg-indigo-700">
-              <ArrowLeft size={18} />
-              Back to Gallery
-            </Link>
           </div>
         </div>
       </div>
@@ -187,14 +194,19 @@ const GalleryPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       <Header />
+      <Link
+        to="/gallery"
+        className="group fixed left-4 top-20 z-40 inline-flex items-center gap-3 rounded-full border border-slate-700/70 bg-slate-950/85 px-4 py-3 text-sm font-semibold text-slate-200 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-slate-900/95 sm:left-6 sm:top-24"
+      >
+        <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-500/15 text-cyan-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-12deg]">
+          <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
+        </span>
+        <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 group-hover:max-w-32 group-hover:opacity-100">
+          Back to Gallery
+        </span>
+      </Link>
       <div className="container mx-auto px-4 pt-4 pb-8 sm:px-6 sm:pt-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <Link to="/gallery" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-              <ArrowLeft size={18} />
-              Back to Gallery
-            </Link>
-          </div>
           <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl md:flex">
             <div className="md:flex-shrink-0">
               <img className="h-auto w-full object-cover md:w-96" src={photo.src} alt={photo.title} onError={(e) => {

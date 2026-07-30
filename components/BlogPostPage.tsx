@@ -366,9 +366,16 @@ const BlogPostPage: React.FC = () => {
                 <div className="text-center">
                     <h2 className="text-4xl font-bold mb-4">Post not found</h2>
                     <p className="text-slate-400 mb-8">The post you are looking for does not exist.</p>
-                    <Link to="/blog" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors">
-                        <ArrowLeft size={18} />
-                        Back to Blog
+                    <Link
+                        to="/blog"
+                        className="group fixed left-4 top-20 z-40 inline-flex items-center gap-3 rounded-full border border-slate-700/70 bg-slate-950/85 px-4 py-3 text-sm font-semibold text-slate-200 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-indigo-400/60 hover:bg-slate-900/95 sm:left-6 sm:top-24"
+                    >
+                        <span className="grid h-10 w-10 place-items-center rounded-full bg-indigo-500/15 text-indigo-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-12deg]">
+                            <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
+                        </span>
+                        <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 group-hover:max-w-28 group-hover:opacity-100">
+                            Back to Blog
+                        </span>
                     </Link>
                 </div>
             </div>
@@ -378,13 +385,19 @@ const BlogPostPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-slate-950 text-white">
             <Header />
+            <Link
+                to="/blog"
+                className="group fixed left-4 top-20 z-40 inline-flex items-center gap-3 rounded-full border border-slate-700/70 bg-slate-950/85 px-4 py-3 text-sm font-semibold text-slate-200 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-indigo-400/60 hover:bg-slate-900/95 sm:left-6 sm:top-24"
+            >
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-indigo-500/15 text-indigo-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-12deg]">
+                    <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
+                </span>
+                <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 group-hover:max-w-28 group-hover:opacity-100">
+                    Back to Blog
+                </span>
+            </Link>
+
             <div className="mx-auto max-w-4xl px-4 pt-4 pb-8 sm:px-6 sm:pt-6 lg:px-8">
-                <div className="mb-8">
-                    <Link to="/blog" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-                        <ArrowLeft size={18} />
-                        Back to Blog
-                    </Link>
-                </div>
                 
                 <article>
                     <header className="mb-12">
