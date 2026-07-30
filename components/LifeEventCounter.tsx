@@ -39,8 +39,8 @@ const LifeEventCounter: React.FC = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/70 px-4 py-6 backdrop-blur-xl">
-      <div className="relative aspect-square w-full max-w-md overflow-hidden rounded-[2rem] border border-slate-700/70 bg-slate-950/95 shadow-[0_30px_90px_rgba(2,6,23,0.7)]">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/20 px-3 py-4 backdrop-blur-[2px] sm:px-4 sm:py-6">
+      <div className="relative w-full max-w-[24rem] sm:max-w-md max-h-[90dvh] overflow-y-auto rounded-[1.5rem] border border-slate-700/70 bg-slate-950/90 shadow-[0_30px_90px_rgba(2,6,23,0.7)] sm:rounded-[2rem]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.18),transparent_34%),radial-gradient(circle_at_top_right,rgba(59,130,246,0.18),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.18),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(244,114,182,0.15),transparent_30%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:24px_24px] opacity-60" />
         <div className="absolute inset-0 animate-pulse bg-[conic-gradient(from_180deg_at_50%_50%,rgba(34,197,94,0.12),rgba(59,130,246,0.12),rgba(168,85,247,0.12),rgba(236,72,153,0.12),rgba(34,197,94,0.12))] blur-2xl" />
@@ -54,54 +54,54 @@ const LifeEventCounter: React.FC = () => {
           <X size={18} />
         </button>
 
-        <div className="relative z-10 flex h-full flex-col justify-between p-6 sm:p-7">
-          <div className="flex items-start gap-4">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 text-cyan-300 shadow-lg shadow-cyan-500/10">
-              <Sparkles size={20} />
+        <div className="relative z-10 flex h-full flex-col justify-between p-4 sm:p-6">
+          <div className="flex items-start gap-3">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-2.5 text-cyan-300 shadow-lg shadow-cyan-500/10 sm:p-3">
+              <Sparkles size={18} className="sm:w-5 sm:h-5" />
             </div>
-            <div className="space-y-2">
-              <p className="text-[10px] font-black uppercase tracking-[0.35em] text-slate-400">Mathematical countdown</p>
-              <h3 className="text-2xl font-black tracking-tight text-white">A square of numbers, colors, and time</h3>
+            <div className="space-y-1.5">
+              <p className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 sm:text-[10px]">Mathematical countdown</p>
+              <h3 className="text-lg font-black tracking-tight text-white sm:text-xl">A square of time and light</h3>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-4 shadow-lg shadow-emerald-500/10">
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
+            <div className="rounded-2xl border border-emerald-400/20 bg-emerald-500/10 p-3 shadow-lg shadow-emerald-500/10 sm:rounded-3xl sm:p-4">
               <div className="flex items-center justify-between text-emerald-300">
-                <Sigma size={18} />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Days</span>
+                <Sigma size={16} className="sm:w-[18px] sm:h-[18px]" />
+                <span className="text-[9px] font-black uppercase tracking-[0.25em] sm:text-[10px]">Days</span>
               </div>
-              <p className="mt-6 text-5xl font-black tracking-tight text-white">{countdown.days}</p>
+              <p className="mt-4 text-3xl font-black tracking-tight text-white sm:mt-5 sm:text-4xl">{countdown.days}</p>
             </div>
 
-            <div className="rounded-3xl border border-blue-400/20 bg-blue-500/10 p-4 shadow-lg shadow-blue-500/10">
+            <div className="rounded-2xl border border-blue-400/20 bg-blue-500/10 p-3 shadow-lg shadow-blue-500/10 sm:rounded-3xl sm:p-4">
               <div className="flex items-center justify-between text-blue-300">
-                <Clock3 size={18} />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Hours</span>
+                <Clock3 size={16} className="sm:w-[18px] sm:h-[18px]" />
+                <span className="text-[9px] font-black uppercase tracking-[0.25em] sm:text-[10px]">Hours</span>
               </div>
-              <p className="mt-6 text-5xl font-black tracking-tight text-white">{countdown.hours}</p>
+              <p className="mt-4 text-3xl font-black tracking-tight text-white sm:mt-5 sm:text-4xl">{countdown.hours}</p>
             </div>
 
-            <div className="rounded-3xl border border-violet-400/20 bg-violet-500/10 p-4 shadow-lg shadow-violet-500/10">
+            <div className="rounded-2xl border border-violet-400/20 bg-violet-500/10 p-3 shadow-lg shadow-violet-500/10 sm:rounded-3xl sm:p-4">
               <div className="flex items-center justify-between text-violet-300">
-                <Pi size={18} />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Minutes</span>
+                <Pi size={16} className="sm:w-[18px] sm:h-[18px]" />
+                <span className="text-[9px] font-black uppercase tracking-[0.25em] sm:text-[10px]">Minutes</span>
               </div>
-              <p className="mt-6 text-5xl font-black tracking-tight text-white">{countdown.minutes}</p>
+              <p className="mt-4 text-3xl font-black tracking-tight text-white sm:mt-5 sm:text-4xl">{countdown.minutes}</p>
             </div>
 
-            <div className="rounded-3xl border border-rose-400/20 bg-rose-500/10 p-4 shadow-lg shadow-rose-500/10">
+            <div className="rounded-2xl border border-rose-400/20 bg-rose-500/10 p-3 shadow-lg shadow-rose-500/10 sm:rounded-3xl sm:p-4">
               <div className="flex items-center justify-between text-rose-300">
-                <ArrowLeft size={18} className="rotate-45" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Seconds</span>
+                <ArrowLeft size={16} className="rotate-45 sm:w-[18px] sm:h-[18px]" />
+                <span className="text-[9px] font-black uppercase tracking-[0.25em] sm:text-[10px]">Seconds</span>
               </div>
-              <p className="mt-6 text-5xl font-black tracking-tight text-white">{countdown.seconds}</p>
+              <p className="mt-4 text-3xl font-black tracking-tight text-white sm:mt-5 sm:text-4xl">{countdown.seconds}</p>
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-4 backdrop-blur-sm">
-            <p className="text-[10px] font-black uppercase tracking-[0.35em] text-slate-400">Random quote</p>
-            <p className="mt-2 text-sm leading-6 text-slate-200">{quote}</p>
+          <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/80 p-3 backdrop-blur-sm sm:rounded-3xl sm:p-4">
+            <p className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 sm:text-[10px]">Random quote</p>
+            <p className="mt-2 text-xs leading-5 text-slate-200 sm:text-sm sm:leading-6">{quote}</p>
           </div>
         </div>
       </div>
