@@ -34,6 +34,7 @@ const totalCredits = academicData.reduce((sum, item) => sum + item.credits, 0);
 const overallCgpa = academicData.reduce((sum, item) => sum + item.credits * item.cgpa, 0) / totalCredits;
 const averageSgpa = academicData.reduce((sum, item) => sum + item.sgpa, 0) / academicData.length;
 const latestSemester = academicData[academicData.length - 1];
+const bestCgpa = Math.max(...academicData.map((item) => item.cgpa));
 
 const educationHistory = [
     {
@@ -126,6 +127,34 @@ const AcademicsPage: React.FC = () => {
                                     <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Academic tone</div>
                                     <div className="text-slate-100 font-semibold text-lg">Consistent and improving</div>
                                     <div className="text-slate-400 text-sm mt-2">A steady result line with strong recent semester performance.</div>
+                                </div>
+                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5 xl:col-span-1">
+                                    <div className="flex items-center justify-between gap-4 mb-4">
+                                        <div>
+                                            <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Performance trend</div>
+                                            <div className="text-slate-100 font-semibold text-lg">CGPA trajectory</div>
+                                        </div>
+                                        <div className="text-right">
+                                            <div className="text-[11px] uppercase tracking-[0.25em] text-slate-500 font-mono">Best</div>
+                                            <div className="text-teal-300 font-bold text-lg">{bestCgpa.toFixed(2)}</div>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-3">
+                                        {academicData.map((item, index) => (
+                                            <div key={item.semester}>
+                                                <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-slate-500 mb-2 font-mono">
+                                                    <span>Sem {index + 1}</span>
+                                                    <span>{item.cgpa.toFixed(2)}</span>
+                                                </div>
+                                                <div className="h-2 rounded-full bg-slate-800 overflow-hidden">
+                                                    <div
+                                                        className="h-full rounded-full bg-gradient-to-r from-teal-400 via-cyan-400 to-indigo-400"
+                                                        style={{ width: `${(item.cgpa / 4) * 100}%` }}
+                                                    ></div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
