@@ -12,7 +12,7 @@ const certificateImages = [
 const academicHighlights = [
     { label: 'Current level', value: '4th Year' },
     { label: 'Current semester', value: '1st Semester' },
-    { label: 'Overall result', value: 'CGPA 3.82 / 4.00' },
+    { label: 'Overall result', value: 'CGPA 3.86 / 4.00' },
     { label: 'Credits completed', value: '112.5' },
 ];
 

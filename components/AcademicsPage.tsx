@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Calendar, TrendingUp, GraduationCap, Library, School } from 'lucide-react';
+import { Award, Calendar, TrendingUp, GraduationCap, Library, School } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Header from './Header';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
@@ -21,7 +21,7 @@ const certificateImages = [
     '/numo/certificates/16th_numo_sylhet_region_participation_certificate.jpg',
 ];
 
-const academicData = [
+const academicData: Array<{ semester: string; credits: number; sgpa: number; cgpa: number }> = [
     { semester: 'Year 1, Semester 1', credits: 20.5, sgpa: 3.81, cgpa: 3.81 },
     { semester: 'Year 1, Semester 2', credits: 20.5, sgpa: 3.79, cgpa: 3.80 },
     { semester: 'Year 2, Semester 1', credits: 18.0, sgpa: 3.90, cgpa: 3.83 },
@@ -33,7 +33,7 @@ const academicData = [
 const totalCredits = academicData.reduce((sum, item) => sum + item.credits, 0);
 const overallCgpa = academicData.reduce((sum, item) => sum + item.credits * item.cgpa, 0) / totalCredits;
 const averageSgpa = academicData.reduce((sum, item) => sum + item.sgpa, 0) / academicData.length;
-const latestSemester = academicData[academicData.length - 1];
+const latestSemester = academicData[academicData.length - 1]!;
 const bestCgpa = Math.max(...academicData.map((item) => item.cgpa));
 
 const educationHistory = [
@@ -179,7 +179,7 @@ const AcademicsPage: React.FC = () => {
                                     loop={true}
                                     centeredSlides={true}
                                     autoplay={{ delay: 3200, disableOnInteraction: false }}
-                                    pagination={{ clickable: true, dynamicBullets: true, renderBullet: (index, className) => `<span class="${className} bg-slate-400/50"></span>` }}
+                                    pagination={{ clickable: true, dynamicBullets: true, renderBullet: (_index, className) => `<span class="${className} bg-slate-400/50"></span>` }}
                                     navigation={true}
                                     modules={[Autoplay, Pagination, Navigation]}
                                     className="w-full rounded-2xl"
