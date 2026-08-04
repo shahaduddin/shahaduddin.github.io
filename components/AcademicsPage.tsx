@@ -30,6 +30,11 @@ const academicData = [
     { semester: 'Year 3, Semester 2', credits: 17.5, sgpa: 3.95, cgpa: 3.86 }
 ];
 
+const totalCredits = academicData.reduce((sum, item) => sum + item.credits, 0);
+const overallCgpa = academicData.reduce((sum, item) => sum + item.credits * item.cgpa, 0) / totalCredits;
+const averageSgpa = academicData.reduce((sum, item) => sum + item.sgpa, 0) / academicData.length;
+const latestSemester = academicData[academicData.length - 1];
+
 const educationHistory = [
     {
         institution: 'Shahjalal University of Science and Technology (SUST)',
@@ -63,84 +68,158 @@ const AcademicsPage: React.FC = () => {
             <Header />
             <MathSymbolsBackground />
             <div className="absolute top-0 -left-1/4 w-full h-full bg-gradient-to-r from-indigo-900/30 to-transparent blur-[150px] pointer-events-none"></div>
-            <div className="absolute bottom-0 -right-1/4 w-full h-full bg-gradient-to-l from-teal-900/20 to-transparent blur-[150px] pointer-events-none"></div>
+            <div className="absolute bottom-0 -right-1/4 w-full h-full bg-gradient-to-l from-cyan-900/20 to-transparent blur-[150px] pointer-events-none"></div>
             
             <div className="relative z-10 px-4 pb-8 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-7xl">
-                    <div className="text-center mb-20 relative">
+                    <div className="text-center mb-16 md:mb-20 relative">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono uppercase tracking-widest mb-6">
+                            <GraduationCap size={14} className="text-indigo-400" />
+                            <span>Academic overview</span>
+                        </div>
                         <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight drop-shadow-[0_0_25px_rgba(79,70,229,0.5)]">
                             My <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-teal-400 to-indigo-400">Academic Journey</span>
                         </h1>
                         <p className="text-slate-400 max-w-3xl mx-auto text-lg font-light mt-6">
-                            A detailed chronicle of my educational path, academic performance, and key achievements from my earliest curiosity to my current focus in mathematics and computation.
+                            A summary-first view of my academic state, results, certificates, and progression through mathematics and computation.
                         </p>
                     </div>
 
-                    <div className="mb-24">
-                        <h2 className="text-4xl font-bold text-white text-center mb-4">Achievement Certificates</h2>
-                        <p className="text-center text-slate-400 mb-12">A collection of certificates from various mathematics olympiads.</p>
-                        <div className="glass-card p-2 sm:p-6 rounded-2xl">
-                            <Swiper
-                                loop={true}
-                                centeredSlides={true}
-                                autoplay={{ delay: 3500, disableOnInteraction: false }}
-                                pagination={{ clickable: true, dynamicBullets: true, renderBullet: (index, className) => `<span class="${className} bg-slate-400/50"></span>` }}
-                                navigation={true}
-                                modules={[Autoplay, Pagination, Navigation]}
-                                className="w-full rounded-2xl"
-                                breakpoints={{
-                                    320: { slidesPerView: 1, spaceBetween: 10 },
-                                    768: { slidesPerView: 1.5, spaceBetween: 20 },
-                                    1024: { slidesPerView: 2.5, spaceBetween: 30 },
-                                }}
-                            >
-                                {certificateImages.map((src, index) => (
-                                    <SwiperSlide key={index} className="flex items-center justify-center p-4">
-                                        <img src={src} alt={`Certificate ${index + 1}`} className="max-h-[300px] md:max-h-[400px] lg:max-h-[500px] w-auto object-contain rounded-lg shadow-2xl transition-transform duration-300 hover:scale-105" />
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
+                    <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 mb-24">
+                        <div className="xl:col-span-4 space-y-6">
+                            <div className="glass-card rounded-[2rem] p-8 border border-slate-800/70 relative overflow-hidden">
+                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(20,184,166,0.12),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(79,70,229,0.14),transparent_30%)] pointer-events-none"></div>
+                                <div className="relative z-10 space-y-6">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-mono uppercase tracking-widest">
+                                        <TrendingUp size={12} />
+                                        <span>Overall result</span>
+                                    </div>
+                                    <div>
+                                        <div className="text-5xl font-black text-white leading-none">{overallCgpa.toFixed(2)}</div>
+                                        <div className="text-slate-400 mt-3">Weighted CGPA across {academicData.length} completed semesters</div>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+                                            <div className="text-[11px] uppercase tracking-[0.28em] text-slate-500 font-mono mb-2">Total credits</div>
+                                            <div className="text-slate-100 font-semibold text-lg">{totalCredits.toFixed(1)}</div>
+                                        </div>
+                                        <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+                                            <div className="text-[11px] uppercase tracking-[0.28em] text-slate-500 font-mono mb-2">Average SGPA</div>
+                                            <div className="text-slate-100 font-semibold text-lg">{averageSgpa.toFixed(2)}</div>
+                                        </div>
+                                    </div>
+                                    <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+                                        <div className="text-[11px] uppercase tracking-[0.28em] text-slate-500 font-mono mb-2">Current academic state</div>
+                                        <div className="text-slate-100 font-semibold text-lg">4th Year, 1st Semester</div>
+                                        <div className="text-slate-400 text-sm mt-2">B.Sc. in Mathematics at Shahjalal University of Science and Technology</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-4">
+                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
+                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Latest completed semester</div>
+                                    <div className="text-slate-100 font-semibold text-lg">{latestSemester.semester}</div>
+                                    <div className="text-slate-400 text-sm mt-2">SGPA {latestSemester.sgpa.toFixed(2)} | CGPA {latestSemester.cgpa.toFixed(2)}</div>
+                                </div>
+                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
+                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Academic tone</div>
+                                    <div className="text-slate-100 font-semibold text-lg">Consistent and improving</div>
+                                    <div className="text-slate-400 text-sm mt-2">A steady result line with strong recent semester performance.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="xl:col-span-8 space-y-8">
+                            <div className="glass-card rounded-[2rem] p-5 md:p-8 border border-slate-800/70">
+                                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
+                                    <div>
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono uppercase tracking-widest mb-4">
+                                            <Award size={12} className="text-amber-400" />
+                                            <span>Certificate showcase</span>
+                                        </div>
+                                        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Olympiad certificates</h2>
+                                        <p className="text-slate-400 mt-2 max-w-2xl">
+                                            A fast visual reference to the achievements that add context to the detailed semester record.
+                                        </p>
+                                    </div>
+                                    <div className="text-sm text-slate-500 font-mono uppercase tracking-[0.25em]">NUMO</div>
+                                </div>
+
+                                <Swiper
+                                    loop={true}
+                                    centeredSlides={true}
+                                    autoplay={{ delay: 3200, disableOnInteraction: false }}
+                                    pagination={{ clickable: true, dynamicBullets: true, renderBullet: (index, className) => `<span class="${className} bg-slate-400/50"></span>` }}
+                                    navigation={true}
+                                    modules={[Autoplay, Pagination, Navigation]}
+                                    className="w-full rounded-2xl"
+                                    breakpoints={{
+                                        320: { slidesPerView: 1, spaceBetween: 10 },
+                                        768: { slidesPerView: 1.4, spaceBetween: 16 },
+                                        1024: { slidesPerView: 2.2, spaceBetween: 24 },
+                                    }}
+                                >
+                                    {certificateImages.map((src, index) => (
+                                        <SwiperSlide key={src} className="flex items-center justify-center p-2 sm:p-4">
+                                            <div className="w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl">
+                                                <img src={src} alt={`Certificate ${index + 1}`} className="w-full max-h-[360px] object-contain bg-slate-950 transition-transform duration-300 hover:scale-105" />
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
+                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">University</div>
+                                    <div className="text-slate-100 font-semibold text-lg">SUST</div>
+                                    <div className="text-slate-400 text-sm mt-2">Shahjalal University of Science and Technology</div>
+                                </div>
+                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
+                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Department</div>
+                                    <div className="text-slate-100 font-semibold text-lg">Mathematics</div>
+                                    <div className="text-slate-400 text-sm mt-2">Theory, analysis, and computation</div>
+                                </div>
+                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
+                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Standing</div>
+                                    <div className="text-slate-100 font-semibold text-lg">Active student</div>
+                                    <div className="text-slate-400 text-sm mt-2">Pursuing a B.Sc. in Mathematics</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div className="mb-24">
-                        <h2 className="text-4xl font-bold text-white text-center mb-16">Semester Performance</h2>
-                        <div className="relative">
-                            <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-0.5 bg-slate-700/50"></div>
+                        <h2 className="text-4xl font-bold text-white text-center mb-4">Semester performance</h2>
+                        <p className="text-center text-slate-400 mb-12 max-w-2xl mx-auto">A chronological view of each completed semester with credit load, SGPA, and CGPA movement.</p>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             {academicData.map((data, index) => (
-                                <div key={index} className={`mb-12 flex md:justify-between items-center w-full ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                                    <div className="hidden md:block w-5/12"></div>
-                                    <div className="hidden md:block z-10">
-                                        <div className="w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center shadow-lg shadow-teal-500/30">
-                                            <Calendar size={16} className="text-slate-900" />
+                                <div key={data.semester} className="glass-card rounded-[1.75rem] p-6 border border-slate-800/70 group hover:border-teal-500/40 transition-all duration-300 hover:-translate-y-1">
+                                    <div className="flex items-start justify-between gap-4 mb-5">
+                                        <div>
+                                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-[11px] font-mono uppercase tracking-widest mb-3">
+                                                <Calendar size={12} className="text-teal-400" />
+                                                <span>Semester {index + 1}</span>
+                                            </div>
+                                            <h3 className="text-2xl font-bold text-white">{data.semester}</h3>
+                                        </div>
+                                        <div className="w-12 h-12 rounded-2xl bg-teal-400/15 border border-teal-400/20 flex items-center justify-center text-teal-300">
+                                            <TrendingUp size={20} />
                                         </div>
                                     </div>
-                                    <div className="w-full md:w-5/12 group">
-                                        <div className="glass-card rounded-2xl p-6 shadow-xl group-hover:border-teal-500/50 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-teal-500/10 group-hover:-translate-y-1">
-                                            <div className="flex items-center gap-4 mb-4">
-                                                <div className="md:hidden z-10">
-                                                    <div className="w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center shadow-lg shadow-teal-500/30">
-                                                        <Calendar size={16} className="text-slate-900" />
-                                                    </div>
-                                                </div>
-                                                <h3 className="text-xl font-bold text-slate-100">{data.semester}</h3>
-                                            </div>
-                                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-center font-mono">
-                                                <div className="bg-slate-800/50 p-3 rounded-lg">
-                                                    <p className="text-sm text-slate-400">Credits</p>
-                                                    <p className="text-lg font-semibold text-white">{data.credits.toFixed(2)}</p>
-                                                </div>
-                                                <div className="bg-slate-800/50 p-3 rounded-lg">
-                                                    <p className="text-sm text-slate-400">SGPA</p>
-                                                    <p className="text-lg font-semibold text-green-400">{data.sgpa.toFixed(2)}</p>
-                                                </div>
-                                                <div className="bg-slate-800/50 p-3 rounded-lg col-span-2 sm:col-span-1">
-                                                    <p className="text-sm text-slate-400">CGPA</p>
-                                                    <p className="text-lg font-semibold text-teal-400 flex items-center justify-center gap-1">
-                                                        <TrendingUp size={16} /> {data.cgpa.toFixed(2)}
-                                                    </p>
-                                                </div>
-                                            </div>
+                                    <div className="grid grid-cols-3 gap-3 text-center font-mono">
+                                        <div className="bg-slate-900/70 border border-slate-800 p-4 rounded-2xl">
+                                            <p className="text-[11px] uppercase tracking-[0.25em] text-slate-500 mb-2">Credits</p>
+                                            <p className="text-lg font-semibold text-white">{data.credits.toFixed(2)}</p>
+                                        </div>
+                                        <div className="bg-slate-900/70 border border-slate-800 p-4 rounded-2xl">
+                                            <p className="text-[11px] uppercase tracking-[0.25em] text-slate-500 mb-2">SGPA</p>
+                                            <p className="text-lg font-semibold text-green-400">{data.sgpa.toFixed(2)}</p>
+                                        </div>
+                                        <div className="bg-slate-900/70 border border-slate-800 p-4 rounded-2xl">
+                                            <p className="text-[11px] uppercase tracking-[0.25em] text-slate-500 mb-2">CGPA</p>
+                                            <p className="text-lg font-semibold text-teal-300">{data.cgpa.toFixed(2)}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -149,22 +228,22 @@ const AcademicsPage: React.FC = () => {
                     </div>
 
                     <div className="mt-24">
-                        <h2 className="text-4xl font-bold text-white text-center mb-16">My Educational Path</h2>
-                        <div className="max-w-3xl mx-auto">
+                        <h2 className="text-4xl font-bold text-white text-center mb-16">My educational path</h2>
+                        <div className="max-w-4xl mx-auto space-y-6">
                             {educationHistory.map((item, index) => {
                                 const Icon = item.icon;
                                 return (
-                                    <div key={index} className="flex gap-4 sm:gap-8 group">
+                                    <div key={index} className="grid grid-cols-[64px_1fr] gap-4 sm:gap-6 items-start group">
                                         <div className="flex flex-col items-center">
-                                            <div className="w-12 h-12 bg-slate-800/80 border border-slate-700 rounded-full flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-500/20 group-hover:border-indigo-500/50 group-hover:scale-110">
+                                            <div className="w-14 h-14 bg-slate-900/80 border border-slate-700 rounded-2xl flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-500/20 group-hover:border-indigo-500/50 group-hover:scale-105">
                                                 <Icon size={24} className="text-indigo-400 transition-all duration-300 group-hover:text-indigo-300" />
                                             </div>
                                             {index < educationHistory.length - 1 && (
                                                 <div className="w-px flex-1 bg-slate-700/50 my-2 group-hover:bg-indigo-500/50 transition-all duration-300"></div>
                                             )}
                                         </div>
-                                        <div className={`flex-1 ${index < educationHistory.length - 1 ? 'pb-16' : ''}`}>
-                                            <div className="bg-slate-900/30 p-6 rounded-xl border border-transparent group-hover:border-slate-700/50 transition-all duration-300">
+                                        <div className={`pb-4 ${index < educationHistory.length - 1 ? 'border-b border-slate-800/70' : ''}`}>
+                                            <div className="rounded-[1.5rem] bg-slate-900/40 p-6 border border-transparent group-hover:border-slate-700/60 transition-all duration-300">
                                                 <h3 className="text-xl sm:text-2xl font-bold text-slate-100 mb-2">{item.institution}</h3>
                                                 <p className="text-sm sm:text-base text-indigo-400/80 mb-3 font-mono">{item.location}</p>
                                                 <p className="text-slate-300/80 leading-relaxed text-base sm:text-lg font-light">

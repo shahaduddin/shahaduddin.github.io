@@ -26,7 +26,7 @@ const galleryData: Photo[] = [
     src: "./images/gallery/olympiad-stage-15th-numo.jpg",
     category: "Events",
     title: "15th National Math Olympiad",
-    description: "Hosting the Sylhet Regional round. A gathering of the brightest young mathematical minds in the region.",
+    description: "A gathering of the brightest young mathematical minds in the region.",
     date: "2024",
     location: "SUST",
     color: "bg-indigo-500"
