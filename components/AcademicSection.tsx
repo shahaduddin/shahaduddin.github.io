@@ -77,41 +77,17 @@ const AcademicSection: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-3 text-center">
-                                    <div className="rounded-2xl bg-slate-900/70 border border-slate-800 p-4">
-                                        <div className="text-xl font-bold text-white">Available</div>
-                                        <div className="text-xs uppercase tracking-[0.25em] text-slate-500 mt-1">For opportunities</div>
+                                <div className="flex flex-wrap gap-3">
+                                    <div className="rounded-full border border-slate-800 bg-slate-950/60 px-4 py-2 text-sm text-slate-300">
+                                        Shahjalal University of Science and Technology
                                     </div>
-                                    <div className="rounded-2xl bg-slate-900/70 border border-slate-800 p-4">
-                                        <div className="text-xl font-bold text-white">SUST</div>
-                                        <div className="text-xs uppercase tracking-[0.25em] text-slate-500 mt-1">Sylhet, Bangladesh</div>
+                                    <div className="rounded-full border border-slate-800 bg-slate-950/60 px-4 py-2 text-sm text-slate-300">
+                                        B.Sc. in Mathematics
                                     </div>
-                                    <div className="rounded-2xl bg-slate-900/70 border border-slate-800 p-4">
-                                        <div className="text-xl font-bold text-white">Math + Code</div>
-                                        <div className="text-xs uppercase tracking-[0.25em] text-slate-500 mt-1">Focus area</div>
+                                    <div className="rounded-full border border-slate-800 bg-slate-950/60 px-4 py-2 text-sm text-slate-300">
+                                        Sylhet, Bangladesh
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="rounded-[1.5rem] border border-slate-800/80 bg-slate-900/60 p-5">
-                                <div className="flex items-center gap-3 mb-3 text-indigo-300">
-                                    <BookOpen size={18} />
-                                    <span className="font-semibold uppercase tracking-[0.2em] text-xs">Academic focus</span>
-                                </div>
-                                <p className="text-slate-400 text-sm leading-relaxed">
-                                    Numerical analysis, scientific computing, and algorithm design shape the way I study, build, and think.
-                                </p>
-                            </div>
-                            <div className="rounded-[1.5rem] border border-slate-800/80 bg-slate-900/60 p-5">
-                                <div className="flex items-center gap-3 mb-3 text-cyan-300">
-                                    <Sparkles size={18} />
-                                    <span className="font-semibold uppercase tracking-[0.2em] text-xs">First impression</span>
-                                </div>
-                                <p className="text-slate-400 text-sm leading-relaxed">
-                                    Strong academic consistency, competitive performance, and a visible blend of mathematics with software thinking.
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -171,7 +147,8 @@ const AcademicSection: React.FC = () => {
                 </div>
 
                 <div className="text-center mt-12">
-                    <Link to="/academics" className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-indigo-600 text-white hover:bg-indigo-500 transition-all duration-300 font-semibold text-lg shadow-lg shadow-indigo-500/30 transform hover:scale-105">
+                    <p className="text-slate-500 text-sm mb-4">Open the full academic history, semester results, and education timeline.</p>
+                    <Link to="/academics" className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-indigo-600 text-white hover:bg-indigo-500 transition-all duration-300 font-semibold text-lg shadow-lg shadow-indigo-500/30 transform hover:scale-105 w-full sm:w-auto justify-center">
                         View Detailed Performance
                     </Link>
                 </div>
