@@ -67,7 +67,7 @@ const AcademicSection: React.FC = () => {
                                     </div>
                                     <div className="flex items-end justify-between gap-4">
                                         <div>
-                                            <div className="text-4xl font-black text-white leading-none">3.82</div>
+                                            <div className="text-4xl font-black text-white leading-none">3.86</div>
                                             <div className="text-slate-400 text-sm mt-2">CGPA across 6 completed semesters</div>
                                         </div>
                                         <div className="text-right">

@@ -34,7 +34,6 @@ const totalCredits = academicData.reduce((sum, item) => sum + item.credits, 0);
 const overallCgpa = academicData.reduce((sum, item) => sum + item.credits * item.cgpa, 0) / totalCredits;
 const averageSgpa = academicData.reduce((sum, item) => sum + item.sgpa, 0) / academicData.length;
 const latestSemester = academicData[academicData.length - 1]!;
-const bestCgpa = Math.max(...academicData.map((item) => item.cgpa));
 
 const educationHistory = [
     {
@@ -74,21 +73,18 @@ const AcademicsPage: React.FC = () => {
             <div className="relative z-10 px-4 pb-8 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-7xl">
                     <div className="text-center mb-16 md:mb-20 relative">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-xs font-mono uppercase tracking-widest mb-6">
-                            <GraduationCap size={14} className="text-indigo-400" />
-                            <span>Academic overview</span>
-                        </div>
                         <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight drop-shadow-[0_0_25px_rgba(79,70,229,0.5)]">
                             My <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-teal-400 to-indigo-400">Academic Journey</span>
                         </h1>
+                        <div className="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-teal-400 to-transparent animate-pulse"></div>
                         <p className="text-slate-400 max-w-3xl mx-auto text-lg font-light mt-6">
                             A summary-first view of my academic state, results, certificates, and progression through mathematics and computation.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 mb-24">
-                        <div className="xl:col-span-4 space-y-6">
-                            <div className="glass-card rounded-[2rem] p-8 border border-slate-800/70 relative overflow-hidden">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
+                        <div className="lg:col-span-4">
+                            <div className="glass-card rounded-[2rem] p-8 border border-slate-800/70 relative overflow-hidden h-full">
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(20,184,166,0.12),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(79,70,229,0.14),transparent_30%)] pointer-events-none"></div>
                                 <div className="relative z-10 space-y-6">
                                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-mono uppercase tracking-widest">
@@ -114,52 +110,16 @@ const AcademicsPage: React.FC = () => {
                                         <div className="text-slate-100 font-semibold text-lg">4th Year, 1st Semester</div>
                                         <div className="text-slate-400 text-sm mt-2">B.Sc. in Mathematics at Shahjalal University of Science and Technology</div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-4">
-                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
-                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Latest completed semester</div>
-                                    <div className="text-slate-100 font-semibold text-lg">{latestSemester.semester}</div>
-                                    <div className="text-slate-400 text-sm mt-2">SGPA {latestSemester.sgpa.toFixed(2)} | CGPA {latestSemester.cgpa.toFixed(2)}</div>
-                                </div>
-                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
-                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Academic tone</div>
-                                    <div className="text-slate-100 font-semibold text-lg">Consistent and improving</div>
-                                    <div className="text-slate-400 text-sm mt-2">A steady result line with strong recent semester performance.</div>
-                                </div>
-                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5 xl:col-span-1">
-                                    <div className="flex items-center justify-between gap-4 mb-4">
-                                        <div>
-                                            <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Performance trend</div>
-                                            <div className="text-slate-100 font-semibold text-lg">CGPA trajectory</div>
-                                        </div>
-                                        <div className="text-right">
-                                            <div className="text-[11px] uppercase tracking-[0.25em] text-slate-500 font-mono">Best</div>
-                                            <div className="text-teal-300 font-bold text-lg">{bestCgpa.toFixed(2)}</div>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-3">
-                                        {academicData.map((item, index) => (
-                                            <div key={item.semester}>
-                                                <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-slate-500 mb-2 font-mono">
-                                                    <span>Sem {index + 1}</span>
-                                                    <span>{item.cgpa.toFixed(2)}</span>
-                                                </div>
-                                                <div className="h-2 rounded-full bg-slate-800 overflow-hidden">
-                                                    <div
-                                                        className="h-full rounded-full bg-gradient-to-r from-teal-400 via-cyan-400 to-indigo-400"
-                                                        style={{ width: `${(item.cgpa / 4) * 100}%` }}
-                                                    ></div>
-                                                </div>
-                                            </div>
-                                        ))}
+                                    <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+                                        <div className="text-[11px] uppercase tracking-[0.28em] text-slate-500 font-mono mb-2">Latest semester</div>
+                                        <div className="text-slate-100 font-semibold text-lg">{latestSemester.semester}</div>
+                                        <div className="text-slate-400 text-sm mt-2">SGPA {latestSemester.sgpa.toFixed(2)} | CGPA {latestSemester.cgpa.toFixed(2)}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="xl:col-span-8 space-y-8">
+                        <div className="lg:col-span-8 space-y-8">
                             <div className="glass-card rounded-[2rem] p-5 md:p-8 border border-slate-800/70">
                                 <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
                                     <div>
@@ -192,29 +152,11 @@ const AcademicsPage: React.FC = () => {
                                     {certificateImages.map((src, index) => (
                                         <SwiperSlide key={src} className="flex items-center justify-center p-2 sm:p-4">
                                             <div className="w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl">
-                                                <img src={src} alt={`Certificate ${index + 1}`} className="w-full max-h-[360px] object-contain bg-slate-950 transition-transform duration-300 hover:scale-105" />
+                                                <img src={src} alt={`Certificate ${index + 1}`} className="w-full max-h-[360px] object-contain bg-slate-950 transition-transform duration-500 hover:scale-105" />
                                             </div>
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
-                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">University</div>
-                                    <div className="text-slate-100 font-semibold text-lg">SUST</div>
-                                    <div className="text-slate-400 text-sm mt-2">Shahjalal University of Science and Technology</div>
-                                </div>
-                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
-                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Department</div>
-                                    <div className="text-slate-100 font-semibold text-lg">Mathematics</div>
-                                    <div className="text-slate-400 text-sm mt-2">Theory, analysis, and computation</div>
-                                </div>
-                                <div className="rounded-[1.5rem] bg-slate-900/60 border border-slate-800 p-5">
-                                    <div className="text-xs uppercase tracking-[0.25em] text-slate-500 font-mono mb-2">Standing</div>
-                                    <div className="text-slate-100 font-semibold text-lg">Active student</div>
-                                    <div className="text-slate-400 text-sm mt-2">Pursuing a B.Sc. in Mathematics</div>
-                                </div>
                             </div>
                         </div>
                     </div>
