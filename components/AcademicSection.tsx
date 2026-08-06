@@ -116,11 +116,11 @@ const AcademicSection: React.FC = () => {
                                             alt={`Olympiad certificate ${index + 1}`}
                                             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/10 to-transparent"></div>
-                                        <div className="absolute left-3 bottom-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.2em] text-slate-200 backdrop-blur-sm">
+                                        {/* <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/10 to-transparent"></div> */}
+                                        {/* <div className="absolute left-3 bottom-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.2em] text-slate-200 backdrop-blur-sm">
                                             <span className="w-2 h-2 rounded-full bg-amber-400"></span>
                                             Certificate {index + 1}
-                                        </div>
+                                        </div> */}
                                     </div>
                                 ))}
                             </div>
