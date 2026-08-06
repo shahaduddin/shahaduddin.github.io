@@ -92,7 +92,8 @@ const AcademicsPage: React.FC = () => {
                                         <span>Overall result</span>
                                     </div>
                                     <div>
-                                        <div className="text-5xl font-black text-white leading-none">{overallCgpa.toFixed(2)}</div>
+                                        {/* <div className="text-5xl font-black text-white leading-none">{overallCgpa.toFixed(2)}</div> */}
+                                        <div className="text-5xl font-black text-white leading-none">3.86</div> 
                                         <div className="text-slate-400 mt-3">Weighted CGPA across {academicData.length} completed semesters</div>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
