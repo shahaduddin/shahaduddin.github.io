@@ -30,7 +30,14 @@ const Header: React.FC = () => {
           ))}
         </div>
         <div className="md:hidden">
-          <button type="button" onClick={() => setIsMenuOpen(!isMenuOpen)} className="rounded-lg p-2 text-white transition-colors hover:bg-slate-800/70">
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            className="rounded-lg p-2 text-white transition-colors hover:bg-slate-800/70"
+          >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path>
             </svg>
@@ -38,7 +45,7 @@ const Header: React.FC = () => {
         </div>
       </nav>
       {isMenuOpen && (
-        <div className="absolute left-0 right-0 top-full z-[70] border-t border-slate-800/80 bg-slate-900/95 shadow-2xl backdrop-blur-xl md:hidden">
+        <div id="mobile-navigation" className="absolute left-0 right-0 top-full z-[70] border-t border-slate-800/80 bg-slate-900/95 shadow-2xl backdrop-blur-xl md:hidden">
           <div className="mx-auto flex max-w-7xl flex-col space-y-1 px-4 py-3 sm:px-6 lg:px-8">
             {navLinks.map(link => (
               <Link
